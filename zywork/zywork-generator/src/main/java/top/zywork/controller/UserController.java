@@ -1,5 +1,6 @@
 package top.zywork.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -10,10 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import sun.misc.BASE64Decoder;
 import top.zywork.common.*;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.UserDTO;
 import top.zywork.dto.UserTokenDTO;
+import top.zywork.enums.MIMETypeEnum;
 import top.zywork.enums.UserControllerStatusEnum;
 import top.zywork.exception.ServiceException;
 import top.zywork.query.PageQuery;
@@ -26,8 +31,9 @@ import top.zywork.vo.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * UserController控制器类<br/>
@@ -237,6 +243,47 @@ public class UserController extends BaseController {
         return pagerVO;
     }
 
+    @PostMapping("update-user")
+    @ResponseBody
+    public ControllerStatusVO updateUser(UserQuery userQuery) {
+        ControllerStatusVO statusVO = new ControllerStatusVO();
+        try {
+            userService.update(getBeanMapper().map(userQuery, UserDTO.class));
+            statusVO.okStatus(200, "更新成功");
+        } catch (ServiceException e) {
+            logger.error("更新失败：{}", e.getMessage());
+            statusVO.errorStatus(500, "更新失败");
+        }
+        return statusVO;
+    }
+
+    @PostMapping("update-icon")
+    @ResponseBody
+    public ControllerStatusVO updateUser(Long uid, HttpServletRequest request) {
+        ControllerStatusVO statusVO = new ControllerStatusVO();
+        MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest) request;
+        Iterator<String> files = mRequest.getFileNames();
+        if (files != null && files.hasNext()) {
+            String uploadDir = FileUtils.uploadPath(request, "static/uploads");
+            MultipartFile file = mRequest.getFile(files.next());
+            String filename = UUIDUtils.uuid() + FileUtils.getExtension(file.getOriginalFilename());
+            try {
+                org.apache.commons.io.FileUtils.copyInputStreamToFile(file.getInputStream(), new File(uploadDir + File.separator + filename));
+                UserQuery userQuery = new UserQuery();
+                userQuery.setId(uid);
+                userQuery.setHeadicon("static/uploads" + File.separator + filename);
+                userService.update(getBeanMapper().map(userQuery, UserDTO.class));
+                statusVO.okStatus(200, "更新成功");
+            } catch (ServiceException | IOException e) {
+                logger.error("更新失败：{}", e.getMessage());
+                statusVO.errorStatus(500, "图片上传失败");
+            }
+        }
+        return statusVO;
+    }
+
+
+
     /**
      * 用户使用账号及密码进行登录操作
      * @param userLoginVO 包含有用户名和密码的VO对象
@@ -252,14 +299,19 @@ public class UserController extends BaseController {
         try {
             // 使用账号和密码进行登录，此时并未生成token，不需要使用token进行用户认证
             subject.login(new CustomToken(username, hashPassword, null,null));
+            UserDTO userDTO = JSON.parseObject(subject.getPrincipals().asList().get(1).toString(), UserDTO.class);
+            statusVO.okStatus(UserControllerStatusEnum.USER_LOGIN_SUCCESS.getCode(),
+                    UserControllerStatusEnum.USER_LOGIN_SUCCESS.getMessage());
+            statusVO.setId(userDTO.getId());
+            statusVO.setHeadicon(userDTO.getHeadicon());
+            statusVO.setNickname(userDTO.getNickname());
+            statusVO.setLevel(userDTO.getLevel());
         } catch (AuthenticationException e) {
             logger.error(e.getMessage());
             statusVO.dataErrorStatus(UserControllerStatusEnum.USER_LOGIN_DATA_ERROR.getCode(),
                     UserControllerStatusEnum.USER_LOGIN_DATA_ERROR.getMessage());
             return statusVO;
         }
-        statusVO.okStatus(UserControllerStatusEnum.USER_LOGIN_SUCCESS.getCode(),
-                UserControllerStatusEnum.USER_LOGIN_SUCCESS.getMessage());
         // 登录成功后，把会话id和生成的用户token返回到客户端，以便客户端保留用于身份认证，并把生成的token缓存到redis中
         Long timestamp = System.currentTimeMillis();
         statusVO.setToken(AuthUtils.generateToken(username, timestamp, hashPassword));

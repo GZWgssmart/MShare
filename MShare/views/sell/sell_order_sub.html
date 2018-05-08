@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/main.css" />
+	</head>
+
+	<body>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul class="mui-table-view mui-table-view-chevron content-list">
+					<li v-for="(order, index) in orders" class="mui-table-view-cell" style="padding-right: 15px;">
+						<div class="mui-pull-left head-icon">
+							<img v-bind:src="order.headicon" class="mui-pull-left" />
+							<div class="mui-pull-left head-info">
+								<span v-if="order.sellStatus == 1">
+									{{order.nickname}}
+								</span>
+								<span v-else>-</span>
+								<span v-if="order.sellStatus == 1">
+									UID:{{order.uid}}
+								</span>
+								<span v-else>UID:-</span>
+							</div>
+						</div>
+						<div class="mui-pull-right head-info mui-text-right">
+							<span style="color: #0062CC">卖出：{{order.sell}}</span>
+							<span v-if="order.sellStatus == 1">{{order.sellTime}}</span>
+							<span v-else>暂未卖出</span>
+						</div>
+						<p style="clear: both;"></p>
+						<p style="margin-left: 47px; margin-top: 5px;">
+							订单编号：{{order.id}}
+						</p>
+						<p class="mui-pull-left" style="margin-left: 47px; margin-top: 5px;">
+							订单创建时间：{{order.createTime}}
+						</p>
+						<p v-if="order.sellStatus == 1" class="mui-pull-right" style="margin-left: 47px; margin-top: 5px; color:#2AC845;">
+							已卖出
+						</p>
+						<p v-if="order.sellStatus == 2" class="mui-pull-right" style="margin-left: 47px; margin-top: 5px; color:#DD524D;">
+							已取消
+						</p>
+						<p style="clear:both;"></p>
+						<p v-if="order.sellStatus == 0" style="margin-left: 47px; margin-top: 5px;">
+							<button v-on:tap="confirmSell(order.id, order.sell, index)" class="mui-btn mui-btn-primary mui-btn-outlined">确认卖出</button>
+							<button v-on:tap="cancelSell(order.id, index)" class="mui-btn mui-btn-danger mui-btn-outlined">取消卖出</button>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script>
+			var currentId;
+			var currentIndex;
+			var currentSell;
+
+			var mounted = function() {
+				mui.plusReady(function() {
+					mui.init({
+						pullRefresh: {
+							container: '#pullrefresh',
+							down: {
+								callback: pulldownRefresh
+							},
+							up: {
+								contentrefresh: '正在加载...',
+								callback: pullupRefresh
+							}
+						}
+					});
+				});
+			}
+
+			function confirmSell(orderId, orderSell, index) {
+				currentId = orderId;
+				currentSell = orderSell;
+				currentIndex = index;
+				mui.openWindow({
+					url: 'sell_confirm.html',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: true
+					},
+					extras: {
+						currentId: currentId,
+						currentSell: currentSell
+					}
+				});
+			}
+			
+			function cancelSell(orderId, index) {
+				mui.confirm('确定取消卖出吗？', '提示', ['确定', '取消'], function (r) {
+					if (r.index === 0) {
+						pageView.orders[index].sellStatus = 2;
+					}
+				})
+			}
+
+			window.addEventListener('confirm_sell', function(e) {
+				pageView.orders[currentIndex].sellStatus = 1;
+				mui.alert('已成功卖出' + currentSell + '数额', '提示');
+			});
+
+			function pulldownRefresh() {
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				pageView.orders = [{
+					id: 1,
+					headicon: '../../images/timg.jpeg',
+					nickname: '大强',
+					uid: '100003',
+					sell: 200,
+					createTime: '2018-04-26 12:00:00',
+					sellStatus: 0,
+					sellTime: '2018-04-26 13:00:00'
+				}];
+			}
+
+			function pullupRefresh() {
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+				pageView.orders = pageView.orders.concat(
+					[{
+						id: 1,
+						headicon: '../../images/timg.jpeg',
+						nickname: '大强',
+						uid: '100003',
+						sell: 200,
+						createTime: '2018-04-26 12:00:00',
+						sellStatus: 0,
+						sellTime: '2018-04-26 13:00:00'
+					}]
+				);
+			}
+			//			if (mui.os.plus) {
+			//				mui.plusReady(function() {
+			//					setTimeout(function() {
+			//						mui('#pullrefresh').pullRefresh().pullupLoading();
+			//					}, 10);
+			//
+			//				});
+			//			} else {
+			//				mui.ready(function() {
+			//					mui('#pullrefresh').pullRefresh().pullupLoading();
+			//				});
+			//			}
+			var pageView = new Vue({
+				el: '#pullrefresh',
+				data: {
+					orders: [{
+							id: 1,
+							headicon: '../../images/timg.jpeg',
+							nickname: '小龙',
+							uid: '100001',
+							sell: 200,
+							createTime: '2018-04-26 12:00:00',
+							sellStatus: 1,
+							sellTime: '2018-04-26 13:00:00'
+						},
+						{
+							id: 2,
+							headicon: '../../images/timg.jpeg',
+							nickname: '小虫子',
+							uid: '100002',
+							sell: 200,
+							createTime: '2018-04-26 12:00:00',
+							sellStatus: 0,
+							sellTime: '2018-04-26 13:00:00'
+						}
+					]
+				},
+				mounted: mounted
+			});
+		</script>
+	</body>
+
+</html>

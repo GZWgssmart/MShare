@@ -7,14 +7,14 @@ import java.util.Date;
 /**
  * UserVO值对象类<br/>
  *
- * 创建于2018-05-03<br/>
+ * 创建于2018-05-07<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372035448734428L;
+    private static final long serialVersionUID = -9223372035581779120L;
 
     /**
 	 * 编号
@@ -36,10 +36,15 @@ public class UserVO extends BaseVO {
 	@Size(min = 0, max = 20, message = "必须小于20个字符")
 	private String accountName;
 	/**
-	 * 密码
+	 * 登录密码
 	 */
 	@NotBlank(message = "此项是必须项")
 	private String password;
+	/**
+	 * 支付密码
+	 */
+	@Size(min = 0, max = 50, message = "必须小于50个字符")
+	private String payPassword;
 	/**
 	 * 加密盐值
 	 */
@@ -55,6 +60,19 @@ public class UserVO extends BaseVO {
 	 */
 	@Size(min = 0, max = 500, message = "必须小于500个字符")
 	private String headicon;
+	/**
+	 * 余额
+	 */
+	private Long total;
+	/**
+	 * 积分
+	 */
+	private Long score;
+	/**
+	 * 信用等级
+	 */
+	@Size(min = 0, max = 1, message = "必须小于1个字符")
+	private String level;
 	/**
 	 * 身份证号
 	 */
@@ -78,21 +96,6 @@ public class UserVO extends BaseVO {
 	 */
 	private Integer age;
 	/**
-	 * QQ号
-	 */
-	@Size(min = 0, max = 20, message = "必须小于20个字符")
-	private String qq;
-	/**
-	 * 微信号
-	 */
-	@Size(min = 0, max = 50, message = "必须小于50个字符")
-	private String wechat;
-	/**
-	 * 支付宝账号
-	 */
-	@Size(min = 0, max = 100, message = "必须小于100个字符")
-	private String alipay;
-	/**
 	 * 创建时间
 	 */
 	private Date createTime;
@@ -107,23 +110,24 @@ public class UserVO extends BaseVO {
 	
     public UserVO () {}
 
-    public UserVO (Long id, String email, String phone, String accountName, String password, String salt, String nickname, String headicon, String identity, String realName, Byte gender, Date birthday, Integer age, String qq, String wechat, String alipay, Date createTime, Date updateTime, Byte isActive) {
+    public UserVO (Long id, String email, String phone, String accountName, String password, String payPassword, String salt, String nickname, String headicon, Long total, Long score, String level, String identity, String realName, Byte gender, Date birthday, Integer age, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.email = email;
 		this.phone = phone;
 		this.accountName = accountName;
 		this.password = password;
+		this.payPassword = payPassword;
 		this.salt = salt;
 		this.nickname = nickname;
 		this.headicon = headicon;
+		this.total = total;
+		this.score = score;
+		this.level = level;
 		this.identity = identity;
 		this.realName = realName;
 		this.gender = gender;
 		this.birthday = birthday;
 		this.age = age;
-		this.qq = qq;
-		this.wechat = wechat;
-		this.alipay = alipay;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.isActive = isActive;
@@ -170,6 +174,14 @@ public class UserVO extends BaseVO {
 		this.password = password;
 	}
 
+	public String getPayPassword() {
+		return payPassword;
+	}
+
+	public void setPayPassword(String payPassword) {
+		this.payPassword = payPassword;
+	}
+
 	public String getSalt() {
 		return salt;
 	}
@@ -192,6 +204,30 @@ public class UserVO extends BaseVO {
 
 	public void setHeadicon(String headicon) {
 		this.headicon = headicon;
+	}
+
+	public Long getTotal() {
+		return total;
+	}
+
+	public void setTotal(Long total) {
+		this.total = total;
+	}
+
+	public Long getScore() {
+		return score;
+	}
+
+	public void setScore(Long score) {
+		this.score = score;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 
 	public String getIdentity() {
@@ -234,30 +270,6 @@ public class UserVO extends BaseVO {
 		this.age = age;
 	}
 
-	public String getQq() {
-		return qq;
-	}
-
-	public void setQq(String qq) {
-		this.qq = qq;
-	}
-
-	public String getWechat() {
-		return wechat;
-	}
-
-	public void setWechat(String wechat) {
-		this.wechat = wechat;
-	}
-
-	public String getAlipay() {
-		return alipay;
-	}
-
-	public void setAlipay(String alipay) {
-		this.alipay = alipay;
-	}
-
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -291,17 +303,18 @@ public class UserVO extends BaseVO {
 				", phone = " + phone + 
 				", accountName = " + accountName + 
 				", password = " + password + 
+				", payPassword = " + payPassword + 
 				", salt = " + salt + 
 				", nickname = " + nickname + 
 				", headicon = " + headicon + 
+				", total = " + total + 
+				", score = " + score + 
+				", level = " + level + 
 				", identity = " + identity + 
 				", realName = " + realName + 
 				", gender = " + gender + 
 				", birthday = " + birthday + 
 				", age = " + age + 
-				", qq = " + qq + 
-				", wechat = " + wechat + 
-				", alipay = " + alipay + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
 				", isActive = " + isActive + 

@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/main.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">确认卖出</h1>
+		</header>
+		<div class="mui-content" id="content">
+			<form class="mui-input-group">
+				<p>卖出：{{sellForm.sell}}</p>
+				<div class="mui-input-row">
+					<label>买入UID</label>
+					<input type="text" class="mui-input-clear mui-input" placeholder="请输入买入人UID" v-model="sellForm.buyUid">
+				</div>
+				<div class="mui-input-row">
+					<label>买入手机号</label>
+					<input type="text" class="mui-input-clear mui-input" placeholder="买入人手机号后四位" v-model="sellForm.buyPhone">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button id="confirm" class="mui-btn mui-btn-primary mui-btn-block">
+					<i class="mui-icon mui-icon-checkmarkempty"></i>
+					确定
+				</button>
+			</div>
+
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/vue.min.js"></script>
+		<script type="text/javascript">
+			var needUpdate = false;
+			var mounted = mui.plusReady(function() {
+				mui.init({
+					beforeback: function() {
+						if(needUpdate) {
+							var orderSubView = plus.webview.getWebviewById('sell_order_sub');
+							mui.fire(orderSubView, 'confirm_sell');
+							needUpdate = false;
+						}
+						return true;
+					}
+				});
+
+				var self = plus.webview.currentWebview();
+				pageView.sellForm.id = self.currentId;
+				pageView.sellForm.sell = self.currentSell;
+
+				document.getElementById('confirm').addEventListener('tap', function(e) {
+					needUpdate = true;
+					mui.back();
+				});
+
+			});
+
+			var pageView = new Vue({
+				el: '#content',
+				data: {
+					sellForm: {
+						id: 0,
+						sell: 0,
+						buyUid: '',
+						buyPhone: ''
+					}
+				},
+				mounted: mounted
+			});
+		</script>
+	</body>
+
+</html>

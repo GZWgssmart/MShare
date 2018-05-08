@@ -17,6 +17,12 @@ public class LoginStatusVO extends ControllerStatusVO {
     // 生成的token
     private String token;
 
+    private Long id;
+    private String headicon;
+    private String level;
+    private String nickname;
+
+
     public String getSessionId() {
         return sessionId;
     }
@@ -33,4 +39,35 @@ public class LoginStatusVO extends ControllerStatusVO {
         this.token = token;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getHeadicon() {
+        return headicon;
+    }
+
+    public void setHeadicon(String headicon) {
+        this.headicon = headicon;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 }

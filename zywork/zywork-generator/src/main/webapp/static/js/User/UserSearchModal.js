@@ -61,8 +61,14 @@ function userSearchTable() {
 	sortable: true
 },
 {
-	title: '密码',
+	title: '登录密码',
 	field: 'password',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '支付密码',
+	field: 'payPassword',
 	align: 'center',
 	sortable: true
 },
@@ -81,6 +87,24 @@ function userSearchTable() {
 {
 	title: '头像地址',
 	field: 'headicon',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '余额',
+	field: 'total',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '积分',
+	field: 'score',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '信用等级',
+	field: 'level',
 	align: 'center',
 	sortable: true
 },
@@ -112,24 +136,6 @@ function userSearchTable() {
 {
 	title: '年龄',
 	field: 'age',
-	align: 'center',
-	sortable: true
-},
-{
-	title: 'QQ号',
-	field: 'qq',
-	align: 'center',
-	sortable: true
-},
-{
-	title: '微信号',
-	field: 'wechat',
-	align: 'center',
-	sortable: true
-},
-{
-	title: '支付宝账号',
-	field: 'alipay',
 	align: 'center',
 	sortable: true
 },

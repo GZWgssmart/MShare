@@ -70,8 +70,14 @@ function loadTable() {
 	sortable: true
 },
 {
-	title: '密码',
+	title: '登录密码',
 	field: 'password',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '支付密码',
+	field: 'payPassword',
 	align: 'center',
 	sortable: true
 },
@@ -90,6 +96,24 @@ function loadTable() {
 {
 	title: '头像地址',
 	field: 'headicon',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '余额',
+	field: 'total',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '积分',
+	field: 'score',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '信用等级',
+	field: 'level',
 	align: 'center',
 	sortable: true
 },
@@ -121,24 +145,6 @@ function loadTable() {
 {
 	title: '年龄',
 	field: 'age',
-	align: 'center',
-	sortable: true
-},
-{
-	title: 'QQ号',
-	field: 'qq',
-	align: 'center',
-	sortable: true
-},
-{
-	title: '微信号',
-	field: 'wechat',
-	align: 'center',
-	sortable: true
-},
-{
-	title: '支付宝账号',
-	field: 'alipay',
 	align: 'center',
 	sortable: true
 },
@@ -195,7 +201,7 @@ function formatOperators(value, row, index) {
     return strArray.join('');
 }
 
-let fieldTitles = {'id':'编号','email':'邮箱','phone':'手机号','accountName':'账户名','password':'密码','salt':'加密盐值','nickname':'昵称','headicon':'头像地址','identity':'身份证号','realName':'真实姓名','gender':'性别','birthday-date':'生日','age':'年龄','qq':'QQ号','wechat':'微信号','alipay':'支付宝账号','createTime-date':'创建时间','updateTime-date':'更新时间','isActive':'是否激活'};
+let fieldTitles = {'id':'编号','email':'邮箱','phone':'手机号','accountName':'账户名','password':'登录密码','payPassword':'支付密码','salt':'加密盐值','nickname':'昵称','headicon':'头像地址','total':'余额','score':'积分','level':'信用等级','identity':'身份证号','realName':'真实姓名','gender':'性别','birthday-date':'生日','age':'年龄','createTime-date':'创建时间','updateTime-date':'更新时间','isActive':'是否激活'};
 
 window.operateEvents = {
     'click .to-detail': function (e, value, row, index) {
@@ -282,12 +288,22 @@ accountName: {
 password: {
 	validators: {
 		notEmpty: {
-			message: '密码是必须项'
+			message: '登录密码是必须项'
 		},
 		stringLength: {
 			min: 1,
 			max: 50,
 			message: '必须是1-50个字符'
+		}
+	}
+},
+payPassword: {
+	validators: {
+
+		stringLength: {
+			min: 0,
+			max: 50,
+			message: '必须小于50个字符'
 		}
 	}
 },
@@ -321,6 +337,24 @@ headicon: {
 		}
 	}
 },
+total: {
+	validators: {
+	}
+},
+score: {
+	validators: {
+	}
+},
+level: {
+	validators: {
+
+		stringLength: {
+			min: 0,
+			max: 1,
+			message: '必须小于1个字符'
+		}
+	}
+},
 identity: {
 	validators: {
 
@@ -351,36 +385,6 @@ birthday: {
 },
 age: {
 	validators: {
-	}
-},
-qq: {
-	validators: {
-
-		stringLength: {
-			min: 0,
-			max: 20,
-			message: '必须小于20个字符'
-		}
-	}
-},
-wechat: {
-	validators: {
-
-		stringLength: {
-			min: 0,
-			max: 50,
-			message: '必须小于50个字符'
-		}
-	}
-},
-alipay: {
-	validators: {
-
-		stringLength: {
-			min: 0,
-			max: 100,
-			message: '必须小于100个字符'
-		}
 	}
 }   
     };

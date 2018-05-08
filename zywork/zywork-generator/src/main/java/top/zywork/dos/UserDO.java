@@ -5,14 +5,14 @@ import java.util.Date;
 /**
  * UserDO数据对象实体类<br/>
  *
- * 创建于2018-05-03<br/>
+ * 创建于2018-05-07<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserDO extends BaseDO {
 
-    private static final long serialVersionUID = -9223372035216613232L;
+    private static final long serialVersionUID = -9223372035708472542L;
 
     /**
 	 * 编号
@@ -31,9 +31,13 @@ public class UserDO extends BaseDO {
 	 */
 	private String accountName;
 	/**
-	 * 密码
+	 * 登录密码
 	 */
 	private String password;
+	/**
+	 * 支付密码
+	 */
+	private String payPassword;
 	/**
 	 * 加密盐值
 	 */
@@ -46,6 +50,18 @@ public class UserDO extends BaseDO {
 	 * 头像地址
 	 */
 	private String headicon;
+	/**
+	 * 余额
+	 */
+	private Long total;
+	/**
+	 * 积分
+	 */
+	private Long score;
+	/**
+	 * 信用等级
+	 */
+	private String level;
 	/**
 	 * 身份证号
 	 */
@@ -67,18 +83,6 @@ public class UserDO extends BaseDO {
 	 */
 	private Integer age;
 	/**
-	 * QQ号
-	 */
-	private String qq;
-	/**
-	 * 微信号
-	 */
-	private String wechat;
-	/**
-	 * 支付宝账号
-	 */
-	private String alipay;
-	/**
 	 * 创建时间
 	 */
 	private Date createTime;
@@ -93,23 +97,24 @@ public class UserDO extends BaseDO {
 	
     public UserDO () {}
 
-    public UserDO (Long id, String email, String phone, String accountName, String password, String salt, String nickname, String headicon, String identity, String realName, Byte gender, Date birthday, Integer age, String qq, String wechat, String alipay, Date createTime, Date updateTime, Byte isActive) {
+    public UserDO (Long id, String email, String phone, String accountName, String password, String payPassword, String salt, String nickname, String headicon, Long total, Long score, String level, String identity, String realName, Byte gender, Date birthday, Integer age, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.email = email;
 		this.phone = phone;
 		this.accountName = accountName;
 		this.password = password;
+		this.payPassword = payPassword;
 		this.salt = salt;
 		this.nickname = nickname;
 		this.headicon = headicon;
+		this.total = total;
+		this.score = score;
+		this.level = level;
 		this.identity = identity;
 		this.realName = realName;
 		this.gender = gender;
 		this.birthday = birthday;
 		this.age = age;
-		this.qq = qq;
-		this.wechat = wechat;
-		this.alipay = alipay;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.isActive = isActive;
@@ -156,6 +161,14 @@ public class UserDO extends BaseDO {
 		this.password = password;
 	}
 
+	public String getPayPassword() {
+		return payPassword;
+	}
+
+	public void setPayPassword(String payPassword) {
+		this.payPassword = payPassword;
+	}
+
 	public String getSalt() {
 		return salt;
 	}
@@ -178,6 +191,30 @@ public class UserDO extends BaseDO {
 
 	public void setHeadicon(String headicon) {
 		this.headicon = headicon;
+	}
+
+	public Long getTotal() {
+		return total;
+	}
+
+	public void setTotal(Long total) {
+		this.total = total;
+	}
+
+	public Long getScore() {
+		return score;
+	}
+
+	public void setScore(Long score) {
+		this.score = score;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 
 	public String getIdentity() {
@@ -220,30 +257,6 @@ public class UserDO extends BaseDO {
 		this.age = age;
 	}
 
-	public String getQq() {
-		return qq;
-	}
-
-	public void setQq(String qq) {
-		this.qq = qq;
-	}
-
-	public String getWechat() {
-		return wechat;
-	}
-
-	public void setWechat(String wechat) {
-		this.wechat = wechat;
-	}
-
-	public String getAlipay() {
-		return alipay;
-	}
-
-	public void setAlipay(String alipay) {
-		this.alipay = alipay;
-	}
-
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -277,17 +290,18 @@ public class UserDO extends BaseDO {
 				", phone = " + phone + 
 				", accountName = " + accountName + 
 				", password = " + password + 
+				", payPassword = " + payPassword + 
 				", salt = " + salt + 
 				", nickname = " + nickname + 
 				", headicon = " + headicon + 
+				", total = " + total + 
+				", score = " + score + 
+				", level = " + level + 
 				", identity = " + identity + 
 				", realName = " + realName + 
 				", gender = " + gender + 
 				", birthday = " + birthday + 
 				", age = " + age + 
-				", qq = " + qq + 
-				", wechat = " + wechat + 
-				", alipay = " + alipay + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
 				", isActive = " + isActive + 

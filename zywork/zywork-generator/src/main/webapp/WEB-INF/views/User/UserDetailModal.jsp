@@ -26,8 +26,13 @@
 </div>
 
 <div class="col-sm-6 detail-content">
-    <span class="col-sm-4 row-detail-title">密码：</span>
+    <span class="col-sm-4 row-detail-title">登录密码：</span>
     <span class="col-sm-8" id=passwordDetail></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">支付密码：</span>
+    <span class="col-sm-8" id=payPasswordDetail></span>
 </div>
 
 <div class="col-sm-6 detail-content">
@@ -43,6 +48,21 @@
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">头像地址：</span>
     <span class="col-sm-8" id=headiconDetail></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">余额：</span>
+    <span class="col-sm-8" id=totalDetail></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">积分：</span>
+    <span class="col-sm-8" id=scoreDetail></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">信用等级：</span>
+    <span class="col-sm-8" id=levelDetail></span>
 </div>
 
 <div class="col-sm-6 detail-content">
@@ -68,21 +88,6 @@
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">年龄：</span>
     <span class="col-sm-8" id=ageDetail></span>
-</div>
-
-<div class="col-sm-6 detail-content">
-    <span class="col-sm-4 row-detail-title">QQ号：</span>
-    <span class="col-sm-8" id=qqDetail></span>
-</div>
-
-<div class="col-sm-6 detail-content">
-    <span class="col-sm-4 row-detail-title">微信号：</span>
-    <span class="col-sm-8" id=wechatDetail></span>
-</div>
-
-<div class="col-sm-6 detail-content">
-    <span class="col-sm-4 row-detail-title">支付宝账号：</span>
-    <span class="col-sm-8" id=alipayDetail></span>
 </div>
 
 <div class="col-sm-6 detail-content">

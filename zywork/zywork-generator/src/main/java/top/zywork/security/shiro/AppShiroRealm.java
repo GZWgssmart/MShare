@@ -1,5 +1,6 @@
 package top.zywork.security.shiro;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -8,16 +9,19 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.stereotype.Component;
 import top.zywork.common.AuthUtils;
 import top.zywork.dto.PermissionDTO;
 import top.zywork.dto.RoleDTO;
+import top.zywork.dto.UserDTO;
 import top.zywork.query.UserAccountPasswordQuery;
 import top.zywork.service.PermissionService;
 import top.zywork.service.RoleService;
 import top.zywork.service.UserService;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,7 +67,11 @@ public class AppShiroRealm extends AuthorizingRealm {
             String password = String.valueOf((char[]) customToken.getCredentials());
             Object userDtoObj = userService.getByAccountPassword(new UserAccountPasswordQuery(username, password));
             if (userDtoObj != null) {
-                return new SimpleAuthenticationInfo(customToken.getPrincipal(), password, getName());
+                List<Object> principals = new ArrayList<>();
+                principals.add(customToken.getPrincipal());
+                principals.add(JSON.toJSONString(userDtoObj));
+                PrincipalCollection principalCollection = new SimplePrincipalCollection(principals, getName());
+                return new SimpleAuthenticationInfo(principalCollection, password);
             }
         } else {
             String username = customToken.getPrincipal().toString();

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/main.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../iconfont/iconfont.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
+			<h1 class="mui-title">买入</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>买入数额</label>
+					<input type="text" class="mui-input-clear mui-input" placeholder="请输入买入数额">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button type="button" class="mui-btn mui-btn-block mui-btn-primary">
+					<i class="mui-icon mui-icon-checkmarkempty"></i>
+					创建订单
+				</button>
+			</div>
+		</div>
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a id="transin">买入订单</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function () {
+				mui.init({
+				  preloadPages:[
+				    		{
+					    		id: 'buy_order',
+					      	url: 'buy_order.html'
+				      	}
+				    ]
+				});
+				mui('.mui-scroll-wrapper').scroll();
+				
+				document.getElementById('transin').addEventListener('tap', function (e) {
+					mui('#topPopover').popover('hide');
+					mui.openWindow({
+						id: 'buy_order',
+						show: {
+							aniShow: 'pop-in'
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				});
+			});
+			
+		</script>
+	</body>
+
+</html>

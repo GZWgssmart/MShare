@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/main.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的银行卡</h1>
+		</header>
+
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell bank-card-item">
+					<p>姓名：路飞</p>
+					<p>银行：中国银行</p>
+					<p>卡号：666666666666666666666</p>
+					<p>添加时间：2018-04-25 15:00:00</p>
+					<span class="mui-btn mui-btn-danger mui-pull-right">解除绑定</span>
+				</li>
+			</ul>
+			<button id="bank-card-add" type="button" class="mui-btn mui-btn-success mui-btn-block" style="margin-top: 30px;">
+				<i class="mui-icon mui-icon-plus"></i>
+				添加银行卡
+			</button> 
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function () {
+				mui.init(
+					{
+						preloadPages: [
+							{
+								id: 'bank_card_add',
+								url: 'bank_card_add.html'
+							}
+						]
+					}
+				);
+				
+				document.getElementById('bank-card-add').addEventListener('tap', function (e) {
+					mui.openWindow(
+						{
+							id: 'bank_card_add',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: true
+							}
+						}
+					);
+				});
+			})
+		</script>
+	</body>
+
+</html>

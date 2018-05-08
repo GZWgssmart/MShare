@@ -142,18 +142,19 @@ CREATE TABLE `t_user` (
   `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
   `phone` varchar(11) DEFAULT NULL COMMENT '手机号',
   `account_name` varchar(20) DEFAULT NULL COMMENT '账户名',
-  `password` varchar(50) NOT NULL COMMENT '密码',
+  `password` varchar(50) NOT NULL COMMENT '登录密码',
+  `pay_password` VARCHAR(50) DEFAULT NULL COMMENT '支付密码',
   `salt` varchar(200) DEFAULT NULL COMMENT '加密盐值',
   `nickname` varchar(20) DEFAULT NULL COMMENT '昵称',
   `headicon` varchar(500) DEFAULT NULL COMMENT '头像地址',
+  `total` BIGINT DEFAULT NULL comment '余额',
+  `score` BIGINT DEFAULT NULL comment '积分',
+  `level` CHAR(1) DEFAULT NULL COMMENT '信用等级',
   `identity` varchar(18) DEFAULT NULL COMMENT '身份证号',
   `real_name` varchar(10) DEFAULT NULL COMMENT '真实姓名',
   `gender` tinyint(4) DEFAULT '0' COMMENT '性别',
   `birthday` date DEFAULT NULL COMMENT '生日',
   `age` int(11) DEFAULT NULL COMMENT '年龄',
-  `qq` varchar(20) DEFAULT NULL COMMENT 'QQ号',
-  `wechat` varchar(50) DEFAULT NULL COMMENT '微信号',
-  `alipay` varchar(100) DEFAULT NULL COMMENT '支付宝账号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -161,7 +162,9 @@ CREATE TABLE `t_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
+ALTER TABLE `t_user` AUTO_INCREMENT = 100000;
+
+  --
 -- Dumping data for table `t_user`
 --
 

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/main.css" rel="stylesheet" />
+		<link href="../iconfont/iconfont.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<div id="content">
+			<header class="mui-bar mui-bar-nav">
+				<div id="head-icon" class="head-icon mui-pull-left">
+					<img v-bind:src="userInfo.headicon" class="mui-pull-left" />
+					<div class="mui-pull-left head-info">
+						<span>
+					UID:{{userInfo.uid}}
+				</span>
+						<span>
+					信用等级：{{userInfo.level}}
+				</span>
+					</div>
+				</div>
+			</header>
+
+			<div class="mui-content">
+				<div class="barcode">
+					<div id="barcode-scan" class="barcode-scan">扫一扫</div>
+					<div class="prop-info">
+						<div>
+							<p>余额</p>
+							<p>{{userInfo.totalMoney}}</p>
+						</div>
+						<div class="seperator"></div>
+						<div>
+							<p>积分</p>
+							<p>{{userInfo.totalScore}}</p>
+						</div>
+					</div>
+				</div>
+
+				<div id="adsGallery" class="mui-slider">
+					<div class="mui-slider-group mui-slider-loop">
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img v-bind:src="gallery.three" />
+							</a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#">
+								<img v-bind:src="gallery.one" />
+							</a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#">
+								<img v-bind:src="gallery.two" />
+							</a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#">
+								<img v-bind:src="gallery.three" />
+							</a>
+						</div>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img v-bind:src="gallery.one" />
+							</a>
+						</div>
+					</div>
+					<div class="mui-slider-indicator">
+						<div class="mui-indicator mui-active"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+					</div>
+				</div>
+
+				<div class="mui-row menu">
+					<div id="transin" class="mui-col-xs-4 menu-item">
+						<i class="iconfont icon-zhuanru" style="font-size: 42px; color:#2AC845;"></i>
+						<p>转入</p>
+					</div>
+					<div id="transout" class="mui-col-xs-4 menu-item">
+						<i class="iconfont icon-zhuanchu" style="font-size: 42px; color:#007AFF;"></i>
+						<p>转出</p>
+					</div>
+					<div id="buy" class="mui-col-xs-4 menu-item">
+						<i class="iconfont icon-mairu" style="font-size: 42px; color:#DF5000;"></i>
+						<p>买入</p>
+					</div>
+					<div id="sell" class="mui-col-xs-4 menu-item">
+						<i class="iconfont icon-maichu" style="font-size: 42px; color:#EC971F;"></i>
+						<p>卖出</p>
+					</div>
+					<div id="property" class="mui-col-xs-4 menu-item">
+						<i class=" iconfont icon-zichan" style="font-size: 42px; color:#DD524D;"></i>
+						<p>数字资产
+							<p>
+					</div>
+					<div id="mall" class="mui-col-xs-4 menu-item">
+						<i class="iconfont icon-shangcheng" style="font-size: 42px; color:#A71D5D;"></i>
+						<p>商城</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<script type="text/javascript" src="../js/api.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			var mounted = function() {
+				mui.plusReady(function() {
+					mui.init({
+						preloadPages: []
+					});
+
+					var adsGallery = mui('#adsGallery');
+					adsGallery.slider({
+						interval: 5000
+					});
+
+					window.addEventListener('update_headicon', function(e) {
+						pageView.userInfo.headicon = e.detail.icon;
+					});
+
+					mui('.menu').on('tap', '.menu-item', function(e) {
+						var id = this.id;
+						if(id === 'property' || id === 'mall') {
+							mui.toast('暂未开放，敬请期待');
+						} else {
+							mui.openWindow({
+								id: id,
+								url: id + '/' + id + '.html',
+								show: {
+									aniShow: 'pop-in'
+								},
+								waiting: {
+									autoShow: false
+								}
+							});
+						}
+					});
+
+					document.getElementById('head-icon').addEventListener('tap', function(e) {
+						mui.openWindow({
+							id: 'user',
+							url: 'user/user.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					});
+
+					document.getElementById('barcode-scan').addEventListener('tap', function(e) {
+						mui.openWindow({
+							id: 'qrcode_scan',
+							url: 'qrcode/qrcode_scan.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					});
+
+					checkLogin();
+				});
+			}
+
+			function toLoginPage() {
+				mui.openWindow({
+					id: 'login',
+					url: 'login.html',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}
+
+			function checkLogin() {
+				var token = plus.storage.getItem('token');
+				var sessionId = plus.storage.getItem('sessionId');
+				var username = plus.storage.getItem('username');
+				if(token != null && token !== undefined && token !== '' &&
+					sessionId != null && sessionId != undefined && sessionId !== '') {
+					mui.post(USER_CHECK_LOGIN, {
+						username: username,
+						userToken: token
+					}, function(data) {
+						if(data.status === 'data-error' || data.status === 'error') {
+							toLoginPage();
+						} else if(data.code === 10005) {
+							plus.storage.setItem('sessionId', data.sessionId);
+							plus.navigator.setCookie(BASE_URL, 'JSESSIONID=' + data.sessionId);
+							pageView.userInfo.uid = plus.storage.getItem('uid');
+							pageView.userInfo.nickname = plus.storage.getItem('nickname');
+							var headicon = plus.storage.getItem('headicon');
+							if(headicon.indexOf('/storage') != -1) {
+								pageView.userInfo.headicon = headicon;
+							} else {
+								pageView.userInfo.headicon = BASE_URL + '/' + headicon;
+							}
+							pageView.userInfo.level = plus.storage.getItem('level');
+						} else {
+							pageView.userInfo.uid = plus.storage.getItem('uid');
+							pageView.userInfo.nickname = plus.storage.getItem('nickname');
+							var headicon = plus.storage.getItem('headicon');
+							if(headicon.indexOf('/storage') != -1) {
+								pageView.userInfo.headicon = headicon;
+							} else {
+								pageView.userInfo.headicon = BASE_URL + '/' + headicon;
+							}
+							pageView.userInfo.level = plus.storage.getItem('level');
+						}
+					}, 'json');
+				} else {
+					toLoginPage();
+				}
+			}
+
+			var pageView = new Vue({
+				el: '#content',
+				data: {
+					userInfo: {
+						headicon: '../images/timg.jpeg',
+						uid: '',
+						level: '',
+						totalMoney: '100',
+						totalScore: '100'
+					},
+					gallery: {
+						one: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3390961998,1154407883&fm=200&gp=0.jpg',
+						two: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2539922263,2810970709&fm=200&gp=0.jpg',
+						three: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2598302518,4005171176&fm=27&gp=0.jpg',
+					}
+				},
+				mounted: mounted
+			});
+		</script>
+	</body>
+
+</html>

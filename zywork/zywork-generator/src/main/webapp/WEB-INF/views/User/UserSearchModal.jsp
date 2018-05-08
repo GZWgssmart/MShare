@@ -40,9 +40,16 @@
 </div>
 
 <div class="col-sm-6 form-group">
-    <label for="passwordSearch" class="col-sm-4 control-label">密码：</label>
+    <label for="passwordSearch" class="col-sm-4 control-label">登录密码：</label>
     <div class="col-sm-8">
-        <input id="passwordSearch" name="password" class="form-control" placeholder="请输入密码">
+        <input id="passwordSearch" name="password" class="form-control" placeholder="请输入登录密码">
+    </div>
+</div>
+
+<div class="col-sm-6 form-group">
+    <label for="payPasswordSearch" class="col-sm-4 control-label">支付密码：</label>
+    <div class="col-sm-8">
+        <input id="payPasswordSearch" name="payPassword" class="form-control" placeholder="请输入支付密码">
     </div>
 </div>
 
@@ -64,6 +71,27 @@
     <label for="headiconSearch" class="col-sm-4 control-label">头像地址：</label>
     <div class="col-sm-8">
         <input id="headiconSearch" name="headicon" class="form-control" placeholder="请输入头像地址">
+    </div>
+</div>
+
+<div class="col-sm-6 form-group">
+    <label for="totalSearch" class="col-sm-4 control-label">余额：</label>
+    <div class="col-sm-8">
+        <input id="totalSearch" name="total" class="form-control" placeholder="请输入余额">
+    </div>
+</div>
+
+<div class="col-sm-6 form-group">
+    <label for="scoreSearch" class="col-sm-4 control-label">积分：</label>
+    <div class="col-sm-8">
+        <input id="scoreSearch" name="score" class="form-control" placeholder="请输入积分">
+    </div>
+</div>
+
+<div class="col-sm-6 form-group">
+    <label for="levelSearch" class="col-sm-4 control-label">信用等级：</label>
+    <div class="col-sm-8">
+        <input id="levelSearch" name="level" class="form-control" placeholder="请输入信用等级">
     </div>
 </div>
 
@@ -110,27 +138,6 @@
     <label for="ageSearch" class="col-sm-4 control-label">年龄：</label>
     <div class="col-sm-8">
         <input id="ageSearch" name="age" class="form-control" placeholder="请输入年龄">
-    </div>
-</div>
-
-<div class="col-sm-6 form-group">
-    <label for="qqSearch" class="col-sm-4 control-label">QQ号：</label>
-    <div class="col-sm-8">
-        <input id="qqSearch" name="qq" class="form-control" placeholder="请输入QQ号">
-    </div>
-</div>
-
-<div class="col-sm-6 form-group">
-    <label for="wechatSearch" class="col-sm-4 control-label">微信号：</label>
-    <div class="col-sm-8">
-        <input id="wechatSearch" name="wechat" class="form-control" placeholder="请输入微信号">
-    </div>
-</div>
-
-<div class="col-sm-6 form-group">
-    <label for="alipaySearch" class="col-sm-4 control-label">支付宝账号：</label>
-    <div class="col-sm-8">
-        <input id="alipaySearch" name="alipay" class="form-control" placeholder="请输入支付宝账号">
     </div>
 </div>
 

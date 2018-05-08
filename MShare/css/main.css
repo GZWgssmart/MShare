@@ -1,0 +1,257 @@
+* {
+	padding: 0px;
+	margin: 0px;
+}
+
+* {
+	touch-action: none;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.input-row-a {
+	height: 40px;
+	line-height: 40px;
+	margin-right: 10px;
+}
+
+form p {
+	padding: 10px 15px 0;
+}
+
+form textarea {
+	height: 150px;
+}
+
+/*home页面*/
+
+.head-icon img {
+	width: 42px;
+	height: 42px;
+	border: 1px solid #FFF;
+	border-radius: 100%;
+}
+
+.head-info {
+	height: 42px;
+	margin-left: 5px;
+	font-size: 10px;
+}
+
+.head-info span {
+	display: block;
+	height: 20px;
+}
+
+.barcode {
+	width: 100%;
+	height: 200px;
+	padding-top: 30px;
+	text-align: center;
+	background-color: #007AFF;
+}
+
+.barcode-scan {
+	margin: auto;
+	width: 80px;
+	height: 80px;
+	line-height: 80px;
+	border-radius: 100%;
+	box-shadow: 0px 0px 20px #FFF;
+	color: #007AFF;
+	background-color: #FFF;
+}
+
+.prop-info {
+	height: 30px;
+	text-align: center;
+	margin-top: 10px;
+}
+
+.prop-info div {
+	display: inline-block;
+	font-size: 12px;
+	color: #FFF;
+	height: 30px;
+}
+
+.prop-info p {
+	height: 20px;
+	color: #FFF;
+}
+
+.prop-info .seperator {
+	border-right: 1px solid #CCC;
+	margin-left: 50px;
+	margin-right: 50px;
+}
+
+#adsGallery img {
+	width: 100%;
+	height: 110px;
+}
+
+.menu-item {
+	height: 100px;
+	text-align: center;
+	padding-top: 25px;
+	border-bottom: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+	float: left;
+}
+
+.menu-item img {
+	width: 6px;
+	height: 60px;
+	border-radius: 100%;
+}
+
+.menu-item p {
+	width: 100%;
+	height: 20px;
+	color: #000;
+	margin-top: 5px;
+}
+
+
+/*登录注册页面*/
+
+#login-form,
+#reg-form {
+	margin-top: 20px;
+}
+
+.login-area {
+	text-align: center;
+}
+
+.login-area a {
+	font-size: 14px;
+	color: #0062CC;
+}
+
+/*个人中心页面*/
+
+.user-head {
+	height: 70px;
+	padding-top: 15px;
+}
+
+.item-info {
+	color: #C0C0C0;
+	font-size: 14px;
+	margin-right: 20px;
+	padding-top: 4px;
+}
+
+.user-head .item-info {
+	padding-top: 15px;
+	margin-right: 0px;
+}
+
+.user-icon {
+	display: inline-block;
+	font-size: 24px;
+	color: #FFF;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	border-radius: 100%;
+}
+
+
+/*生成二维码页面*/
+
+.qrcode-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+#qrcode {
+	margin-top: 20px;
+	width: 100%;
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#qrcode img {
+	width: 200px;
+}
+
+.qrcode-des {
+	margin-top: 40px;
+	text-align: center;
+}
+
+
+/*二维码扫描页面*/
+
+#qrcode-scan {
+	width: 100%;
+	top: 20px;
+	bottom: 45px;
+	left: 0px;
+	position: absolute;
+}
+
+.qrcode-bar-footer a {
+	display: block;
+	height: 45px;
+	line-height: 45px;
+}
+
+
+/*top popover*/
+
+#topPopover {
+	position: fixed;
+	top: 16px;
+	right: 6px;
+}
+
+#topPopover .mui-popover-arrow {
+	left: auto;
+	right: 6px;
+}
+
+.mui-popover {
+	height: 300px;
+}
+
+/*记录列表页面*/
+#title {
+	height: 40px;
+	line-height: 40px;
+	padding-left: 15px;
+}
+
+#title span {
+	padding: 0px;
+	font-size: 14px;
+}
+
+.content-list li span{
+	font-size: 14px;
+}
+
+.content-list li p {
+	font-size: 10px;
+}
+
+/*我的银行卡界面*/
+.bank-card-item span {
+	font-size: 10px;
+}

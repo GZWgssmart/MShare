@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/main.css" rel="stylesheet" />
+		<link href="../../iconfont/iconfont.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">个人中心</h1>
+		</header>
+
+		<div class="mui-content" id="content">
+			<ul id="opts" class="mui-table-view">
+				<li id="user-head" class="mui-table-view-cell user-head">
+					<div id="head-icon" class="head-icon mui-pull-left">
+						<img id="head" v-bind:src="userInfo.headicon" class="mui-pull-left" />
+						<div class="mui-pull-left head-info">
+							<span>
+								UID:{{userInfo.uid}}
+							</span>
+							<span>
+								信用等级：{{userInfo.level}}
+							</span>
+						</div>
+					</div>
+					<span class="mui-pull-right item-info">更换头像</span>
+				</li>
+				<li id="nickname-chg" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-yonghu user-icon" style="background-color:#2AC845;"></i> 昵称
+						<span id="nickname" class="mui-pull-right item-info">{{userInfo.nickname}}</span>
+					</a>
+				</li>
+				<li id="bank_card" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-yinxingqia3 user-icon" style="background-color:#0062CC;"></i> 我的银行卡
+					</a>
+				</li>
+				<li id="login_pwd" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-mima user-icon" style="background-color:#6641E2;"></i> 登录密码
+						<span class="mui-pull-right item-info">点击修改</span>
+					</a>
+				</li>
+				<li id="pay_pwd" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-icon- user-icon" style="background-color:#BD2C00;"></i> 支付密码
+						<span class="mui-pull-right item-info">点击修改</span>
+					</a>
+				</li>
+				<li id="suggest" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-jianyi user-icon" style="background-color:#FF5053;"></i> 投诉建议
+					</a>
+				</li>
+				<li id="about" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-iconset0142 user-icon" style="background-color:#EC971F;"></i> 关于
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 10px;">
+				<li id="logout" class="mui-table-view-cell mui-text-center" style="color: #CF2D28;">
+					退出登录
+				</li>
+			</ul>
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/vue.min.js"></script>
+		<script type="text/javascript" src="../../js/api.js"></script>
+		<script src="../../js/image.js"></script>
+		<script type="text/javascript">
+			var mounted = function() {
+				mui.plusReady(function() {
+					mui.init({
+						preloadPages: []
+					});
+
+					pageView.userInfo.nickname = plus.storage.getItem('nickname');
+					var headicon = plus.storage.getItem('headicon');
+					if (headicon.indexOf('/storage') != -1) {
+						pageView.userInfo.headicon = headicon;
+					} else {
+						pageView.userInfo.headicon = BASE_URL + '/' + headicon;
+					}
+					pageView.userInfo.uid = plus.storage.getItem('uid');
+					pageView.userInfo.level = plus.storage.getItem('level');
+					
+					mui('#opts').on('tap', '.mui-table-view-cell', function(e) {
+						var id = this.id;
+						if(id === 'user-head') {
+							changeHeadIcon();
+						} else if(id === 'nickname-chg') {
+							changeNickname();
+						} else {
+							showPage(id);
+						}
+					});
+
+					document.getElementById('logout').addEventListener('tap', function(e) {
+						var token = plus.storage.getItem('token');
+						var username = plus.storage.getItem('username');
+						mui.ajax(USER_LOGOUT, {
+							data: {
+								username: username,
+								userToken: token
+							},
+							dataType: 'json',
+							type: 'post',
+							success: function(data) {
+								if(data.status === 'ok') {
+									mui.openWindow({
+										url: '../login.html',
+										show: {
+											aniShow: 'pop-in'
+										},
+										waiting: {
+											autoShow: true
+										}
+									});
+									plus.storage.clear();
+									plus.navigator.removeAllCookie();
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.alert('似乎没有网络了哦……', '提示');
+							}
+						});
+					})
+				});
+			}
+
+			function changeHeadIcon() {
+				if(mui.os.plus) {
+					var a = [{
+						title: '拍照'
+					}, {
+						title: '从手机相册选择'
+					}];
+					plus.nativeUI.actionSheet({
+						title: '修改头像',
+						cancel: '取消',
+						buttons: a
+					}, function(b) {
+						switch(b.index) {
+							case 0:
+								break;
+							case 1:
+								captureImage(USER_HEADICON_UPDATE);
+								break;
+							case 2:
+								chooseImage(USER_HEADICON_UPDATE);
+								break;
+							default:
+								break;
+						}
+					}, false);
+				}
+			}
+
+			function changeNickname() {
+				mui.prompt('请输入新昵称', pageView.userInfo.nickname, '修改昵称', ['确定', '取消'], function(r) {
+					if(r.index === 0) {
+						pageView.userInfo.nickname = r.value;
+						plus.storage.setItem('nickname', r.value);
+						mui.ajax(USER_NICKNAME_UPDATE, {
+							data: {
+								id: pageView.userInfo.uid,
+								nickname: pageView.userInfo.nickname
+							},
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+							},
+							dataType: 'json',
+							type: 'post',
+							success: function(data) {
+								if(data.status === 'ok') {
+									mui.alert(data.message, '提示');
+								} else if(data.status === 'data-error') {
+									mui.alert(data.message, '提示');
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.alert('似乎没有网络了哦……', '提示');
+							}
+						});
+					}
+				});
+			}
+
+			function showPage(pageId) {
+				mui.openWindow({
+					id: pageId,
+					url: pageId + '.html',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}
+
+			var pageView = new Vue({
+				el: '#content',
+				data: {
+					userInfo: {
+						headicon: '../../images/timg.jpeg',
+						uid: '',
+						level: '',
+						nickname: ''
+					}
+				},
+				mounted: mounted
+			});
+		</script>
+	</body>
+
+</html>

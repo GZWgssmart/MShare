@@ -1,0 +1,279 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.OrderDAO">
+
+    <insert id="save" parameterType="orderDO">
+        insert into t_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null">
+				order_no,
+			</if>
+			<if test="total != null">
+				total,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="sellId != null">
+				sell_id,
+			</if>
+			<if test="buyId != null">
+				buy_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="sellConfirmTime != null">
+				sell_confirm_time,
+			</if>
+			<if test="buyConfirmTime != null">
+				buy_confirm_time,
+			</if>
+			<if test="dealTime != null">
+				deal_time,
+			</if>
+			
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null">
+				#{orderNo},
+			</if>
+			<if test="total != null">
+				#{total},
+			</if>
+			<if test="type != null">
+				#{type},
+			</if>
+			<if test="sellId != null">
+				#{sellId},
+			</if>
+			<if test="buyId != null">
+				#{buyId},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="sellConfirmTime != null">
+				#{sellConfirmTime},
+			</if>
+			<if test="buyConfirmTime != null">
+				#{buyConfirmTime},
+			</if>
+			<if test="dealTime != null">
+				#{dealTime},
+			</if>
+			
+        </trim>
+    </insert>
+
+    <delete id="remove" parameterType="orderDO">
+        delete from t_order where id = #{id}
+    </delete>
+
+    <delete id="removeById" parameterType="long">
+        delete from t_order where id = #{id}
+    </delete>
+
+    <delete id="removeByIds">
+        delete from t_order where id in
+        <foreach item="id" collection="array" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="orderDO">
+        update t_order
+        <set>
+            <if test="orderNo != null">
+				order_no = #{orderNo},
+			</if>
+			<if test="total != null">
+				total = #{total},
+			</if>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="sellId != null">
+				sell_id = #{sellId},
+			</if>
+			<if test="buyId != null">
+				buy_id = #{buyId},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="sellConfirmTime != null">
+				sell_confirm_time = #{sellConfirmTime},
+			</if>
+			<if test="buyConfirmTime != null">
+				buy_confirm_time = #{buyConfirmTime},
+			</if>
+			<if test="dealTime != null">
+				deal_time = #{dealTime},
+			</if>
+			
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateActiveStatus" parameterType="top.zywork.query.StatusQuery">
+        update t_order set is_active = #{status} where id = #{id}
+    </update>
+
+    <update id="updateActiveStatuses" parameterType="top.zywork.query.StatusQueries">
+        update t_order set is_active = #{status} where id in
+        <foreach item="id" collection="ids" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <sql id="select_columns">
+        id as id, order_no as orderNo, total as total, type as type, sell_id as sellId, buy_id as buyId, create_time as createTime, update_time as updateTime, status as status, sell_confirm_time as sellConfirmTime, buy_confirm_time as buyConfirmTime, deal_time as dealTime
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.id != null">
+			id = #{query.id}
+		</if>
+		<if test="query != null and query.orderNo != null and query.orderNo != ''">
+			and order_no like concat('%', #{query.orderNo}, '%')
+		</if>
+		<if test="query != null and query.total != null">
+			and total = #{query.total}
+		</if>
+		<if test="query != null and query.type != null">
+			and type = #{query.type}
+		</if>
+		<if test="query != null and query.sellId != null">
+			and sell_id = #{query.sellId}
+		</if>
+		<if test="query != null and query.buyId != null">
+			and buy_id = #{query.buyId}
+		</if>
+		<if test="query != null and query.createTimeStart != null and query.createTimeEnd == null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeStart}
+		</if>
+		<if test="query != null and query.createTimeStart == null and query.createTimeEnd != null">
+			and create_time <![CDATA[ <= ]]> #{query.createTimeEnd}
+		</if>
+		<if test="query != null and query.createTimeStart != null and query.createTimeEnd != null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeStart} and create_time <![CDATA[ <= ]]> #{query.createTimeEnd}
+		</if>
+		<if test="query != null and query.updateTimeStart != null and query.updateTimeEnd == null">
+			and update_time <![CDATA[ >= ]]> #{query.updateTimeStart}
+		</if>
+		<if test="query != null and query.updateTimeStart == null and query.updateTimeEnd != null">
+			and update_time <![CDATA[ <= ]]> #{query.updateTimeEnd}
+		</if>
+		<if test="query != null and query.updateTimeStart != null and query.updateTimeEnd != null">
+			and update_time <![CDATA[ >= ]]> #{query.updateTimeStart} and update_time <![CDATA[ <= ]]> #{query.updateTimeEnd}
+		</if>
+		<if test="query != null and query.status != null">
+			and status = #{query.status}
+		</if>
+		<if test="query != null and query.sellConfirmTimeStart != null and query.sellConfirmTimeEnd == null">
+			and sell_confirm_time <![CDATA[ >= ]]> #{query.sellConfirmTimeStart}
+		</if>
+		<if test="query != null and query.sellConfirmTimeStart == null and query.sellConfirmTimeEnd != null">
+			and sell_confirm_time <![CDATA[ <= ]]> #{query.sellConfirmTimeEnd}
+		</if>
+		<if test="query != null and query.sellConfirmTimeStart != null and query.sellConfirmTimeEnd != null">
+			and sell_confirm_time <![CDATA[ >= ]]> #{query.sellConfirmTimeStart} and sell_confirm_time <![CDATA[ <= ]]> #{query.sellConfirmTimeEnd}
+		</if>
+		<if test="query != null and query.buyConfirmTimeStart != null and query.buyConfirmTimeEnd == null">
+			and buy_confirm_time <![CDATA[ >= ]]> #{query.buyConfirmTimeStart}
+		</if>
+		<if test="query != null and query.buyConfirmTimeStart == null and query.buyConfirmTimeEnd != null">
+			and buy_confirm_time <![CDATA[ <= ]]> #{query.buyConfirmTimeEnd}
+		</if>
+		<if test="query != null and query.buyConfirmTimeStart != null and query.buyConfirmTimeEnd != null">
+			and buy_confirm_time <![CDATA[ >= ]]> #{query.buyConfirmTimeStart} and buy_confirm_time <![CDATA[ <= ]]> #{query.buyConfirmTimeEnd}
+		</if>
+		<if test="query != null and query.dealTimeStart != null and query.dealTimeEnd == null">
+			and deal_time <![CDATA[ >= ]]> #{query.dealTimeStart}
+		</if>
+		<if test="query != null and query.dealTimeStart == null and query.dealTimeEnd != null">
+			and deal_time <![CDATA[ <= ]]> #{query.dealTimeEnd}
+		</if>
+		<if test="query != null and query.dealTimeStart != null and query.dealTimeEnd != null">
+			and deal_time <![CDATA[ >= ]]> #{query.dealTimeStart} and deal_time <![CDATA[ <= ]]> #{query.dealTimeEnd}
+		</if>
+		
+    </sql>
+
+    <select id="getById" parameterType="long" resultType="orderDO">
+        select
+        <include refid="select_columns"/>
+        from t_order where id = #{id}
+    </select>
+
+    <select id="listAll" resultType="orderDO">
+        select
+        <include refid="select_columns"/>
+        from t_order
+        order by update_time desc, create_time desc
+    </select>
+
+    <select id="listPage" parameterType="top.zywork.query.PageQuery" resultType="orderDO">
+        select
+        <include refid="select_columns"/>
+        from t_order
+        order by
+        <if test="sort != null and sort != ''">
+            ${sort} ${order}
+        </if>
+        <if test="sort == null or sort == ''">
+            update_time desc, create_time desc
+        </if>
+        limit #{beginIndex}, #{pageSize}
+    </select>
+
+    <select id="count" resultType="long">
+        select count(*) from t_order
+    </select>
+
+    <select id="listPageByCondition" resultType="orderDO">
+        select
+        <include refid="select_columns"/>
+        from t_order
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="pager.sort != null and pager.sort != ''">
+            ${pager.sort} ${pager.order}
+        </if>
+        <if test="pager.sort == null or pager.sort == ''">
+            update_time desc, create_time desc
+        </if>
+        limit #{pager.beginIndex}, #{pager.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_order
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>

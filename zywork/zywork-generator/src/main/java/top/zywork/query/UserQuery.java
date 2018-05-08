@@ -5,14 +5,14 @@ import java.util.Date;
 /**
  * UserQuery查询对象类<br/>
  *
- * 创建于2018-05-03<br/>
+ * 创建于2018-05-07<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserQuery extends BaseQuery {
 
-    private static final long serialVersionUID = -9223372036201849062L;
+    private static final long serialVersionUID = -9223372034950786425L;
 
     /**
 	 * 编号
@@ -31,9 +31,13 @@ public class UserQuery extends BaseQuery {
 	 */
 	private String accountName;
 	/**
-	 * 密码
+	 * 登录密码
 	 */
 	private String password;
+	/**
+	 * 支付密码
+	 */
+	private String payPassword;
 	/**
 	 * 加密盐值
 	 */
@@ -46,6 +50,18 @@ public class UserQuery extends BaseQuery {
 	 * 头像地址
 	 */
 	private String headicon;
+	/**
+	 * 余额
+	 */
+	private Long total;
+	/**
+	 * 积分
+	 */
+	private Long score;
+	/**
+	 * 信用等级
+	 */
+	private String level;
 	/**
 	 * 身份证号
 	 */
@@ -74,18 +90,6 @@ public class UserQuery extends BaseQuery {
 	 * 年龄
 	 */
 	private Integer age;
-	/**
-	 * QQ号
-	 */
-	private String qq;
-	/**
-	 * 微信号
-	 */
-	private String wechat;
-	/**
-	 * 支付宝账号
-	 */
-	private String alipay;
 	/**
 	 * 创建时间
 	 */
@@ -117,15 +121,19 @@ public class UserQuery extends BaseQuery {
 	
     public UserQuery () {}
 
-    public UserQuery (Long id, String email, String phone, String accountName, String password, String salt, String nickname, String headicon, String identity, String realName, Byte gender, Date birthday, Date birthdayStart, Date birthdayEnd, Integer age, String qq, String wechat, String alipay, Date createTime, Date createTimeStart, Date createTimeEnd, Date updateTime, Date updateTimeStart, Date updateTimeEnd, Byte isActive) {
+    public UserQuery (Long id, String email, String phone, String accountName, String password, String payPassword, String salt, String nickname, String headicon, Long total, Long score, String level, String identity, String realName, Byte gender, Date birthday, Date birthdayStart, Date birthdayEnd, Integer age, Date createTime, Date createTimeStart, Date createTimeEnd, Date updateTime, Date updateTimeStart, Date updateTimeEnd, Byte isActive) {
         this.id = id;
 		this.email = email;
 		this.phone = phone;
 		this.accountName = accountName;
 		this.password = password;
+		this.payPassword = payPassword;
 		this.salt = salt;
 		this.nickname = nickname;
 		this.headicon = headicon;
+		this.total = total;
+		this.score = score;
+		this.level = level;
 		this.identity = identity;
 		this.realName = realName;
 		this.gender = gender;
@@ -133,9 +141,6 @@ public class UserQuery extends BaseQuery {
 		this.birthdayStart = birthdayStart;
 		this.birthdayEnd = birthdayEnd;
 		this.age = age;
-		this.qq = qq;
-		this.wechat = wechat;
-		this.alipay = alipay;
 		this.createTime = createTime;
 		this.createTimeStart = createTimeStart;
 		this.createTimeEnd = createTimeEnd;
@@ -186,6 +191,14 @@ public class UserQuery extends BaseQuery {
 		this.password = password;
 	}
 
+	public String getPayPassword() {
+		return payPassword;
+	}
+
+	public void setPayPassword(String payPassword) {
+		this.payPassword = payPassword;
+	}
+
 	public String getSalt() {
 		return salt;
 	}
@@ -208,6 +221,30 @@ public class UserQuery extends BaseQuery {
 
 	public void setHeadicon(String headicon) {
 		this.headicon = headicon;
+	}
+
+	public Long getTotal() {
+		return total;
+	}
+
+	public void setTotal(Long total) {
+		this.total = total;
+	}
+
+	public Long getScore() {
+		return score;
+	}
+
+	public void setScore(Long score) {
+		this.score = score;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 
 	public String getIdentity() {
@@ -264,30 +301,6 @@ public class UserQuery extends BaseQuery {
 
 	public void setAge(Integer age) {
 		this.age = age;
-	}
-
-	public String getQq() {
-		return qq;
-	}
-
-	public void setQq(String qq) {
-		this.qq = qq;
-	}
-
-	public String getWechat() {
-		return wechat;
-	}
-
-	public void setWechat(String wechat) {
-		this.wechat = wechat;
-	}
-
-	public String getAlipay() {
-		return alipay;
-	}
-
-	public void setAlipay(String alipay) {
-		this.alipay = alipay;
 	}
 
 	public Date getCreateTime() {

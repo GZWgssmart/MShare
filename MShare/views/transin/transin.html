@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/main.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../iconfont/iconfont.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
+			<h1 class="mui-title">扫码转入</h1>
+		</header>
+		<div class="mui-content qrcode-container">
+			<div class="qrcode-center">
+				<div id="qrcode"></div>
+				<p class="qrcode-des">打开APP，点击扫一扫，扫描二维码转入</p>
+			</div>
+		</div>
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a id="save-qrcode">保存二维码图片</a>
+							<a id="transin">转入记录</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/qrcode.min.js"></script>
+		<script type="text/javascript" src="../../js/image.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function () {
+				mui.init({
+				  preloadPages:[
+				    		{
+					    		id: 'transin_history',
+					      	url: 'transin_history.html'
+				      	}
+				    ]
+				});
+				mui('.mui-scroll-wrapper').scroll();
+				var qrcode = new QRCode(document.getElementById("qrcode"), {
+					text: "100000",
+					width: 200,
+					height: 200,
+					colorDark: "#000000",
+					colorLight: "#ffffff",
+					correctLevel: QRCode.CorrectLevel.H
+				});
+				
+				document.getElementById('save-qrcode').addEventListener('tap', function (e) {
+					mui('#topPopover').popover('hide');
+					var image = document.getElementById('qrcode').children[1];
+					saveImageToGallery(image.src.replace('data:image/png:base64,', ''));
+				});
+				
+				document.getElementById('transin').addEventListener('tap', function (e) {
+					mui('#topPopover').popover('hide');
+					mui.openWindow({
+						id: 'transin_history',
+						show: {
+							aniShow: 'pop-in'
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				});
+			});
+			
+		</script>
+	</body>
+
+</html>

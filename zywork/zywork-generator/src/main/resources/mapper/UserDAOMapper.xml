@@ -4,10 +4,10 @@
 
 <mapper namespace="top.zywork.dao.UserDAO">
 
-    <insert id="save" parameterType="userDO">
-        insert into t_user
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="email != null">
+	<insert id="save" parameterType="userDO">
+		insert into t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="email != null">
 				email,
 			</if>
 			<if test="phone != null">
@@ -19,6 +19,9 @@
 			<if test="password != null">
 				password,
 			</if>
+			<if test="payPassword != null">
+				pay_password,
+			</if>
 			<if test="salt != null">
 				salt,
 			</if>
@@ -27,6 +30,15 @@
 			</if>
 			<if test="headicon != null">
 				headicon,
+			</if>
+			<if test="total != null">
+				total,
+			</if>
+			<if test="score != null">
+				score,
+			</if>
+			<if test="level != null">
+				level,
 			</if>
 			<if test="identity != null">
 				identity,
@@ -43,15 +55,6 @@
 			<if test="age != null">
 				age,
 			</if>
-			<if test="qq != null">
-				qq,
-			</if>
-			<if test="wechat != null">
-				wechat,
-			</if>
-			<if test="alipay != null">
-				alipay,
-			</if>
 			<if test="createTime != null">
 				create_time,
 			</if>
@@ -61,10 +64,10 @@
 			<if test="isActive != null">
 				is_active,
 			</if>
-			
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="email != null">
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="email != null">
 				#{email},
 			</if>
 			<if test="phone != null">
@@ -76,6 +79,9 @@
 			<if test="password != null">
 				#{password},
 			</if>
+			<if test="payPassword != null">
+				#{payPassword},
+			</if>
 			<if test="salt != null">
 				#{salt},
 			</if>
@@ -84,6 +90,15 @@
 			</if>
 			<if test="headicon != null">
 				#{headicon},
+			</if>
+			<if test="total != null">
+				#{total},
+			</if>
+			<if test="score != null">
+				#{score},
+			</if>
+			<if test="level != null">
+				#{level},
 			</if>
 			<if test="identity != null">
 				#{identity},
@@ -100,15 +115,6 @@
 			<if test="age != null">
 				#{age},
 			</if>
-			<if test="qq != null">
-				#{qq},
-			</if>
-			<if test="wechat != null">
-				#{wechat},
-			</if>
-			<if test="alipay != null">
-				#{alipay},
-			</if>
 			<if test="createTime != null">
 				#{createTime},
 			</if>
@@ -118,29 +124,29 @@
 			<if test="isActive != null">
 				#{isActive},
 			</if>
-			
-        </trim>
-    </insert>
 
-    <delete id="remove" parameterType="userDO">
-        delete from t_user where id = #{id}
-    </delete>
+		</trim>
+	</insert>
 
-    <delete id="removeById" parameterType="long">
-        delete from t_user where id = #{id}
-    </delete>
+	<delete id="remove" parameterType="userDO">
+		delete from t_user where id = #{id}
+	</delete>
 
-    <delete id="removeByIds">
-        delete from t_user where id in
-        <foreach item="id" collection="array" separator="," open="(" close=")">
-            #{id}
-        </foreach>
-    </delete>
+	<delete id="removeById" parameterType="long">
+		delete from t_user where id = #{id}
+	</delete>
 
-    <update id="update" parameterType="userDO">
-        update t_user
-        <set>
-            <if test="email != null">
+	<delete id="removeByIds">
+		delete from t_user where id in
+		<foreach item="id" collection="array" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<update id="update" parameterType="userDO">
+		update t_user
+		<set>
+			<if test="email != null">
 				email = #{email},
 			</if>
 			<if test="phone != null">
@@ -152,6 +158,9 @@
 			<if test="password != null">
 				password = #{password},
 			</if>
+			<if test="payPassword != null">
+				pay_password = #{payPassword},
+			</if>
 			<if test="salt != null">
 				salt = #{salt},
 			</if>
@@ -160,6 +169,15 @@
 			</if>
 			<if test="headicon != null">
 				headicon = #{headicon},
+			</if>
+			<if test="total != null">
+				total = #{total},
+			</if>
+			<if test="score != null">
+				score = #{score},
+			</if>
+			<if test="level != null">
+				level = #{level},
 			</if>
 			<if test="identity != null">
 				identity = #{identity},
@@ -176,15 +194,6 @@
 			<if test="age != null">
 				age = #{age},
 			</if>
-			<if test="qq != null">
-				qq = #{qq},
-			</if>
-			<if test="wechat != null">
-				wechat = #{wechat},
-			</if>
-			<if test="alipay != null">
-				alipay = #{alipay},
-			</if>
 			<if test="createTime != null">
 				create_time = #{createTime},
 			</if>
@@ -194,28 +203,28 @@
 			<if test="isActive != null">
 				is_active = #{isActive},
 			</if>
-			
-        </set>
-        where id = #{id}
-    </update>
 
-    <update id="updateActiveStatus" parameterType="top.zywork.query.StatusQuery">
-        update t_user set is_active = #{status} where id = #{id}
-    </update>
+		</set>
+		where id = #{id}
+	</update>
 
-    <update id="updateActiveStatuses" parameterType="top.zywork.query.StatusQueries">
-        update t_user set is_active = #{status} where id in
-        <foreach item="id" collection="ids" separator="," open="(" close=")">
-            #{id}
-        </foreach>
-    </update>
+	<update id="updateActiveStatus" parameterType="top.zywork.query.StatusQuery">
+		update t_user set is_active = #{status} where id = #{id}
+	</update>
 
-    <sql id="select_columns">
-        id as id, email as email, phone as phone, account_name as accountName, password as password, salt as salt, nickname as nickname, headicon as headicon, identity as identity, real_name as realName, gender as gender, birthday as birthday, age as age, qq as qq, wechat as wechat, alipay as alipay, create_time as createTime, update_time as updateTime, is_active as isActive
-    </sql>
+	<update id="updateActiveStatuses" parameterType="top.zywork.query.StatusQueries">
+		update t_user set is_active = #{status} where id in
+		<foreach item="id" collection="ids" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</update>
 
-    <sql id="query_where_clause">
-        <if test="query != null and query.id != null">
+	<sql id="select_columns">
+		id as id, email as email, phone as phone, account_name as accountName, password as password, pay_password as payPassword, salt as salt, nickname as nickname, headicon as headicon, total as total, score as score, level as level, identity as identity, real_name as realName, gender as gender, birthday as birthday, age as age, create_time as createTime, update_time as updateTime, is_active as isActive
+	</sql>
+
+	<sql id="query_where_clause">
+		<if test="query != null and query.id != null">
 			id = #{query.id}
 		</if>
 		<if test="query != null and query.email != null and query.email != ''">
@@ -230,6 +239,9 @@
 		<if test="query != null and query.password != null and query.password != ''">
 			and password like concat('%', #{query.password}, '%')
 		</if>
+		<if test="query != null and query.payPassword != null and query.payPassword != ''">
+			and pay_password like concat('%', #{query.payPassword}, '%')
+		</if>
 		<if test="query != null and query.salt != null and query.salt != ''">
 			and salt like concat('%', #{query.salt}, '%')
 		</if>
@@ -238,6 +250,15 @@
 		</if>
 		<if test="query != null and query.headicon != null and query.headicon != ''">
 			and headicon like concat('%', #{query.headicon}, '%')
+		</if>
+		<if test="query != null and query.total != null">
+			and total = #{query.total}
+		</if>
+		<if test="query != null and query.score != null">
+			and score = #{query.score}
+		</if>
+		<if test="query != null and query.level != null and query.level != ''">
+			and level like concat('%', #{query.level}, '%')
 		</if>
 		<if test="query != null and query.identity != null and query.identity != ''">
 			and identity like concat('%', #{query.identity}, '%')
@@ -260,15 +281,6 @@
 		<if test="query != null and query.age != null">
 			and age = #{query.age}
 		</if>
-		<if test="query != null and query.qq != null and query.qq != ''">
-			and qq like concat('%', #{query.qq}, '%')
-		</if>
-		<if test="query != null and query.wechat != null and query.wechat != ''">
-			and wechat like concat('%', #{query.wechat}, '%')
-		</if>
-		<if test="query != null and query.alipay != null and query.alipay != ''">
-			and alipay like concat('%', #{query.alipay}, '%')
-		</if>
 		<if test="query != null and query.createTimeStart != null and query.createTimeEnd == null">
 			and create_time <![CDATA[ >= ]]> #{query.createTimeStart}
 		</if>
@@ -290,63 +302,63 @@
 		<if test="query != null and query.isActive != null">
 			and is_active = #{query.isActive}
 		</if>
-		
-    </sql>
 
-    <select id="getById" parameterType="long" resultType="userDO">
-        select
-        <include refid="select_columns"/>
-        from t_user where id = #{id}
-    </select>
+	</sql>
 
-    <select id="listAll" resultType="userDO">
-        select
-        <include refid="select_columns"/>
-        from t_user
-        order by update_time desc, create_time desc
-    </select>
+	<select id="getById" parameterType="long" resultType="userDO">
+		select
+		<include refid="select_columns"/>
+		from t_user where id = #{id}
+	</select>
 
-    <select id="listPage" parameterType="top.zywork.query.PageQuery" resultType="userDO">
-        select
-        <include refid="select_columns"/>
-        from t_user
-        order by
-        <if test="sort != null and sort != ''">
-            ${sort} ${order}
-        </if>
-        <if test="sort == null or sort == ''">
-            update_time desc, create_time desc
-        </if>
-        limit #{beginIndex}, #{pageSize}
-    </select>
+	<select id="listAll" resultType="userDO">
+		select
+		<include refid="select_columns"/>
+		from t_user
+		order by update_time desc, create_time desc
+	</select>
 
-    <select id="count" resultType="long">
-        select count(*) from t_user
-    </select>
+	<select id="listPage" parameterType="top.zywork.query.PageQuery" resultType="userDO">
+		select
+		<include refid="select_columns"/>
+		from t_user
+		order by
+		<if test="sort != null and sort != ''">
+			${sort} ${order}
+		</if>
+		<if test="sort == null or sort == ''">
+			update_time desc, create_time desc
+		</if>
+		limit #{beginIndex}, #{pageSize}
+	</select>
 
-    <select id="listPageByCondition" resultType="userDO">
-        select
-        <include refid="select_columns"/>
-        from t_user
-        <where>
-            <include refid="query_where_clause"/>
-        </where>
-        order by
-        <if test="pager.sort != null and pager.sort != ''">
-            ${pager.sort} ${pager.order}
-        </if>
-        <if test="pager.sort == null or pager.sort == ''">
-            update_time desc, create_time desc
-        </if>
-        limit #{pager.beginIndex}, #{pager.pageSize}
-    </select>
+	<select id="count" resultType="long">
+		select count(*) from t_user
+	</select>
 
-    <select id="countByCondition" resultType="long">
-        select count(*) from t_user
-        <where>
-            <include refid="query_where_clause"/>
-        </where>
-    </select>
+	<select id="listPageByCondition" resultType="userDO">
+		select
+		<include refid="select_columns"/>
+		from t_user
+		<where>
+			<include refid="query_where_clause"/>
+		</where>
+		order by
+		<if test="pager.sort != null and pager.sort != ''">
+			${pager.sort} ${pager.order}
+		</if>
+		<if test="pager.sort == null or pager.sort == ''">
+			update_time desc, create_time desc
+		</if>
+		limit #{pager.beginIndex}, #{pager.pageSize}
+	</select>
+
+	<select id="countByCondition" resultType="long">
+		select count(*) from t_user
+		<where>
+			<include refid="query_where_clause"/>
+		</where>
+	</select>
 
 	<select id="getByAccountPassword" resultType="userDO">
 		select

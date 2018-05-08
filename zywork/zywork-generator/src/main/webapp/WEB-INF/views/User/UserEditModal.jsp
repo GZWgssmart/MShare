@@ -28,9 +28,16 @@
 </div>
 
 <div class="form-group">
-    <label for="password" class="col-sm-2 control-label">密码：</label>
+    <label for="password" class="col-sm-2 control-label">登录密码：</label>
     <div class="col-sm-10">
-        <input id="password" name="password" class="form-control" placeholder="请输入密码"/>
+        <input id="password" name="password" class="form-control" placeholder="请输入登录密码"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="payPassword" class="col-sm-2 control-label">支付密码：</label>
+    <div class="col-sm-10">
+        <input id="payPassword" name="payPassword" class="form-control" placeholder="请输入支付密码"/>
     </div>
 </div>
 
@@ -52,6 +59,27 @@
     <label for="headicon" class="col-sm-2 control-label">头像地址：</label>
     <div class="col-sm-10">
         <input id="headicon" name="headicon" class="form-control" placeholder="请输入头像地址"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="total" class="col-sm-2 control-label">余额：</label>
+    <div class="col-sm-10">
+        <input id="total" name="total" class="form-control" placeholder="请输入余额"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="score" class="col-sm-2 control-label">积分：</label>
+    <div class="col-sm-10">
+        <input id="score" name="score" class="form-control" placeholder="请输入积分"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="level" class="col-sm-2 control-label">信用等级：</label>
+    <div class="col-sm-10">
+        <input id="level" name="level" class="form-control" placeholder="请输入信用等级"/>
     </div>
 </div>
 
@@ -89,27 +117,6 @@
     <label for="age" class="col-sm-2 control-label">年龄：</label>
     <div class="col-sm-10">
         <input id="age" name="age" class="form-control" placeholder="请输入年龄"/>
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="qq" class="col-sm-2 control-label">QQ号：</label>
-    <div class="col-sm-10">
-        <input id="qq" name="qq" class="form-control" placeholder="请输入QQ号"/>
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="wechat" class="col-sm-2 control-label">微信号：</label>
-    <div class="col-sm-10">
-        <input id="wechat" name="wechat" class="form-control" placeholder="请输入微信号"/>
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="alipay" class="col-sm-2 control-label">支付宝账号：</label>
-    <div class="col-sm-10">
-        <input id="alipay" name="alipay" class="form-control" placeholder="请输入支付宝账号"/>
     </div>
 </div>
 

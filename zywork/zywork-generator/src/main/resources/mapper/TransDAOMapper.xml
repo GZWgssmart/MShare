@@ -1,0 +1,201 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.TransDAO">
+
+    <insert id="save" parameterType="transDO">
+        insert into t_trans
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="transFrom != null">
+				trans_from,
+			</if>
+			<if test="transTo != null">
+				trans_to,
+			</if>
+			<if test="total != null">
+				total,
+			</if>
+			<if test="transTime != null">
+				trans_time,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="transFrom != null">
+				#{transFrom},
+			</if>
+			<if test="transTo != null">
+				#{transTo},
+			</if>
+			<if test="total != null">
+				#{total},
+			</if>
+			<if test="transTime != null">
+				#{transTime},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			
+        </trim>
+    </insert>
+
+    <delete id="remove" parameterType="transDO">
+        delete from t_trans where id = #{id}
+    </delete>
+
+    <delete id="removeById" parameterType="long">
+        delete from t_trans where id = #{id}
+    </delete>
+
+    <delete id="removeByIds">
+        delete from t_trans where id in
+        <foreach item="id" collection="array" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="transDO">
+        update t_trans
+        <set>
+            <if test="transFrom != null">
+				trans_from = #{transFrom},
+			</if>
+			<if test="transTo != null">
+				trans_to = #{transTo},
+			</if>
+			<if test="total != null">
+				total = #{total},
+			</if>
+			<if test="transTime != null">
+				trans_time = #{transTime},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+			
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateActiveStatus" parameterType="top.zywork.query.StatusQuery">
+        update t_trans set is_active = #{status} where id = #{id}
+    </update>
+
+    <update id="updateActiveStatuses" parameterType="top.zywork.query.StatusQueries">
+        update t_trans set is_active = #{status} where id in
+        <foreach item="id" collection="ids" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <sql id="select_columns">
+        id as id, trans_from as transFrom, trans_to as transTo, total as total, trans_time as transTime, create_time as createTime, update_time as updateTime
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.id != null">
+			id = #{query.id}
+		</if>
+		<if test="query != null and query.transFrom != null">
+			and trans_from = #{query.transFrom}
+		</if>
+		<if test="query != null and query.transTo != null">
+			and trans_to = #{query.transTo}
+		</if>
+		<if test="query != null and query.total != null">
+			and total = #{query.total}
+		</if>
+		<if test="query != null and query.transTimeStart != null and query.transTimeEnd == null">
+			and trans_time <![CDATA[ >= ]]> #{query.transTimeStart}
+		</if>
+		<if test="query != null and query.transTimeStart == null and query.transTimeEnd != null">
+			and trans_time <![CDATA[ <= ]]> #{query.transTimeEnd}
+		</if>
+		<if test="query != null and query.transTimeStart != null and query.transTimeEnd != null">
+			and trans_time <![CDATA[ >= ]]> #{query.transTimeStart} and trans_time <![CDATA[ <= ]]> #{query.transTimeEnd}
+		</if>
+		<if test="query != null and query.createTimeStart != null and query.createTimeEnd == null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeStart}
+		</if>
+		<if test="query != null and query.createTimeStart == null and query.createTimeEnd != null">
+			and create_time <![CDATA[ <= ]]> #{query.createTimeEnd}
+		</if>
+		<if test="query != null and query.createTimeStart != null and query.createTimeEnd != null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeStart} and create_time <![CDATA[ <= ]]> #{query.createTimeEnd}
+		</if>
+		<if test="query != null and query.updateTime != null and query.updateTime != ''">
+			and update_time like concat('%', #{query.updateTime}, '%')
+		</if>
+		
+    </sql>
+
+    <select id="getById" parameterType="long" resultType="transDO">
+        select
+        <include refid="select_columns"/>
+        from t_trans where id = #{id}
+    </select>
+
+    <select id="listAll" resultType="transDO">
+        select
+        <include refid="select_columns"/>
+        from t_trans
+        order by update_time desc, create_time desc
+    </select>
+
+    <select id="listPage" parameterType="top.zywork.query.PageQuery" resultType="transDO">
+        select
+        <include refid="select_columns"/>
+        from t_trans
+        order by
+        <if test="sort != null and sort != ''">
+            ${sort} ${order}
+        </if>
+        <if test="sort == null or sort == ''">
+            update_time desc, create_time desc
+        </if>
+        limit #{beginIndex}, #{pageSize}
+    </select>
+
+    <select id="count" resultType="long">
+        select count(*) from t_trans
+    </select>
+
+    <select id="listPageByCondition" resultType="transDO">
+        select
+        <include refid="select_columns"/>
+        from t_trans
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="pager.sort != null and pager.sort != ''">
+            ${pager.sort} ${pager.order}
+        </if>
+        <if test="pager.sort == null or pager.sort == ''">
+            update_time desc, create_time desc
+        </if>
+        limit #{pager.beginIndex}, #{pager.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_trans
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>
