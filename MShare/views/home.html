@@ -209,8 +209,8 @@
 							plus.navigator.setCookie(BASE_URL, 'JSESSIONID=' + data.sessionId);
 							pageView.userInfo.uid = plus.storage.getItem('uid');
 							pageView.userInfo.nickname = plus.storage.getItem('nickname');
-							pageView.userInfo.totalMoney = plus.storage.getItem('total') + '';
-							pageView.userInfo.totalScore = plus.storage.getItem('score') + '';
+							pageView.userInfo.totalMoney = plus.storage.getItem('total');
+							pageView.userInfo.totalScore = plus.storage.getItem('score');
 							var headicon = plus.storage.getItem('headicon');
 							if(headicon.indexOf('/storage') != -1) {
 								pageView.userInfo.headicon = headicon;
