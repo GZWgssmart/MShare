@@ -27,6 +27,27 @@
     </div>
 </div>
 
+<div class="form-group">
+    <label for="sliderImg1" class="col-sm-2 control-label">轮播图1：</label>
+    <div class="col-sm-10">
+        <input id="sliderImg1" name="sliderImg1" class="form-control" placeholder="请输入轮播图1"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="sliderImg2" class="col-sm-2 control-label">轮播图2：</label>
+    <div class="col-sm-10">
+        <input id="sliderImg2" name="sliderImg2" class="form-control" placeholder="请输入轮播图2"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="sliderImg3" class="col-sm-2 control-label">轮播图3：</label>
+    <div class="col-sm-10">
+        <input id="sliderImg3" name="sliderImg3" class="form-control" placeholder="请输入轮播图3"/>
+    </div>
+</div>
+
 
     </form>
 </div>

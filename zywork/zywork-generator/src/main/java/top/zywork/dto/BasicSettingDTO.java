@@ -5,14 +5,14 @@ import java.util.Date;
 /**
  * BasicSettingDTO数据传输对象类<br/>
  *
- * 创建于2018-05-07<br/>
+ * 创建于2018-05-08<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class BasicSettingDTO extends BaseDTO {
 
-    private static final long serialVersionUID = -9223372035157363586L;
+    private static final long serialVersionUID = -9223372036357632256L;
 
     /**
 	 * 编号
@@ -31,6 +31,18 @@ public class BasicSettingDTO extends BaseDTO {
 	 */
 	private Double scorePercent;
 	/**
+	 * 轮播图1
+	 */
+	private String sliderImg1;
+	/**
+	 * 轮播图2
+	 */
+	private String sliderImg2;
+	/**
+	 * 轮播图3
+	 */
+	private String sliderImg3;
+	/**
 	 * 创建时间
 	 */
 	private Date createTime;
@@ -39,13 +51,16 @@ public class BasicSettingDTO extends BaseDTO {
 	 */
 	private Date updateTime;
 	
-    public BasicSettingDTO () {}
+    public BasicSettingDTO() {}
 
-    public BasicSettingDTO (Long id, Double feePercent, Double moneyPercent, Double scorePercent, Date createTime, Date updateTime) {
+    public BasicSettingDTO(Long id, Double feePercent, Double moneyPercent, Double scorePercent, String sliderImg1, String sliderImg2, String sliderImg3, Date createTime, Date updateTime) {
         this.id = id;
 		this.feePercent = feePercent;
 		this.moneyPercent = moneyPercent;
 		this.scorePercent = scorePercent;
+		this.sliderImg1 = sliderImg1;
+		this.sliderImg2 = sliderImg2;
+		this.sliderImg3 = sliderImg3;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		
@@ -83,6 +98,30 @@ public class BasicSettingDTO extends BaseDTO {
 		this.scorePercent = scorePercent;
 	}
 
+	public String getSliderImg1() {
+		return sliderImg1;
+	}
+
+	public void setSliderImg1(String sliderImg1) {
+		this.sliderImg1 = sliderImg1;
+	}
+
+	public String getSliderImg2() {
+		return sliderImg2;
+	}
+
+	public void setSliderImg2(String sliderImg2) {
+		this.sliderImg2 = sliderImg2;
+	}
+
+	public String getSliderImg3() {
+		return sliderImg3;
+	}
+
+	public void setSliderImg3(String sliderImg3) {
+		this.sliderImg3 = sliderImg3;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -107,6 +146,9 @@ public class BasicSettingDTO extends BaseDTO {
 				", feePercent = " + feePercent + 
 				", moneyPercent = " + moneyPercent + 
 				", scorePercent = " + scorePercent + 
+				", sliderImg1 = " + sliderImg1 + 
+				", sliderImg2 = " + sliderImg2 + 
+				", sliderImg3 = " + sliderImg3 + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
 				"}";

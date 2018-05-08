@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
--- Host: localhost    Database: zywork
+-- Host: localhost    Database: mshare
 -- ------------------------------------------------------
 -- Server version	5.7.20
 
@@ -8,12 +8,85 @@
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `t_bank_card`
+--
+
+DROP TABLE IF EXISTS `t_bank_card`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_bank_card` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `bank_name` varchar(45) NOT NULL COMMENT '银行',
+  `card_no` varchar(45) NOT NULL COMMENT '银行卡号',
+  `real_name` varchar(45) NOT NULL COMMENT '真实姓名',
+  `phone` varchar(11) NOT NULL COMMENT '手机号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_bank_card`
+--
+
+
+--
+-- Table structure for table `t_basic_setting`
+--
+
+DROP TABLE IF EXISTS `t_basic_setting`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_basic_setting` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `fee_percent` double NOT NULL COMMENT '手续费比例',
+  `money_percent` double NOT NULL COMMENT '金额转换比例',
+  `score_percent` double NOT NULL COMMENT '积分转换比例',
+  `slider_img1` varchar(500) DEFAULT NULL COMMENT '轮播图1',
+  `slider_img2` varchar(500) DEFAULT NULL COMMENT '轮播图2',
+  `slider_img3` varchar(500) DEFAULT NULL COMMENT '轮播图3',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_basic_setting`
+--
+
+
+--
+-- Table structure for table `t_level_setting`
+--
+
+DROP TABLE IF EXISTS `t_level_setting`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_level_setting` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(45) NOT NULL COMMENT '等级名称',
+  `min_money` bigint(20) NOT NULL COMMENT '最小金额',
+  `max_money` bigint(20) NOT NULL COMMENT '最大金额',
+  `trans_percent` double NOT NULL COMMENT '转换比例',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_level_setting`
+--
+
 
 --
 -- Table structure for table `t_module`
@@ -37,10 +110,35 @@ CREATE TABLE `t_module` (
 -- Dumping data for table `t_module`
 --
 
-LOCK TABLES `t_module` WRITE;
-/*!40000 ALTER TABLE `t_module` DISABLE KEYS */;
-/*!40000 ALTER TABLE `t_module` ENABLE KEYS */;
-UNLOCK TABLES;
+
+--
+-- Table structure for table `t_order`
+--
+
+DROP TABLE IF EXISTS `t_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `order_no` varchar(100) NOT NULL COMMENT '订单编号',
+  `total` bigint(20) NOT NULL COMMENT '订单总额',
+  `type` int(11) DEFAULT NULL COMMENT '订单类型',
+  `sell_id` bigint(20) DEFAULT NULL COMMENT '卖出人编号',
+  `buy_id` bigint(20) DEFAULT NULL COMMENT '买入人编号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `status` int(11) DEFAULT NULL COMMENT '订单状态',
+  `sell_confirm_time` datetime DEFAULT NULL COMMENT '卖出确认时间',
+  `buy_confirm_time` datetime DEFAULT NULL COMMENT '买入确认时间',
+  `deal_time` datetime DEFAULT NULL COMMENT '成交时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_order`
+--
+
 
 --
 -- Table structure for table `t_permission`
@@ -68,10 +166,6 @@ CREATE TABLE `t_permission` (
 -- Dumping data for table `t_permission`
 --
 
-LOCK TABLES `t_permission` WRITE;
-/*!40000 ALTER TABLE `t_permission` DISABLE KEYS */;
-/*!40000 ALTER TABLE `t_permission` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `t_role`
@@ -95,10 +189,6 @@ CREATE TABLE `t_role` (
 -- Dumping data for table `t_role`
 --
 
-LOCK TABLES `t_role` WRITE;
-/*!40000 ALTER TABLE `t_role` DISABLE KEYS */;
-/*!40000 ALTER TABLE `t_role` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `t_role_permission`
@@ -125,10 +215,30 @@ CREATE TABLE `t_role_permission` (
 -- Dumping data for table `t_role_permission`
 --
 
-LOCK TABLES `t_role_permission` WRITE;
-/*!40000 ALTER TABLE `t_role_permission` DISABLE KEYS */;
-/*!40000 ALTER TABLE `t_role_permission` ENABLE KEYS */;
-UNLOCK TABLES;
+
+--
+-- Table structure for table `t_trans`
+--
+
+DROP TABLE IF EXISTS `t_trans`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_trans` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `trans_from` bigint(20) NOT NULL COMMENT '转出人编号',
+  `trans_to` bigint(20) NOT NULL COMMENT '转入人编号',
+  `total` bigint(20) NOT NULL COMMENT '金额',
+  `trans_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '转入时间',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` varchar(45) DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_trans`
+--
+
 
 --
 -- Table structure for table `t_user`
@@ -143,13 +253,13 @@ CREATE TABLE `t_user` (
   `phone` varchar(11) DEFAULT NULL COMMENT '手机号',
   `account_name` varchar(20) DEFAULT NULL COMMENT '账户名',
   `password` varchar(50) NOT NULL COMMENT '登录密码',
-  `pay_password` VARCHAR(50) DEFAULT NULL COMMENT '支付密码',
+  `pay_password` varchar(50) DEFAULT NULL COMMENT '支付密码',
   `salt` varchar(200) DEFAULT NULL COMMENT '加密盐值',
   `nickname` varchar(20) DEFAULT NULL COMMENT '昵称',
   `headicon` varchar(500) DEFAULT NULL COMMENT '头像地址',
-  `total` BIGINT DEFAULT NULL comment '余额',
-  `score` BIGINT DEFAULT NULL comment '积分',
-  `level` CHAR(1) DEFAULT NULL COMMENT '信用等级',
+  `total` bigint(20) DEFAULT NULL COMMENT '余额',
+  `score` bigint(20) DEFAULT NULL COMMENT '积分',
+  `level` char(1) DEFAULT NULL COMMENT '信用等级',
   `identity` varchar(18) DEFAULT NULL COMMENT '身份证号',
   `real_name` varchar(10) DEFAULT NULL COMMENT '真实姓名',
   `gender` tinyint(4) DEFAULT '0' COMMENT '性别',
@@ -159,20 +269,16 @@ CREATE TABLE `t_user` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 ALTER TABLE `t_user` AUTO_INCREMENT = 100000;
 
-  --
+--
 -- Dumping data for table `t_user`
 --
 
-LOCK TABLES `t_user` WRITE;
-/*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
-INSERT INTO `t_user` VALUES (1,NULL,'13672297775',NULL,'4QrcOUm6Wau+VuBX8g+IPg==','','Wgssmart','','','王',0,NULL,10,NULL,NULL,NULL,NULL,'2017-12-11 19:13:08',NULL,0);
-/*!40000 ALTER TABLE `t_user` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `t_user` VALUES (100000,NULL,'13672297775',NULL,'wzNncBURtPYCDsYd7TUgWQ==','cz174hlv9w769pE/yL3Kvw==','','Wgssmart','static/uploads/aef594de-389e-4498-954f-1ecbde7c74e6.png',0,0,'A','10',NULL,NULL,NULL,NULL,'2017-12-11 19:13:08',NULL,0);
 
 --
 -- Table structure for table `t_user_role`
@@ -199,12 +305,6 @@ CREATE TABLE `t_user_role` (
 -- Dumping data for table `t_user_role`
 --
 
-LOCK TABLES `t_user_role` WRITE;
-/*!40000 ALTER TABLE `t_user_role` DISABLE KEYS */;
-/*!40000 ALTER TABLE `t_user_role` ENABLE KEYS */;
-UNLOCK TABLES;
-
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -214,4 +314,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-17  9:58:01
+-- Dump completed on 2018-05-08 15:50:00

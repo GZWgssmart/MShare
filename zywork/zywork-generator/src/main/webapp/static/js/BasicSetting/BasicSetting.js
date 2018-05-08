@@ -70,6 +70,24 @@ function loadTable() {
 	sortable: true
 },
 {
+	title: '轮播图1',
+	field: 'sliderImg1',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '轮播图2',
+	field: 'sliderImg2',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '轮播图3',
+	field: 'sliderImg3',
+	align: 'center',
+	sortable: true
+},
+{
 	title: '创建时间',
 	field: 'createTime',
 	align: 'center',
@@ -116,7 +134,7 @@ function formatOperators(value, row, index) {
     return strArray.join('');
 }
 
-let fieldTitles = {'id':'编号','feePercent':'手续费比例','moneyPercent':'金额转换比例','scorePercent':'积分转换比例','createTime-date':'创建时间','updateTime-date':'更新时间'};
+let fieldTitles = {'id':'编号','feePercent':'手续费比例','moneyPercent':'金额转换比例','scorePercent':'积分转换比例','sliderImg1':'轮播图1','sliderImg2':'轮播图2','sliderImg3':'轮播图3','createTime-date':'创建时间','updateTime-date':'更新时间'};
 
 window.operateEvents = {
     'click .to-detail': function (e, value, row, index) {
@@ -188,6 +206,36 @@ scorePercent: {
 	validators: {
 		notEmpty: {
 			message: '积分转换比例是必须项'
+		}
+	}
+},
+sliderImg1: {
+	validators: {
+
+		stringLength: {
+			min: 0,
+			max: 500,
+			message: '必须小于500个字符'
+		}
+	}
+},
+sliderImg2: {
+	validators: {
+
+		stringLength: {
+			min: 0,
+			max: 500,
+			message: '必须小于500个字符'
+		}
+	}
+},
+sliderImg3: {
+	validators: {
+
+		stringLength: {
+			min: 0,
+			max: 500,
+			message: '必须小于500个字符'
 		}
 	}
 }  

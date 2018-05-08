@@ -21,6 +21,8 @@ public class LoginStatusVO extends ControllerStatusVO {
     private String headicon;
     private String level;
     private String nickname;
+    private Long total;
+    private Long score;
 
 
     public String getSessionId() {
@@ -69,5 +71,21 @@ public class LoginStatusVO extends ControllerStatusVO {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
+    }
+
+    public Long getScore() {
+        return score;
+    }
+
+    public void setScore(Long score) {
+        this.score = score;
     }
 }

@@ -61,6 +61,24 @@ function basicSettingSearchTable() {
 	sortable: true
 },
 {
+	title: '轮播图1',
+	field: 'sliderImg1',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '轮播图2',
+	field: 'sliderImg2',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '轮播图3',
+	field: 'sliderImg3',
+	align: 'center',
+	sortable: true
+},
+{
 	title: '创建时间',
 	field: 'createTime',
 	align: 'center',

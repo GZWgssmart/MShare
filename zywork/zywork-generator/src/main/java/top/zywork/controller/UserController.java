@@ -306,6 +306,8 @@ public class UserController extends BaseController {
             statusVO.setHeadicon(userDTO.getHeadicon());
             statusVO.setNickname(userDTO.getNickname());
             statusVO.setLevel(userDTO.getLevel());
+            statusVO.setTotal(userDTO.getTotal());
+            statusVO.setScore(userDTO.getScore());
         } catch (AuthenticationException e) {
             logger.error(e.getMessage());
             statusVO.dataErrorStatus(UserControllerStatusEnum.USER_LOGIN_DATA_ERROR.getCode(),

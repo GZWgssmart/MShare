@@ -26,6 +26,21 @@
 </div>
 
 <div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">轮播图1：</span>
+    <span class="col-sm-8" id=sliderImg1Detail></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">轮播图2：</span>
+    <span class="col-sm-8" id=sliderImg2Detail></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">轮播图3：</span>
+    <span class="col-sm-8" id=sliderImg3Detail></span>
+</div>
+
+<div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">创建时间：</span>
     <span class="col-sm-8" id=createTimeDetail></span>
 </div>

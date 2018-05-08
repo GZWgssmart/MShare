@@ -16,6 +16,15 @@
 			<if test="scorePercent != null">
 				score_percent,
 			</if>
+			<if test="sliderImg1 != null">
+				slider_img1,
+			</if>
+			<if test="sliderImg2 != null">
+				slider_img2,
+			</if>
+			<if test="sliderImg3 != null">
+				slider_img3,
+			</if>
 			<if test="createTime != null">
 				create_time,
 			</if>
@@ -33,6 +42,15 @@
 			</if>
 			<if test="scorePercent != null">
 				#{scorePercent},
+			</if>
+			<if test="sliderImg1 != null">
+				#{sliderImg1},
+			</if>
+			<if test="sliderImg2 != null">
+				#{sliderImg2},
+			</if>
+			<if test="sliderImg3 != null">
+				#{sliderImg3},
 			</if>
 			<if test="createTime != null">
 				#{createTime},
@@ -71,6 +89,15 @@
 			<if test="scorePercent != null">
 				score_percent = #{scorePercent},
 			</if>
+			<if test="sliderImg1 != null">
+				slider_img1 = #{sliderImg1},
+			</if>
+			<if test="sliderImg2 != null">
+				slider_img2 = #{sliderImg2},
+			</if>
+			<if test="sliderImg3 != null">
+				slider_img3 = #{sliderImg3},
+			</if>
 			<if test="createTime != null">
 				create_time = #{createTime},
 			</if>
@@ -94,7 +121,7 @@
     </update>
 
     <sql id="select_columns">
-        id as id, fee_percent as feePercent, money_percent as moneyPercent, score_percent as scorePercent, create_time as createTime, update_time as updateTime
+        id as id, fee_percent as feePercent, money_percent as moneyPercent, score_percent as scorePercent, slider_img1 as sliderImg1, slider_img2 as sliderImg2, slider_img3 as sliderImg3, create_time as createTime, update_time as updateTime
     </sql>
 
     <sql id="query_where_clause">
@@ -109,6 +136,15 @@
 		</if>
 		<if test="query != null and query.scorePercent != null">
 			and score_percent = #{query.scorePercent}
+		</if>
+		<if test="query != null and query.sliderImg1 != null and query.sliderImg1 != ''">
+			and slider_img1 like concat('%', #{query.sliderImg1}, '%')
+		</if>
+		<if test="query != null and query.sliderImg2 != null and query.sliderImg2 != ''">
+			and slider_img2 like concat('%', #{query.sliderImg2}, '%')
+		</if>
+		<if test="query != null and query.sliderImg3 != null and query.sliderImg3 != ''">
+			and slider_img3 like concat('%', #{query.sliderImg3}, '%')
 		</if>
 		<if test="query != null and query.createTimeStart != null and query.createTimeEnd == null">
 			and create_time <![CDATA[ >= ]]> #{query.createTimeStart}

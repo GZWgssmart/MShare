@@ -45,15 +45,47 @@
                 <li>
                     <a href="#">
                         <i class="fa fa-home"></i>
-                        <span class="nav-label">基础配置</span>
+                        <span class="nav-label">用户管理</span>
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/generator/setting/jdbc-page" data-index="0">JDBC配置</a>
+                            <a class="J_menuItem" href="<%=path%>/user/page" data-index="0">用户管理</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/generator/setting/generator-page" data-index="0">Generator配置</a>
+                            <a class="J_menuItem" href="<%=path%>/level-setting/page" data-index="0">等级配置</a>
+                        </li>
+                    </ul>
+
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-home"></i>
+                        <span class="nav-label">交易管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/trans/page" data-index="0">转入转出</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/order/page" data-index="0">买入卖出</a>
+                        </li>
+                    </ul>
+
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-home"></i>
+                        <span class="nav-label">系统管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/basic-setting/page" data-index="0">基础配置</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/level-setting/page" data-index="0">等级配置</a>
                         </li>
                     </ul>
 
