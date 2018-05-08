@@ -96,6 +96,8 @@
 							plus.storage.setItem('nickname', data.nickname);
 							plus.storage.setItem('headicon', data.headicon);
 							plus.storage.setItem('level', data.level);
+							plus.storage.setItem('total', data.total + '');
+							plus.storage.setItem('score', data.score + '');
 							plus.navigator.setCookie(BASE_URL, 'JSESSIONID=' + data.sessionId);
 							toHomePage();
 						} else if(data.status === 'data-error') {

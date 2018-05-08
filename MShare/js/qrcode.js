@@ -58,7 +58,8 @@ function onmarked(type, result) {
 	if (result) {
 		result = result.replace(/\n/g, '');
 		mui.openWindow({
-			url: 'qrcode_result.html',
+			id: 'transout',
+			url: '../transout/transout.html',
 			extras: {
 				qrcode_result: result
 			},

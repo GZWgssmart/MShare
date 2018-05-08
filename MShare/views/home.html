@@ -114,7 +114,12 @@
 			var mounted = function() {
 				mui.plusReady(function() {
 					mui.init({
-						preloadPages: []
+						preloadPages: [
+						{
+							id: 'qrcode_scan',
+							url: 'qrcode/qrcode_scan.html'
+						}
+						]
 					});
 
 					var adsGallery = mui('#adsGallery');
@@ -204,6 +209,8 @@
 							plus.navigator.setCookie(BASE_URL, 'JSESSIONID=' + data.sessionId);
 							pageView.userInfo.uid = plus.storage.getItem('uid');
 							pageView.userInfo.nickname = plus.storage.getItem('nickname');
+							pageView.userInfo.totalMoney = plus.storage.getItem('total') + '';
+							pageView.userInfo.totalScore = plus.storage.getItem('score') + '';
 							var headicon = plus.storage.getItem('headicon');
 							if(headicon.indexOf('/storage') != -1) {
 								pageView.userInfo.headicon = headicon;
@@ -214,6 +221,8 @@
 						} else {
 							pageView.userInfo.uid = plus.storage.getItem('uid');
 							pageView.userInfo.nickname = plus.storage.getItem('nickname');
+							pageView.userInfo.totalMoney = plus.storage.getItem('total');
+							pageView.userInfo.totalScore = plus.storage.getItem('score');
 							var headicon = plus.storage.getItem('headicon');
 							if(headicon.indexOf('/storage') != -1) {
 								pageView.userInfo.headicon = headicon;

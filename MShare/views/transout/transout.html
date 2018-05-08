@@ -10,7 +10,7 @@
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link href="../../css/main.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../../iconfont/iconfont.css" />
-		
+
 		<style>
 			.mui-radio label {
 				color: #0062CC;
@@ -24,11 +24,11 @@
 			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
 			<h1 class="mui-title">转出</h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="content">
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label>对方账户</label>
-					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入对方手机号">
+					<input type="text" class="mui-input-clear mui-input" placeholder="请输入对方UID" v-model="transForm.uid">
 				</div>
 				<p>您的余额：200</p>
 				<div class="mui-input-row">
@@ -61,34 +61,47 @@
 
 		</div>
 
-	</div>
+		</div>
 		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/vue.min.js" ></script>
 		<script type="text/javascript">
-			mui.plusReady(function () {
-				mui.init({
-				  preloadPages:[
-				    		{
-					    		id: 'transout_history',
-					      	url: 'transout_history.html'
-				      	}
-				    ]
-				});
-				mui('.mui-scroll-wrapper').scroll();
-				
-				document.getElementById('transin').addEventListener('tap', function (e) {
-					mui('#topPopover').popover('hide');
-					mui.openWindow({
-						id: 'transout_history',
-						show: {
-							aniShow: 'pop-in'
-						},
-						waiting: {
-							autoShow: true
-						}
+			var mounted = function() {
+				mui.plusReady(function() {
+					mui.init({
+						preloadPages: []
+					});
+					mui('.mui-scroll-wrapper').scroll();
+
+					var self = plus.webview.currentWebview();
+					if(self.qrcode_result) {
+						pageView.transForm.uid = self.qrcode_result;
+					}
+
+					document.getElementById('transin').addEventListener('tap', function(e) {
+						mui('#topPopover').popover('hide');
+						mui.openWindow({
+							id: 'transout_history',
+							url: 'transout_history.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
 					});
 				});
-			});
+			}
 			
+			var pageView = new Vue({
+				el: "#content",
+				data: {
+					transForm: {
+						uid: ''
+					}
+				},
+				mounted: mounted
+			});
 		</script>
 	</body>
 

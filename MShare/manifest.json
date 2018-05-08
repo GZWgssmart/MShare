@@ -392,7 +392,8 @@
 			"views/qrcode/qrcode_scan.html": {
 				"resources": [],
 				"refer": [
-					"views/qrcode/qrcode_result.html"
+					"views/qrcode/qrcode_result.html",
+					"views/transout/transout.html"
 				],
 				"priority": 0
 			},
