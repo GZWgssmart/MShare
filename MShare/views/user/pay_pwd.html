@@ -19,16 +19,16 @@
 				<!--
 				<div class="mui-input-row">
 					<label>原密码</label>
-					<input type="password" class="mui-input-password" placeholder="请输入原密码" v-model="{{form.oPwd}}">
+					<input type="password" class="mui-input-password" placeholder="请输入原密码" v-model="form.oPwd">
 				</div>
 				-->
 				<div class="mui-input-row">
 					<label>新密码</label>
-					<input type="password" class="mui-input-password" placeholder="请输入新密码" v-model="{{form.newPwd}}">
+					<input type="password" class="mui-input-password" placeholder="请输入新密码" v-model="form.newPwd">
 				</div>
 				<div class="mui-input-row">
 					<label>确认密码</label>
-					<input type="password" class="mui-input-password" placeholder="请再次输入新密码" v-model="{{form.confNewPwd}}">
+					<input type="password" class="mui-input-password" placeholder="请再次输入新密码" v-model="form.confNewPwd">
 				</div>
 			</form>
 			<div class="mui-content-padded">
@@ -60,7 +60,7 @@
 					mui.ajax(USER_PAY_PASSWORD_UPDATE, {
 						data: {
 							id: plus.storage.getItem('uid'),
-							password: md5.base64(pageView.form.newPwd)
+							payPassword: md5.base64(pageView.form.newPwd)
 						},
 						dataType: 'json',
 						type: 'post',

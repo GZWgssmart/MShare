@@ -19,16 +19,16 @@
 		    	<!--
 				<div class="mui-input-row">
 					<label>原密码</label>
-					<input type="password" class="mui-input-password" placeholder="请输入原密码" v-model="{{form.oPwd}}">
+					<input type="password" class="mui-input-password" placeholder="请输入原密码" v-model="form.oPwd">
 				</div>
 				-->
 				<div class="mui-input-row">
 					<label>新密码</label>
-					<input type="password" class="mui-input-password" placeholder="请输入新密码" v-model="{{form.newPwd}}">
+					<input type="password" class="mui-input-password" placeholder="请输入新密码" v-model="form.newPwd">
 				</div>
 				<div class="mui-input-row">
 					<label>确认密码</label>
-					<input type="password" class="mui-input-password" placeholder="请再次输入新密码" v-model="{{form.confNewPwd}}">
+					<input type="password" class="mui-input-password" placeholder="请再次输入新密码" v-model="form.confNewPwd">
 				</div>
 			</form>
 			<div class="mui-content-padded">
@@ -41,6 +41,8 @@
 		
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript" src="../../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../../js/api.js" ></script>
+		<script src="../../js/md5.min.js"></script>
 		<script type="text/javascript">
 			var mounted = function() {
 				mui.plusReady(function() {
@@ -60,7 +62,7 @@
 					mui.ajax(USER_LOGIN_PASSWORD_UPDATE, {
 						data: {
 							id: plus.storage.getItem('uid'),
-							payPassword: md5.base64(pageView.form.newPwd)
+							password: md5.base64(pageView.form.newPwd)
 						},
 						dataType: 'json',
 						type: 'post',
@@ -86,7 +88,7 @@
 				data: {
 					form: {
 						oPwd: '',
-						newPwd: 'aaa',
+						newPwd: '',
 						confNewPwd: ''
 					}
 				},
