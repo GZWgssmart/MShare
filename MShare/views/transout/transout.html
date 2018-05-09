@@ -78,7 +78,7 @@
 						pageView.transForm.transTo = self.qrcode_result;
 					}
 					
-					pageView.userInfo.total = plus.storage.getItem('total');
+					pageView.userInfo.total = parseInt(plus.storage.getItem('total'));
 
 					document.getElementById('transin').addEventListener('tap', function(e) {
 						mui('#topPopover').popover('hide');
@@ -95,7 +95,7 @@
 					});
 					
 					document.getElementById('transBtn').addEventListener('tap', function(e) {
-						if (pageView.transForm.money <= 0 && pageView.transForm.money > pageView.userInfo.total) {
+						if (pageView.transForm.money <= 0 || pageView.transForm.money > pageView.userInfo.total) {
 							mui.alert('请输入正确的转出数额，且转出数额不能大于余额', '提示');
 						} else if (pageView.transForm.transTo == null || pageView.transForm.transTo === '') {
 							mui.alert('请输入对方UID', '提示');
@@ -110,6 +110,8 @@
 									type: 'post',
 									success: function(data) {
 										if(data.status === 'ok') {
+											pageView.userInfo.total -= pageView.transForm.money;
+											plus.storage.setItem('total', pageView.userInfo.total + '');
 											mui.alert('转出成功');
 										} else if(data.status === 'data-error') {
 											mui.alert(data.message, '提示');

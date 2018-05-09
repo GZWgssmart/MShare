@@ -8,6 +8,8 @@ const USER_LOGOUT = BASE_URL +'/user/logout';
 
 const USER_REGISTER = BASE_URL + '/user/save';
 
+const USER_INFO = BASE_URL + '/user/one';
+
 const USER_HEADICON_UPDATE = BASE_URL + '/user/update-icon';
 
 const USER_NICKNAME_UPDATE = BASE_URL + '/user/update-user';

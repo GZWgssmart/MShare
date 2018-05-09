@@ -24,6 +24,7 @@
 				</span>
 					</div>
 				</div>
+				<a id="refresh" class="mui-action-menu mui-icon mui-icon-refreshempty mui-pull-right" href="javascript:void(0)"></a>
 			</header>
 
 			<div class="mui-content">
@@ -128,6 +129,23 @@
 					window.addEventListener('update_headicon', function(e) {
 						pageView.userInfo.headicon = e.detail.icon;
 					});
+
+					document.getElementById('refresh').addEventListener('tap', function(e) {
+						mui.ajax(USER_INFO + '/' + plus.storage.getItem('uid'), {
+							data: {},
+							dataType: 'json',
+							type: 'post',
+							success: function(data) {
+								pageView.userInfo.totalMoney = data.total;
+								pageView.userInfo.totalScore = data.score;
+								plus.storage.setItem('total', data.total + '');
+								plus.storage.setItem('score', data.score + '');
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.alert('似乎没有网络了哦……', '提示');
+							}
+						});
+					})
 
 					mui('.menu').on('tap', '.menu-item', function(e) {
 						var id = this.id;
