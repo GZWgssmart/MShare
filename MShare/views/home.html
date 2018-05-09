@@ -190,7 +190,6 @@
 							}
 						});
 					});
-
 					checkLogin();
 				});
 			}
@@ -208,6 +207,22 @@
 				});
 			}
 
+			function setUserInfo() {
+				pageView.userInfo.uid = plus.storage.getItem('uid');
+				pageView.userInfo.nickname = plus.storage.getItem('nickname');
+				pageView.userInfo.totalMoney = plus.storage.getItem('total');
+				pageView.userInfo.totalScore = plus.storage.getItem('score');
+				var headicon = plus.storage.getItem('headicon');
+				if(headicon != null) {
+					if(headicon.indexOf('/storage') != -1) {
+						pageView.userInfo.headicon = headicon;
+					} else {
+						pageView.userInfo.headicon = BASE_URL + '/' + headicon;
+					}
+				}
+				pageView.userInfo.level = plus.storage.getItem('level');
+			}
+
 			function checkLogin() {
 				var token = plus.storage.getItem('token');
 				var sessionId = plus.storage.getItem('sessionId');
@@ -223,33 +238,9 @@
 						} else if(data.code === 10005) {
 							plus.storage.setItem('sessionId', data.sessionId);
 							plus.navigator.setCookie(BASE_URL, 'JSESSIONID=' + data.sessionId);
-							pageView.userInfo.uid = plus.storage.getItem('uid');
-							pageView.userInfo.nickname = plus.storage.getItem('nickname');
-							pageView.userInfo.totalMoney = plus.storage.getItem('total');
-							pageView.userInfo.totalScore = plus.storage.getItem('score');
-							var headicon = plus.storage.getItem('headicon');
-							if(headicon != null) {
-								if(headicon.indexOf('/storage') != -1) {
-									pageView.userInfo.headicon = headicon;
-								} else {
-									pageView.userInfo.headicon = BASE_URL + '/' + headicon;
-								}
-							}
-							pageView.userInfo.level = plus.storage.getItem('level');
+							setUserInfo();
 						} else {
-							pageView.userInfo.uid = plus.storage.getItem('uid');
-							pageView.userInfo.nickname = plus.storage.getItem('nickname');
-							pageView.userInfo.totalMoney = plus.storage.getItem('total');
-							pageView.userInfo.totalScore = plus.storage.getItem('score');
-							var headicon = plus.storage.getItem('headicon');
-							if(headicon != null) {
-								if(headicon.indexOf('/storage') != -1) {
-									pageView.userInfo.headicon = headicon;
-								} else {
-									pageView.userInfo.headicon = BASE_URL + '/' + headicon;
-								}
-							}
-							pageView.userInfo.level = plus.storage.getItem('level');
+							setUserInfo();
 						}
 					}, 'json');
 				} else {
