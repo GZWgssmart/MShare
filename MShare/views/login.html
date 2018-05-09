@@ -46,6 +46,11 @@
 						preloadPages: []
 					});
 
+					window.addEventListener('clearForm', function(e) {
+						pageView.loginForm.phone = '';
+						pageView.loginForm.password = '';
+					})
+
 					document.getElementById('login').addEventListener('tap', function(e) {
 						login();
 					});

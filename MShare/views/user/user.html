@@ -120,6 +120,8 @@
 							type: 'post',
 							success: function(data) {
 								if(data.status === 'ok') {
+									var loginView = plus.webview.getWebviewById('login');
+									mui.fire(loginView, 'clearForm');
 									mui.openWindow({
 										id: 'login',
 										url: '../login.html',

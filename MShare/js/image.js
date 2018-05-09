@@ -59,7 +59,7 @@ function uploadImage(url, imgPath) {
 				var mainImg = document.getElementById('head');
 				mainImg.src = imgPath;
 				plus.storage.setItem('headicon', imgPath);
-				var homeView = plus.webview.currentWebview().opener();  
+				var homeView = plus.webview.getWebviewById('home');  
 				mui.fire(homeView, 'update_headicon', {
 					icon: imgPath
 				});
