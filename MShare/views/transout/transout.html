@@ -28,16 +28,16 @@
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label>对方账户</label>
-					<input type="text" class="mui-input-clear mui-input" placeholder="请输入对方UID" v-model="transForm.uid">
+					<input type="text" class="mui-input-clear mui-input" placeholder="请输入对方UID" v-model="transForm.transTo">
 				</div>
-				<p>您的余额：200</p>
+				<p>您的余额：{{userInfo.total}}</p>
 				<div class="mui-input-row">
 					<label>转出数额</label>
-					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入转出数额">
+					<input type="text" class="mui-input-clear mui-input" placeholder="请输入转出数额" v-model="transForm.money">
 				</div>
 			</form>
 			<div class="mui-content-padded">
-				<button type="button" class="mui-btn mui-btn-block mui-btn-primary">
+				<button id="transBtn" type="button" class="mui-btn mui-btn-block mui-btn-primary">
 					<i class="mui-icon mui-icon-checkmarkempty"></i>
 					确认转出
 				</button>
@@ -64,6 +64,7 @@
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript" src="../../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../../js/api.js" ></script>
 		<script type="text/javascript">
 			var mounted = function() {
 				mui.plusReady(function() {
@@ -74,8 +75,10 @@
 
 					var self = plus.webview.currentWebview();
 					if(self.qrcode_result) {
-						pageView.transForm.uid = self.qrcode_result;
+						pageView.transForm.transTo = self.qrcode_result;
 					}
+					
+					pageView.userInfo.total = plus.storage.getItem('total');
 
 					document.getElementById('transin').addEventListener('tap', function(e) {
 						mui('#topPopover').popover('hide');
@@ -90,6 +93,34 @@
 							}
 						});
 					});
+					
+					document.getElementById('transBtn').addEventListener('tap', function(e) {
+						if (pageView.transForm.money <= 0 && pageView.transForm.money > pageView.userInfo.total) {
+							mui.alert('请输入正确的转出数额，且转出数额不能大于余额', '提示');
+						} else if (pageView.transForm.transTo == null || pageView.transForm.transTo === '') {
+							mui.alert('请输入对方UID', '提示');
+						} else {
+							mui.ajax(USER_TRANS_OUT, {
+									data: {
+										transFrom: plus.storage.getItem('uid'),
+										transTo: pageView.transForm.transTo,
+										total: pageView.transForm.money
+									},
+									dataType: 'json',
+									type: 'post',
+									success: function(data) {
+										if(data.status === 'ok') {
+											mui.alert('转出成功');
+										} else if(data.status === 'data-error') {
+											mui.alert(data.message, '提示');
+										}
+									},
+									error: function(xhr, type, errorThrown) {
+										mui.alert('似乎没有网络了哦……', '提示');
+									}
+								});
+						}
+					});
 				});
 			}
 			
@@ -97,7 +128,11 @@
 				el: "#content",
 				data: {
 					transForm: {
-						uid: ''
+						transTo: '',
+						money: 0
+					},
+					userInfo: {
+						total: 0
 					}
 				},
 				mounted: mounted

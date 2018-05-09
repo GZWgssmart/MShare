@@ -17,3 +17,5 @@ const USER_LOGIN_PASSWORD_UPDATE = BASE_URL + '/user/update-user';
 const USER_PAY_PASSWORD_UPDATE = BASE_URL + '/user/update-user';
 
 const USER_BIND_BANK_CARD = '';
+
+const USER_TRANS_OUT = BASE_URL + '/trans/save';

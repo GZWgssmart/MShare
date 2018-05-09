@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import top.zywork.query.PageQuery;
 import top.zywork.query.UserAccountPasswordQuery;
+import top.zywork.query.UserTransQuery;
 
 import java.util.List;
 
@@ -38,4 +39,6 @@ public interface UserDAO extends BaseDAO {
      * @return 用户密码
      */
     String getPassword(String username);
+
+    void updateTrans(UserTransQuery userTransQuery);
 }

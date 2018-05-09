@@ -18,6 +18,7 @@ import top.zywork.query.StatusQueries;
 import top.zywork.query.StatusQuery;
 import top.zywork.query.TransQuery;
 import top.zywork.service.TransService;
+import top.zywork.service.UserService;
 import top.zywork.vo.ControllerStatusVO;
 import top.zywork.vo.PagerVO;
 import top.zywork.vo.TransVO;
@@ -41,6 +42,8 @@ public class TransController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(TransController.class);
 
     private TransService transService;
+
+    private UserService userService;
 
     @GetMapping("page")
     public String page() {
@@ -71,16 +74,21 @@ public class TransController extends BaseController {
     @ResponseBody
     public ControllerStatusVO save(@Validated TransVO transVO, BindingResult bindingResult) {
         ControllerStatusVO statusVO = new ControllerStatusVO();
-        if (bindingResult.hasErrors()) {
-            statusVO.dataErrorStatus(500, BindingResultUtils.errorString(bindingResult));
-        } else {
-            try {
-                transService.save(getBeanMapper().map(transVO, TransDTO.class));
-                statusVO.okStatus(200, "添加成功");
-            } catch (ServiceException e) {
-                logger.error("添加失败：{}", e.getMessage());
-                statusVO.errorStatus(500, "添加失败");
+        Object obj = userService.getById(transVO.getTransTo());
+        if (obj != null) {
+            if (bindingResult.hasErrors()) {
+                statusVO.dataErrorStatus(500, BindingResultUtils.errorString(bindingResult));
+            } else {
+                try {
+                    transService.save(getBeanMapper().map(transVO, TransDTO.class));
+                    statusVO.okStatus(200, "添加成功");
+                } catch (ServiceException e) {
+                    logger.error("添加失败：{}", e.getMessage());
+                    statusVO.errorStatus(500, "添加失败");
+                }
             }
+        } else {
+            statusVO.dataErrorStatus(500, "请输入正确的对方UID");
         }
         return statusVO;
     }
@@ -237,5 +245,10 @@ public class TransController extends BaseController {
     @Resource
     public void setTransService(TransService transService) {
         this.transService = transService;
+    }
+
+    @Resource
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }
