@@ -7,57 +7,57 @@
     <div class="row">
         <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">编号：</span>
-    <span class="col-sm-8" id=idDetail></span>
+    <span class="col-sm-8" id=transIdDetail></span>
 </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">转出人编号：</span>
-    <span class="col-sm-8" id=transFromDetail></span>
+    <span class="col-sm-8" id=transTransFromDetail></span>
 </div>
-
-        <div class="col-sm-6 detail-content">
-            <span class="col-sm-4 row-detail-title">转出人昵称：</span>
-            <span class="col-sm-8" id=fromNicknameDetail></span>
-        </div>
-
-        <div class="col-sm-6 detail-content">
-            <span class="col-sm-4 row-detail-title">转出人手机号：</span>
-            <span class="col-sm-8" id=fromPhoneDetail></span>
-        </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">转入人编号：</span>
-    <span class="col-sm-8" id=transToDetail></span>
+    <span class="col-sm-8" id=transTransToDetail></span>
 </div>
-
-        <div class="col-sm-6 detail-content">
-            <span class="col-sm-4 row-detail-title">转入人昵称：</span>
-            <span class="col-sm-8" id=toNicknameDetail></span>
-        </div>
-
-        <div class="col-sm-6 detail-content">
-            <span class="col-sm-4 row-detail-title">转入人手机号：</span>
-            <span class="col-sm-8" id=toPhoneDetail></span>
-        </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">金额：</span>
-    <span class="col-sm-8" id=totalDetail></span>
+    <span class="col-sm-8" id=transTotalDetail></span>
 </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">转入时间：</span>
-    <span class="col-sm-8" id=transTimeDetail></span>
+    <span class="col-sm-8" id=transTransTimeDetail></span>
 </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">创建时间：</span>
-    <span class="col-sm-8" id=createTimeDetail></span>
+    <span class="col-sm-8" id=transCreateTimeDetail></span>
 </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">更新时间：</span>
-    <span class="col-sm-8" id=updateTimeDetail></span>
+    <span class="col-sm-8" id=transUpdateTimeDetail></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">编号：</span>
+    <span class="col-sm-8" id=userIdDetail></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">手机号：</span>
+    <span class="col-sm-8" id=userPhoneDetail></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">昵称：</span>
+    <span class="col-sm-8" id=userNicknameDetail></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">头像地址：</span>
+    <span class="col-sm-8" id=userHeadiconDetail></span>
 </div>
 
 

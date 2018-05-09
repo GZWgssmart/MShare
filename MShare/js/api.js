@@ -1,4 +1,4 @@
-const BASE_URL = 'http://192.168.2.114:8080';
+const BASE_URL = 'http://192.168.0.8:8080';
 
 const USER_LOGIN = BASE_URL +'/user/login';
 
@@ -21,3 +21,7 @@ const USER_PAY_PASSWORD_UPDATE = BASE_URL + '/user/update-user';
 const USER_BIND_BANK_CARD = '';
 
 const USER_TRANS_OUT = BASE_URL + '/trans/save';
+
+const USER_TRANS_IN_HISTORY = BASE_URL + '/user-transin/pager-cond';
+
+const USER_TRANS_OUT_HISTORY = BASE_URL + '/user-transout/pager-cond';

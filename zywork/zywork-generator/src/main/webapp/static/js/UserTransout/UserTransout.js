@@ -7,11 +7,11 @@ $(function () {
 function loadTable() {
     destroyTable('data-list');
     $('#data-list').bootstrapTable({
-        url: contextPath + '/trans/pager-cond',
+        url: contextPath + '/user-transout/pager-cond',
         dataType: 'json',
         method: 'post',
         contentType: "application/x-www-form-urlencoded",
-        idField: 'id',
+        idField: 'transId',
         pagination: true,
         sidePagination: 'server',
         pageNumber: 1,
@@ -41,7 +41,7 @@ function loadTable() {
 	checkbox: true
 },
 {
-	field: 'id',
+	field: 'transId',
 	align: 'center',
 	visible: false
 },
@@ -53,63 +53,63 @@ function loadTable() {
 },
 {
 	title: '转出人编号',
-	field: 'transFrom',
+	field: 'transTransFrom',
 	align: 'center',
 	sortable: true
 },
-            {
-                title: '转出人昵称',
-                field: 'fromNickname',
-                align: 'center',
-                sortable: true
-            },
-            {
-                title: '转出人手机号',
-                field: 'fromPhone',
-                align: 'center',
-                sortable: true
-            },
 {
 	title: '转入人编号',
-	field: 'transTo',
+	field: 'transTransTo',
 	align: 'center',
 	sortable: true
 },
-            {
-                title: '转入人昵称',
-                field: 'toNickname',
-                align: 'center',
-                sortable: true
-            },
-            {
-                title: '转入人手机号',
-                field: 'toPhone',
-                align: 'center',
-                sortable: true
-            },
 {
 	title: '金额',
-	field: 'total',
+	field: 'transTotal',
 	align: 'center',
 	sortable: true
 },
 {
 	title: '转入时间',
-	field: 'transTime',
+	field: 'transTransTime',
 	align: 'center',
 	sortable: true,
 	formatter: formatDate
 },
 {
 	title: '创建时间',
-	field: 'createTime',
+	field: 'transCreateTime',
 	align: 'center',
 	sortable: true,
 	formatter: formatDate
 },
 {
 	title: '更新时间',
-	field: 'updateTime',
+	field: 'transUpdateTime',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '编号',
+	field: 'userId',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '手机号',
+	field: 'userPhone',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '昵称',
+	field: 'userNickname',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '头像地址',
+	field: 'userHeadicon',
 	align: 'center',
 	sortable: true
 },
@@ -135,7 +135,7 @@ function formatOperators(value, row, index) {
     strArray.push('</button>');
     strArray.push('<ul class="dropdown-menu">');
     strArray.push('<li><a href="javascript:void(0)" class="to-edit"><i class="fa fa-edit "></i>&nbsp;修改</a></li>');
-    if (row.isActive === 0) {
+    if (row.transIsActive === 0) {
         strArray.push('<li><a href="javascript:void(0)" class="to-inactive"><i class="fa fa-minus-square-o text-danger"></i><span class="text-danger">&nbsp;冻结</span></a></li>');
     } else {
         strArray.push('<li><a href="javascript:void(0)" class="to-active"><i class="fa fa-check-square-o text-success"></i><span class="text-success">&nbsp;激活</span></a></li>');
@@ -146,23 +146,23 @@ function formatOperators(value, row, index) {
     return strArray.join('');
 }
 
-let fieldTitles = {'id':'编号','transFrom':'转出人编号','transTo':'转入人编号','total':'金额','transTime-date':'转入时间','createTime-date':'创建时间','updateTime':'更新时间'};
+let fieldTitles = {'transId':'编号','transTransFrom':'转出人编号','transTransTo':'转入人编号','transTotal':'金额','transTransTime-date':'转入时间','transCreateTime-date':'创建时间','transUpdateTime':'更新时间','userId':'编号','userPhone':'手机号','userNickname':'昵称','userHeadicon':'头像地址'};
 
 window.operateEvents = {
     'click .to-detail': function (e, value, row, index) {
-        showRemoteDetailModal('detail-modal', '/trans/detail-modal', row, fieldTitles);
+        showRemoteDetailModal('detail-modal', '/user-transout/detail-modal', row, fieldTitles);
     },
     'click .to-edit': function (e, value, row, index) {
-        showRemoteEditModal('edit-modal', '/trans/edit-modal', 'edit-form', row, validateFields());
+        showRemoteEditModal('edit-modal', '/user-transout/edit-modal', 'edit-form', row, validateFields());
     },
     'click .to-inactive': function (e, value, row, index) {
-        active('/trans/active', row.id, 1, 'data-list', '/trans/pager-cond');
+        active('/user-transout/active', row.transId, 1, 'data-list', '/user-transout/pager-cond');
     },
     'click .to-active': function (e, value, row, index) {
-        active('/trans/active', row.id, 0, 'data-list', '/trans/pager-cond');
+        active('/user-transout/active', row.transId, 0, 'data-list', '/user-transout/pager-cond');
     },
     'click .to-remove': function (e, value, row, index) {
-        remove('/trans/remove/' + row.id, 'data-list', '/trans/pager-cond');
+        remove('/user-transout/remove/' + row.transId, 'data-list', '/user-transout/pager-cond');
     }
 };
 
@@ -200,30 +200,67 @@ function queryParams(params) {
 function validateFields() {
     return {
         
-transFrom: {
+transTransFrom: {
 	validators: {
 		notEmpty: {
 			message: '转出人编号是必须项'
 		}
 	}
 },
-transTo: {
+transTransTo: {
 	validators: {
 		notEmpty: {
 			message: '转入人编号是必须项'
 		}
 	}
 },
-total: {
+transTotal: {
 	validators: {
 		notEmpty: {
 			message: '金额是必须项'
 		}
 	}
 },
-transTime: {
+transTransTime: {
 	validators: {
 	}
-}  
+}  ,
+userId: {
+	validators: {
+		notEmpty: {
+			message: '编号是必须项'
+		}
+	}
+},
+userPhone: {
+	validators: {
+
+		stringLength: {
+			min: 0,
+			max: 11,
+			message: '必须小于11个字符'
+		}
+	}
+},
+userNickname: {
+	validators: {
+
+		stringLength: {
+			min: 0,
+			max: 20,
+			message: '必须小于20个字符'
+		}
+	}
+},
+userHeadicon: {
+	validators: {
+
+		stringLength: {
+			min: 0,
+			max: 500,
+			message: '必须小于500个字符'
+		}
+	}
+}
     };
 }

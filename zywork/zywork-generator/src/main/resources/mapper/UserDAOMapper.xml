@@ -383,7 +383,7 @@
 		select password from t_user where email = #{account} or phone = #{account} or account_name = #{account}
 	</select>
 
-	<update id="updateTrans" parameterType="top.zywork.query.UserTransQuery">
+	<update id="updateTrans" parameterType="top.zywork.query.UserTransferQuery">
 		update t_user set total = total + #{total}, score = score + #{score} where id = #{id}
 	</update>
 

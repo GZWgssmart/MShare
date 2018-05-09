@@ -103,7 +103,13 @@
     </update>
 
     <sql id="select_columns">
-        id as id, trans_from as transFrom, trans_to as transTo, total as total, trans_time as transTime, create_time as createTime, update_time as updateTime
+        id as id, trans_from as transFrom,
+        (select t_user.nickname from t_user where t_user.id = t_trans.trans_from) as fromNickname,
+         (select t_user.phone from t_user where t_user.id = t_trans.trans_from) as fromPhone,
+        trans_to as transTo,
+        (select t_user.nickname from t_user where t_user.id = t_trans.trans_to) as toNickname,
+         (select t_user.phone from t_user where t_user.id = t_trans.trans_to) as toPhone,
+        total as total, trans_time as transTime, create_time as createTime, update_time as updateTime
     </sql>
 
     <sql id="query_where_clause">

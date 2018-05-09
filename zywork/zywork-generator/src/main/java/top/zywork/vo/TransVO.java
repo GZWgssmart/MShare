@@ -48,6 +48,11 @@ public class TransVO extends BaseVO {
 	 */
 	@Size(min = 0, max = 45, message = "必须小于45个字符")
 	private String updateTime;
+
+	private String fromNickname;
+	private String fromPhone;
+	private String toNickname;
+	private String toPhone;
 	
     public TransVO () {}
 
@@ -118,8 +123,39 @@ public class TransVO extends BaseVO {
 		this.updateTime = updateTime;
 	}
 
-	
-    @Override
+	public String getFromNickname() {
+		return fromNickname;
+	}
+
+	public void setFromNickname(String fromNickname) {
+		this.fromNickname = fromNickname;
+	}
+
+	public String getFromPhone() {
+		return fromPhone;
+	}
+
+	public void setFromPhone(String fromPhone) {
+		this.fromPhone = fromPhone;
+	}
+
+	public String getToNickname() {
+		return toNickname;
+	}
+
+	public void setToNickname(String toNickname) {
+		this.toNickname = toNickname;
+	}
+
+	public String getToPhone() {
+		return toPhone;
+	}
+
+	public void setToPhone(String toPhone) {
+		this.toPhone = toPhone;
+	}
+
+	@Override
     public String toString() {
         return "TransDO{" +
                 "id = " + id + 

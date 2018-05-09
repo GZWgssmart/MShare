@@ -42,6 +42,11 @@ public class TransDTO extends BaseDTO {
 	 * 更新时间
 	 */
 	private String updateTime;
+
+	private String fromNickname;
+	private String fromPhone;
+	private String toNickname;
+	private String toPhone;
 	
     public TransDTO () {}
 
@@ -112,8 +117,39 @@ public class TransDTO extends BaseDTO {
 		this.updateTime = updateTime;
 	}
 
-	
-    @Override
+	public String getFromNickname() {
+		return fromNickname;
+	}
+
+	public void setFromNickname(String fromNickname) {
+		this.fromNickname = fromNickname;
+	}
+
+	public String getFromPhone() {
+		return fromPhone;
+	}
+
+	public void setFromPhone(String fromPhone) {
+		this.fromPhone = fromPhone;
+	}
+
+	public String getToNickname() {
+		return toNickname;
+	}
+
+	public void setToNickname(String toNickname) {
+		this.toNickname = toNickname;
+	}
+
+	public void setToPhone(String toPhone) {
+		this.toPhone = toPhone;
+	}
+
+	public String getToPhone() {
+		return toPhone;
+	}
+
+	@Override
     public String toString() {
         return "TransDO{" +
                 "id = " + id + 

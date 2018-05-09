@@ -1,17 +1,14 @@
 package top.zywork.service.impl;
 
-import org.activiti.engine.identity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.zywork.common.ExceptionUtils;
-import top.zywork.dao.BasicSettingDAO;
 import top.zywork.dao.TransDAO;
 import top.zywork.dao.UserDAO;
 import top.zywork.dos.TransDO;
-import top.zywork.dos.UserDO;
 import top.zywork.dto.BasicSettingDTO;
 import top.zywork.dto.TransDTO;
-import top.zywork.query.UserTransQuery;
+import top.zywork.query.UserTransferQuery;
 import top.zywork.service.AbstractBaseService;
 import top.zywork.service.BasicSettingService;
 import top.zywork.service.TransService;
@@ -40,11 +37,11 @@ public class TransServiceImpl extends AbstractBaseService implements TransServic
             transDAO.save(getBeanMapper().map(dataTransferObj, TransDO.class));
             BasicSettingDTO basicSettingDTO = (BasicSettingDTO) basicSettingService.getByIdCache(1L);
             TransDTO transDTO = (TransDTO) dataTransferObj;
-            UserTransQuery userTransQueryFrom = new UserTransQuery(transDTO.getTransFrom(),
+            UserTransferQuery userTransQueryFrom = new UserTransferQuery(transDTO.getTransFrom(),
                     -transDTO.getTotal(),
                     (long) ((100 - basicSettingDTO.getScorePercent()) / 100 * transDTO.getTotal()));
             userDAO.updateTrans(userTransQueryFrom);
-            UserTransQuery userTransQueryTo = new UserTransQuery(transDTO.getTransTo(),
+            UserTransferQuery userTransQueryTo = new UserTransferQuery(transDTO.getTransTo(),
                     (long) (transDTO.getTotal() * basicSettingDTO.getMoneyPercent() / 100),
                     (long) (basicSettingDTO.getScorePercent() / 100 * transDTO.getTotal()));
             userDAO.updateTrans(userTransQueryTo);

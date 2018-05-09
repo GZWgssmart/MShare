@@ -1,15 +1,15 @@
 package top.zywork.query;
 
-public class UserTransQuery extends BaseQuery {
+public class UserTransferQuery extends BaseQuery {
 
     private static final long serialVersionUID = -1938872381689034885L;
     private Long id;
     private Long total;
     private Long score;
 
-    public UserTransQuery() {}
+    public UserTransferQuery() {}
 
-    public UserTransQuery(Long id, Long total, Long score) {
+    public UserTransferQuery(Long id, Long total, Long score) {
         this.id = id;
         this.total = total;
         this.score = score;
