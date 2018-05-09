@@ -90,6 +90,11 @@
     <span class="col-sm-8" id=ageDetail></span>
 </div>
 
+        <div class="col-sm-6 detail-content">
+            <span class="col-sm-4 row-detail-title">推荐人编号：</span>
+            <span class="col-sm-8" id=fromIdDetail></span>
+        </div>
+
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">创建时间：</span>
     <span class="col-sm-8" id=createTimeDetail></span>

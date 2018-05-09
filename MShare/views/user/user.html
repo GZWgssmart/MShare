@@ -87,14 +87,16 @@
 
 					pageView.userInfo.nickname = plus.storage.getItem('nickname');
 					var headicon = plus.storage.getItem('headicon');
-					if (headicon.indexOf('/storage') != -1) {
-						pageView.userInfo.headicon = headicon;
-					} else {
-						pageView.userInfo.headicon = BASE_URL + '/' + headicon;
+					if(headicon != null) {
+						if(headicon.indexOf('/storage') != -1) {
+							pageView.userInfo.headicon = headicon;
+						} else {
+							pageView.userInfo.headicon = BASE_URL + '/' + headicon;
+						}
 					}
 					pageView.userInfo.uid = plus.storage.getItem('uid');
 					pageView.userInfo.level = plus.storage.getItem('level');
-					
+
 					mui('#opts').on('tap', '.mui-table-view-cell', function(e) {
 						var id = this.id;
 						if(id === 'user-head') {

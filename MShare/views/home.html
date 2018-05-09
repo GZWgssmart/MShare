@@ -114,12 +114,10 @@
 			var mounted = function() {
 				mui.plusReady(function() {
 					mui.init({
-						preloadPages: [
-						{
+						preloadPages: [{
 							id: 'qrcode_scan',
 							url: 'qrcode/qrcode_scan.html'
-						}
-						]
+						}]
 					});
 
 					var adsGallery = mui('#adsGallery');
@@ -224,10 +222,12 @@
 							pageView.userInfo.totalMoney = plus.storage.getItem('total');
 							pageView.userInfo.totalScore = plus.storage.getItem('score');
 							var headicon = plus.storage.getItem('headicon');
-							if(headicon.indexOf('/storage') != -1) {
-								pageView.userInfo.headicon = headicon;
-							} else {
-								pageView.userInfo.headicon = BASE_URL + '/' + headicon;
+							if(headicon != null) {
+								if(headicon.indexOf('/storage') != -1) {
+									pageView.userInfo.headicon = headicon;
+								} else {
+									pageView.userInfo.headicon = BASE_URL + '/' + headicon;
+								}
 							}
 							pageView.userInfo.level = plus.storage.getItem('level');
 						}

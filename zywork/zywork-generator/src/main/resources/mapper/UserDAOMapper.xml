@@ -55,6 +55,9 @@
 			<if test="age != null">
 				age,
 			</if>
+			<if test="fromId != null">
+				from_id,
+			</if>
 			<if test="createTime != null">
 				create_time,
 			</if>
@@ -114,6 +117,9 @@
 			</if>
 			<if test="age != null">
 				#{age},
+			</if>
+			<if test="fromId != null">
+				#{fromId},
 			</if>
 			<if test="createTime != null">
 				#{createTime},
@@ -194,6 +200,9 @@
 			<if test="age != null">
 				age = #{age},
 			</if>
+			<if test="fromId != null">
+				from_id = #{fromId},
+			</if>
 			<if test="createTime != null">
 				create_time = #{createTime},
 			</if>
@@ -220,7 +229,7 @@
 	</update>
 
 	<sql id="select_columns">
-		id as id, email as email, phone as phone, account_name as accountName, password as password, pay_password as payPassword, salt as salt, nickname as nickname, headicon as headicon, total as total, score as score, level as level, identity as identity, real_name as realName, gender as gender, birthday as birthday, age as age, create_time as createTime, update_time as updateTime, is_active as isActive
+		id as id, email as email, phone as phone, account_name as accountName, password as password, pay_password as payPassword, salt as salt, nickname as nickname, headicon as headicon, total as total, score as score, level as level, identity as identity, real_name as realName, gender as gender, birthday as birthday, age as age, from_id as fromId, create_time as createTime, update_time as updateTime, is_active as isActive
 	</sql>
 
 	<sql id="query_where_clause">
@@ -280,6 +289,9 @@
 		</if>
 		<if test="query != null and query.age != null">
 			and age = #{query.age}
+		</if>
+		<if test="query != null and query.fromId != null">
+			and from_id = #{query.fromId}
 		</if>
 		<if test="query != null and query.createTimeStart != null and query.createTimeEnd == null">
 			and create_time <![CDATA[ >= ]]> #{query.createTimeStart}

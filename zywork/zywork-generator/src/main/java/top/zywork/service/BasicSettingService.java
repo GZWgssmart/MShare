@@ -1,5 +1,7 @@
 package top.zywork.service;
 
+import java.io.Serializable;
+
 /**
  * BasicSettingService服务接口<br/>
  *
@@ -9,4 +11,5 @@ package top.zywork.service;
  * @version 1.0
  */
 public interface BasicSettingService extends BaseService {
+    public Object getByIdCache(Serializable id);
 }

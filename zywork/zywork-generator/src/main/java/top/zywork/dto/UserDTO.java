@@ -83,6 +83,10 @@ public class UserDTO extends BaseDTO {
 	 */
 	private Integer age;
 	/**
+	 * 推荐人编号
+	 */
+	private Long fromId;
+	/**
 	 * 创建时间
 	 */
 	private Date createTime;
@@ -97,7 +101,7 @@ public class UserDTO extends BaseDTO {
 	
     public UserDTO () {}
 
-    public UserDTO (Long id, String email, String phone, String accountName, String password, String payPassword, String salt, String nickname, String headicon, Long total, Long score, String level, String identity, String realName, Byte gender, Date birthday, Integer age, Date createTime, Date updateTime, Byte isActive) {
+    public UserDTO (Long id, String email, String phone, String accountName, String password, String payPassword, String salt, String nickname, String headicon, Long total, Long score, String level, String identity, String realName, Byte gender, Date birthday, Integer age, Long fromId, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.email = email;
 		this.phone = phone;
@@ -115,6 +119,7 @@ public class UserDTO extends BaseDTO {
 		this.gender = gender;
 		this.birthday = birthday;
 		this.age = age;
+		this.fromId = fromId;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.isActive = isActive;
@@ -251,6 +256,14 @@ public class UserDTO extends BaseDTO {
 
 	public Integer getAge() {
 		return age;
+	}
+
+	public Long getFromId() {
+		return fromId;
+	}
+
+	public void setFromId(Long fromId) {
+		this.fromId = fromId;
 	}
 
 	public void setAge(Integer age) {
