@@ -39,6 +39,12 @@
 						<span id="nickname" class="mui-pull-right item-info">{{userInfo.nickname}}</span>
 					</a>
 				</li>
+				<li id="code" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-icon- user-icon" style="background-color:#0088CC;"></i> 我的推荐码
+						<span id="nickname" class="mui-pull-right item-info">{{userInfo.uid}}</span>
+					</a>
+				</li>
 				<li id="bank_card" class="mui-table-view-cell">
 					<a class="mui-navigate-right">
 						<i class="iconfont icon-yinxingqia3 user-icon" style="background-color:#0062CC;"></i> 我的银行卡
@@ -205,16 +211,18 @@
 			}
 
 			function showPage(pageId) {
-				mui.openWindow({
-					id: pageId,
-					url: pageId + '.html',
-					show: {
-						aniShow: 'pop-in'
-					},
-					waiting: {
-						autoShow: false
-					}
-				});
+				if(pageId !== 'code') {
+					mui.openWindow({
+						id: pageId,
+						url: pageId + '.html',
+						show: {
+							aniShow: 'pop-in'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				}
 			}
 
 			var pageView = new Vue({
