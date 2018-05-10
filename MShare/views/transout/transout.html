@@ -63,8 +63,8 @@
 
 		</div>
 		<script src="../../js/mui.min.js"></script>
-		<script type="text/javascript" src="../../js/vue.min.js" ></script>
-		<script type="text/javascript" src="../../js/api.js" ></script>
+		<script type="text/javascript" src="../../js/vue.min.js"></script>
+		<script type="text/javascript" src="../../js/api.js"></script>
 		<script type="text/javascript">
 			var mounted = function() {
 				mui.plusReady(function() {
@@ -77,7 +77,7 @@
 					if(self.qrcode_result) {
 						pageView.transForm.transTo = self.qrcode_result;
 					}
-					
+
 					pageView.userInfo.total = parseInt(plus.storage.getItem('total'));
 
 					document.getElementById('transin').addEventListener('tap', function(e) {
@@ -93,39 +93,43 @@
 							}
 						});
 					});
-					
+
 					document.getElementById('transBtn').addEventListener('tap', function(e) {
-						if (pageView.transForm.money <= 0 || pageView.transForm.money > pageView.userInfo.total) {
+						if(pageView.transForm.money <= 0 || pageView.transForm.money > pageView.userInfo.total) {
 							mui.alert('请输入正确的转出数额，且转出数额不能大于余额', '提示');
-						} else if (pageView.transForm.transTo == null || pageView.transForm.transTo === '') {
+						} else if(pageView.transForm.transTo == null || pageView.transForm.transTo === '') {
 							mui.alert('请输入对方UID', '提示');
 						} else {
-							mui.ajax(USER_TRANS_OUT, {
-									data: {
-										transFrom: plus.storage.getItem('uid'),
-										transTo: pageView.transForm.transTo,
-										total: pageView.transForm.money
-									},
-									dataType: 'json',
-									type: 'post',
-									success: function(data) {
-										if(data.status === 'ok') {
-											pageView.userInfo.total -= pageView.transForm.money;
-											plus.storage.setItem('total', pageView.userInfo.total + '');
-											mui.alert('转出成功');
-										} else if(data.status === 'data-error') {
-											mui.alert(data.message, '提示');
+							mui.confirm('确定转出' + pageView.transForm.money + '数额吗？', '提示', ['确定', '取消'], function(r) {
+								if(r.index === 0) {
+									mui.ajax(USER_TRANS_OUT, {
+										data: {
+											transFrom: plus.storage.getItem('uid'),
+											transTo: pageView.transForm.transTo,
+											total: pageView.transForm.money
+										},
+										dataType: 'json',
+										type: 'post',
+										success: function(data) {
+											if(data.status === 'ok') {
+												pageView.userInfo.total -= pageView.transForm.money;
+												plus.storage.setItem('total', pageView.userInfo.total + '');
+												mui.alert('转出成功');
+											} else if(data.status === 'data-error') {
+												mui.alert(data.message, '提示');
+											}
+										},
+										error: function(xhr, type, errorThrown) {
+											mui.alert('似乎没有网络了哦……', '提示');
 										}
-									},
-									error: function(xhr, type, errorThrown) {
-										mui.alert('似乎没有网络了哦……', '提示');
-									}
-								});
+									});
+								}
+							})
 						}
 					});
 				});
 			}
-			
+
 			var pageView = new Vue({
 				el: "#content",
 				data: {
