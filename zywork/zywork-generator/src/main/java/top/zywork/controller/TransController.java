@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * TransController控制器类<br/>
- *
+ * <p>
  * 创建于2018-05-07<br/>
  *
  * @author http://zywork.top 王振宇
@@ -74,21 +74,16 @@ public class TransController extends BaseController {
     @ResponseBody
     public ControllerStatusVO save(@Validated TransVO transVO, BindingResult bindingResult) {
         ControllerStatusVO statusVO = new ControllerStatusVO();
-        Object obj = userService.getById(transVO.getTransTo());
-        if (obj != null) {
-            if (bindingResult.hasErrors()) {
-                statusVO.dataErrorStatus(500, BindingResultUtils.errorString(bindingResult));
-            } else {
-                try {
-                    transService.save(getBeanMapper().map(transVO, TransDTO.class));
-                    statusVO.okStatus(200, "添加成功");
-                } catch (ServiceException e) {
-                    logger.error("添加失败：{}", e.getMessage());
-                    statusVO.errorStatus(500, "添加失败");
-                }
-            }
+        if (bindingResult.hasErrors()) {
+            statusVO.dataErrorStatus(500, BindingResultUtils.errorString(bindingResult));
         } else {
-            statusVO.dataErrorStatus(500, "请输入正确的对方UID");
+            try {
+                transService.save(getBeanMapper().map(transVO, TransDTO.class));
+                statusVO.okStatus(200, "添加成功");
+            } catch (ServiceException e) {
+                logger.error("添加失败：{}", e.getMessage());
+                statusVO.errorStatus(500, "添加失败");
+            }
         }
         return statusVO;
     }
@@ -203,7 +198,7 @@ public class TransController extends BaseController {
         List<TransVO> transVOList = new ArrayList<>();
         try {
             List<Object> objectList = transService.listAll();
-            transVOList =  DozerMapperUtils.map(getBeanMapper(), objectList, TransVO.class);
+            transVOList = DozerMapperUtils.map(getBeanMapper(), objectList, TransVO.class);
         } catch (ServiceException e) {
             logger.error("返回所有对象JSON数据失败：{}", e.getMessage());
         }
