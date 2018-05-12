@@ -26,7 +26,7 @@
 				</div>
 			</form>
 			<div class="mui-content-padded">
-				<button id='login' type="button" class="mui-btn mui-btn-block mui-btn-primary">登录</button>
+				<button v-on:tap="login" type="button" class="mui-btn mui-btn-block mui-btn-primary">登录</button>
 				<div class="login-area">
 					<a id='register'>注册账号</a>
 					<span class="spliter">|</span>
@@ -39,82 +39,8 @@
 		<script src="../js/vue.min.js"></script>
 		<script type="text/javascript" src="../js/md5.min.js"></script>
 		<script type="text/javascript" src="../js/api.js"></script>
+		<script src="../js/main.js"></script>
 		<script type="text/javascript">
-			var mounted = function() {
-				mui.plusReady(function() {
-					mui.init({
-						preloadPages: []
-					});
-
-					window.addEventListener('clearForm', function(e) {
-						pageView.loginForm.phone = '';
-						pageView.loginForm.password = '';
-					})
-
-					document.getElementById('login').addEventListener('tap', function(e) {
-						login();
-					});
-
-					mui('.login-area').on('tap', 'a', function(e) {
-						var id = this.id;
-						mui.openWindow({
-							id: id,
-							url: id + '.html',
-							show: {
-								aniShow: 'pop-in'
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
-					});
-				});
-			}
-
-			function toHomePage() {
-				mui.openWindow({
-					id: 'home',
-					url: 'home.html',
-					show: {
-						aniShow: 'pop-in'
-					},
-					waiting: {
-						autoShow: false
-					}
-				});
-			}
-
-			function login() {
-				mui.ajax(USER_LOGIN, {
-					data: {
-						account: pageView.loginForm.phone,
-						password: md5.base64(pageView.loginForm.password)
-					},
-					dataType: 'json',
-					type: 'post',
-					success: function(data) {
-						if(data.status === 'ok') {
-							plus.storage.setItem('username', pageView.loginForm.phone);
-							plus.storage.setItem('token', data.token);
-							plus.storage.setItem('sessionId', data.sessionId);
-							plus.storage.setItem('uid', data.id + '');
-							plus.storage.setItem('nickname', data.nickname);
-							plus.storage.setItem('headicon', data.headicon);
-							plus.storage.setItem('level', data.level);
-							plus.storage.setItem('total', data.total + '');
-							plus.storage.setItem('score', data.score + '');
-							plus.navigator.setCookie(BASE_URL, 'JSESSIONID=' + data.sessionId);
-							toHomePage();
-						} else if(data.status === 'data-error') {
-							mui.alert(data.message, '提示');
-						}
-					},
-					error: function(xhr, type, errorThrown) {
-						mui.alert('似乎没有网络了哦……', '提示');
-					}
-				});
-			}
-
 			var pageView = new Vue({
 				el: '#content',
 				data: {
@@ -123,7 +49,79 @@
 						password: ''
 					}
 				},
-				mounted: mounted
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init({
+							preloadPages: [],
+							beforeback: function() {
+								return false;
+							}
+						});
+
+						window.addEventListener('clearForm', function(e) {
+							pageView.loginForm.phone = '';
+							pageView.loginForm.password = '';
+						})
+
+						mui('.login-area').on('tap', 'a', function(e) {
+							var id = this.id;
+							mui.openWindow({
+								id: id,
+								url: id + '.html',
+								show: {
+									aniShow: 'pop-in'
+								},
+								waiting: {
+									autoShow: false
+								}
+							});
+						});
+					});
+				},
+				methods: {
+					login: function() {
+						mui.ajax(USER_LOGIN, {
+							data: {
+								account: pageView.loginForm.phone,
+								password: md5.base64(pageView.loginForm.password)
+							},
+							dataType: 'json',
+							type: 'post',
+							success: function(data) {
+								if(data.status === 'ok') {
+									plus.storage.setItem('username', pageView.loginForm.phone);
+									plus.storage.setItem('token', data.token);
+									plus.storage.setItem('sessionId', data.sessionId);
+									plus.storage.setItem('uid', data.id + '');
+									plus.storage.setItem('nickname', data.nickname);
+									plus.storage.setItem('headicon', data.headicon);
+									plus.storage.setItem('level', data.level);
+									plus.storage.setItem('total', data.total + '');
+									plus.storage.setItem('score', data.score + '');
+									plus.navigator.setCookie(BASE_URL, 'JSESSIONID=' + data.sessionId);
+									pageView.toHomePage();
+								} else if(data.status === 'data-error') {
+									mui.alert(data.message, '提示');
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.alert('似乎没有网络了哦……', '提示');
+							}
+						});
+					},
+					toHomePage: function() {
+						mui.openWindow({
+							id: 'home',
+							url: 'home.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					}
+				}
 			});
 		</script>
 	</body>

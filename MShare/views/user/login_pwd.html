@@ -10,13 +10,13 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">登录密码</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">登录密码</h1>
 		</header>
-		
+
 		<div class="mui-content" id="content">
-		    <form id="pwd-form" class="mui-input-group">
-		    	<!--
+			<form id="pwd-form" class="mui-input-group">
+				<!--
 				<div class="mui-input-row">
 					<label>原密码</label>
 					<input type="password" class="mui-input-password" placeholder="请输入原密码" v-model="form.oPwd">
@@ -32,57 +32,18 @@
 				</div>
 			</form>
 			<div class="mui-content-padded">
-				<button id="editPwd" type="button" class="mui-btn mui-btn-block mui-btn-primary">
+				<button v-on:tap="editPwd" type="button" class="mui-btn mui-btn-block mui-btn-primary">
 					<i class="mui-icon mui-icon-checkmarkempty"></i>
 					确定修改
 				</button>
 			</div>
 		</div>
-		
+
 		<script src="../../js/mui.min.js"></script>
-		<script type="text/javascript" src="../../js/vue.min.js" ></script>
-		<script type="text/javascript" src="../../js/api.js" ></script>
+		<script type="text/javascript" src="../../js/vue.min.js"></script>
+		<script type="text/javascript" src="../../js/api.js"></script>
 		<script src="../../js/md5.min.js"></script>
 		<script type="text/javascript">
-			var mounted = function() {
-				mui.plusReady(function() {
-					mui.init({
-						preloadPages: []
-					});
-
-					document.getElementById('editPwd').addEventListener('tap', function(e) {
-						editPwd();
-					});
-				});
-			}
-
-			function editPwd() {
-				if(pageView.form.newPwd !== '' && pageView.form.newPwd.length >= 6 &&
-					pageView.form.confNewPwd === pageView.form.newPwd) {
-					mui.ajax(USER_LOGIN_PASSWORD_UPDATE, {
-						data: {
-							id: plus.storage.getItem('uid'),
-							password: md5.base64(pageView.form.newPwd)
-						},
-						dataType: 'json',
-						type: 'post',
-						success: function(data) {
-							if(data.status === 'ok') {
-								mui.alert('已修改登录密码', '提示');
-							} else if(data.status === 'data-error') {
-								mui.alert(data.message, '提示');
-							}
-						},
-						error: function(xhr, type, errorThrown) {
-							mui.alert('似乎没有网络了哦……', '提示');
-						}
-					});
-				} else {
-					mui.alert('请输入正确的密码和确认密码，必须大于等于6个字符', '提示');
-				}
-
-			}
-
 			var pageView = new Vue({
 				el: '#content',
 				data: {
@@ -92,7 +53,40 @@
 						confNewPwd: ''
 					}
 				},
-				mounted: mounted
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init({
+							preloadPages: []
+						});
+					});
+				},
+				methods: {
+					editPwd: function() {
+						if(pageView.form.newPwd !== '' && pageView.form.newPwd.length >= 6 &&
+							pageView.form.confNewPwd === pageView.form.newPwd) {
+							mui.ajax(USER_LOGIN_PASSWORD_UPDATE, {
+								data: {
+									id: plus.storage.getItem('uid'),
+									password: md5.base64(pageView.form.newPwd)
+								},
+								dataType: 'json',
+								type: 'post',
+								success: function(data) {
+									if(data.status === 'ok') {
+										mui.alert('已修改登录密码', '提示');
+									} else if(data.status === 'data-error') {
+										mui.alert(data.message, '提示');
+									}
+								},
+								error: function(xhr, type, errorThrown) {
+									mui.alert('似乎没有网络了哦……', '提示');
+								}
+							});
+						} else {
+							mui.alert('请输入正确的密码和确认密码，必须大于等于6个字符', '提示');
+						}
+					}
+				}
 			});
 		</script>
 	</body>

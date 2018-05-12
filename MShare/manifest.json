@@ -331,14 +331,16 @@
 			"views/transin/transin.html": {
 				"resources": [],
 				"refer": [
-					"views/transin/transin_history.html"
+					"views/transin/transin_history.html",
+					"views/transin/transin_history_page.html"
 				],
 				"priority": 0
 			},
 			"views/transout/transout.html": {
 				"resources": [],
 				"refer": [
-					"views/transout/transout_history.html"
+					"views/transout/transout_history.html",
+					"views/transout/transout_history_page.html"
 				],
 				"priority": 0
 			},

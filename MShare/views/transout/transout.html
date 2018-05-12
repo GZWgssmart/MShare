@@ -37,7 +37,7 @@
 				</div>
 			</form>
 			<div class="mui-content-padded">
-				<button id="transBtn" type="button" class="mui-btn mui-btn-block mui-btn-primary">
+				<button v-on:tap="transout" type="button" class="mui-btn mui-btn-block mui-btn-primary">
 					<i class="mui-icon mui-icon-checkmarkempty"></i>
 					确认转出
 				</button>
@@ -66,36 +66,53 @@
 		<script type="text/javascript" src="../../js/vue.min.js"></script>
 		<script type="text/javascript" src="../../js/api.js"></script>
 		<script type="text/javascript">
-			var mounted = function() {
-				mui.plusReady(function() {
-					mui.init({
-						preloadPages: []
-					});
-					mui('.mui-scroll-wrapper').scroll();
-
-					var self = plus.webview.currentWebview();
-					if(self.qrcode_result) {
-						pageView.transForm.transTo = self.qrcode_result;
+			var pageView = new Vue({
+				el: "#content",
+				data: {
+					transForm: {
+						transTo: '',
+						money: 0
+					},
+					userInfo: {
+						total: 0
 					}
+				},
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init({
+							preloadPages: []
+						});
+						var self = plus.webview.currentWebview();
+						if(self.qrcode_result) {
+							pageView.transForm.transTo = self.qrcode_result;
+						}
 
-					pageView.userInfo.total = parseInt(plus.storage.getItem('total'));
+						pageView.userInfo.total = parseInt(plus.storage.getItem('total'));
 
-					document.getElementById('transin').addEventListener('tap', function(e) {
+						document.getElementById('transin').addEventListener('tap', function(e) {
+							pageView.transoutHistory();
+						});
+					});
+				},
+				methods: {
+					transoutHistory: function() {
 						mui('#topPopover').popover('hide');
 						mui.openWindow({
-							id: 'transout_history',
-							url: 'transout_history.html',
+							id: 'transout_history_page',
+							url: 'transout_history_page.html',
 							show: {
 								aniShow: 'pop-in'
 							},
 							waiting: {
-								autoShow: true
+								autoShow: false
 							}
 						});
-					});
-
-					document.getElementById('transBtn').addEventListener('tap', function(e) {
-						if(pageView.transForm.money <= 0 || pageView.transForm.money > pageView.userInfo.total) {
+					},
+					transout: function() {
+						var uid = plus.storage.getItem('uid');
+						if (pageView.transForm.transTo == uid) {
+							mui.alert('不能转出给自己', '提示');
+						} else if(pageView.transForm.money <= 0 || pageView.transForm.money > pageView.userInfo.total) {
 							mui.alert('请输入正确的转出数额，且转出数额不能大于余额', '提示');
 						} else if(pageView.transForm.transTo == null || pageView.transForm.transTo === '') {
 							mui.alert('请输入对方UID', '提示');
@@ -110,7 +127,7 @@
 											if(r.index === 0) {
 												mui.ajax(USER_TRANS_OUT, {
 													data: {
-														transFrom: plus.storage.getItem('uid'),
+														transFrom: uid,
 														transTo: pageView.transForm.transTo,
 														total: pageView.transForm.money
 													},
@@ -140,22 +157,8 @@
 								}
 							});
 						}
-					});
-				});
-			}
-
-			var pageView = new Vue({
-				el: "#content",
-				data: {
-					transForm: {
-						transTo: '',
-						money: 0
-					},
-					userInfo: {
-						total: 0
 					}
-				},
-				mounted: mounted
+				}
 			});
 		</script>
 	</body>

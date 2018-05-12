@@ -13,7 +13,7 @@
 	<body>
 		<div id="content">
 			<header class="mui-bar mui-bar-nav">
-				<div id="head-icon" class="head-icon mui-pull-left">
+				<div v-on:tap="openUserInfo" class="head-icon mui-pull-left">
 					<img v-bind:src="userInfo.headicon" class="mui-pull-left" />
 					<div class="mui-pull-left head-info">
 						<span>
@@ -24,12 +24,12 @@
 				</span>
 					</div>
 				</div>
-				<a id="refresh" class="mui-action-menu mui-icon mui-icon-refreshempty mui-pull-right" href="javascript:void(0)"></a>
+				<a v-on:tap="updateTotal" class="mui-action-menu mui-icon mui-icon-refreshempty mui-pull-right" href="javascript:void(0)"></a>
 			</header>
 
 			<div class="mui-content">
 				<div class="barcode">
-					<div id="barcode-scan" class="barcode-scan">扫一扫</div>
+					<div v-on:tap="scanBarcode" class="barcode-scan">扫一扫</div>
 					<div class="prop-info">
 						<div>
 							<p>余额</p>
@@ -112,150 +112,6 @@
 		<script type="text/javascript" src="../js/vue.min.js"></script>
 		<script type="text/javascript" src="../js/api.js"></script>
 		<script type="text/javascript" charset="utf-8">
-			var mounted = function() {
-				mui.plusReady(function() {
-					mui.init({
-						preloadPages: [{
-							id: 'qrcode_scan',
-							url: 'qrcode/qrcode_scan.html'
-						}]
-					});
-
-					var adsGallery = mui('#adsGallery');
-					adsGallery.slider({
-						interval: 5000
-					});
-
-					window.addEventListener('update_headicon', function(e) {
-						pageView.userInfo.headicon = e.detail.icon;
-					});
-
-					document.getElementById('refresh').addEventListener('tap', function(e) {
-						updateTotal();
-					})
-					
-					setInterval(function() {
-						updateTotal();
-					}, 5000);
-
-					mui('.menu').on('tap', '.menu-item', function(e) {
-						var id = this.id;
-						if(id === 'property' || id === 'mall') {
-							mui.toast('暂未开放，敬请期待');
-						} else {
-							mui.openWindow({
-								id: id,
-								url: id + '/' + id + '.html',
-								show: {
-									aniShow: 'pop-in'
-								},
-								waiting: {
-									autoShow: false
-								}
-							});
-						}
-					});
-
-					document.getElementById('head-icon').addEventListener('tap', function(e) {
-						mui.openWindow({
-							id: 'user',
-							url: 'user/user.html',
-							show: {
-								aniShow: 'pop-in'
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
-					});
-
-					document.getElementById('barcode-scan').addEventListener('tap', function(e) {
-						mui.openWindow({
-							id: 'qrcode_scan',
-							url: 'qrcode/qrcode_scan.html',
-							show: {
-								aniShow: 'pop-in'
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
-					});
-					checkLogin();
-				});
-			}
-
-			function toLoginPage() {
-				mui.openWindow({
-					id: 'login',
-					url: 'login.html',
-					show: {
-						aniShow: 'pop-in'
-					},
-					waiting: {
-						autoShow: false
-					}
-				});
-			}
-
-			function updateTotal() {
-				mui.ajax(USER_INFO + '/' + plus.storage.getItem('uid'), {
-					data: {},
-					dataType: 'json',
-					type: 'post',
-					success: function(data) {
-						pageView.userInfo.totalMoney = data.total;
-						pageView.userInfo.totalScore = data.score;
-						plus.storage.setItem('total', data.total + '');
-						plus.storage.setItem('score', data.score + '');
-					},
-					error: function(xhr, type, errorThrown) {
-						// mui.alert('似乎没有网络了哦……', '提示');
-					}
-				});
-			}
-
-			function setUserInfo() {
-				pageView.userInfo.uid = plus.storage.getItem('uid');
-				pageView.userInfo.nickname = plus.storage.getItem('nickname');
-				pageView.userInfo.totalMoney = plus.storage.getItem('total');
-				pageView.userInfo.totalScore = plus.storage.getItem('score');
-				var headicon = plus.storage.getItem('headicon');
-				if(headicon != null) {
-					if(headicon.indexOf('/storage') != -1) {
-						pageView.userInfo.headicon = headicon;
-					} else {
-						pageView.userInfo.headicon = BASE_URL + '/' + headicon;
-					}
-				}
-				pageView.userInfo.level = plus.storage.getItem('level');
-			}
-
-			function checkLogin() {
-				var token = plus.storage.getItem('token');
-				var sessionId = plus.storage.getItem('sessionId');
-				var username = plus.storage.getItem('username');
-				if(token != null && token !== undefined && token !== '' &&
-					sessionId != null && sessionId != undefined && sessionId !== '') {
-					mui.post(USER_CHECK_LOGIN, {
-						username: username,
-						userToken: token
-					}, function(data) {
-						if(data.status === 'data-error' || data.status === 'error') {
-							toLoginPage();
-						} else if(data.code === 10005) {
-							plus.storage.setItem('sessionId', data.sessionId);
-							plus.navigator.setCookie(BASE_URL, 'JSESSIONID=' + data.sessionId);
-							setUserInfo();
-						} else {
-							setUserInfo();
-						}
-					}, 'json');
-				} else {
-					toLoginPage();
-				}
-			}
-
 			var pageView = new Vue({
 				el: '#content',
 				data: {
@@ -272,7 +128,142 @@
 						three: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2598302518,4005171176&fm=27&gp=0.jpg',
 					}
 				},
-				mounted: mounted
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init({
+							preloadPages: [{
+								id: 'qrcode_scan',
+								url: 'qrcode/qrcode_scan.html'
+							}]
+						});
+
+						var adsGallery = mui('#adsGallery');
+						adsGallery.slider({
+							interval: 5000
+						});
+
+						window.addEventListener('update_headicon', function(e) {
+							pageView.userInfo.headicon = e.detail.icon;
+						});
+
+						setInterval(function() {
+							pageView.updateTotal();
+						}, 5000);
+
+						mui('.menu').on('tap', '.menu-item', function(e) {
+							var id = this.id;
+							if(id === 'property' || id === 'mall') {
+								mui.toast('暂未开放，敬请期待');
+							} else {
+								mui.openWindow({
+									id: id,
+									url: id + '/' + id + '.html',
+									show: {
+										aniShow: 'pop-in'
+									},
+									waiting: {
+										autoShow: false
+									}
+								});
+							}
+						});
+
+						pageView.checkLogin();
+					});
+				},
+				methods: {
+					openUserInfo: function() {
+						mui.openWindow({
+							id: 'user',
+							url: 'user/user.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},
+					scanBarcode: function() {
+						mui.openWindow({
+							id: 'qrcode_scan',
+							url: 'qrcode/qrcode_scan.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},
+					updateTotal: function() {
+						mui.ajax(USER_INFO + '/' + plus.storage.getItem('uid'), {
+							data: {},
+							dataType: 'json',
+							type: 'post',
+							success: function(data) {
+								pageView.userInfo.totalMoney = data.total;
+								pageView.userInfo.totalScore = data.score;
+								plus.storage.setItem('total', data.total + '');
+								plus.storage.setItem('score', data.score + '');
+							},
+							error: function(xhr, type, errorThrown) {
+								// mui.alert('似乎没有网络了哦……', '提示');
+							}
+						});
+					},
+					toLoginPage: function() {
+						mui.openWindow({
+							id: 'login',
+							url: 'login.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},
+					setUserInfo: function() {
+						pageView.userInfo.uid = plus.storage.getItem('uid');
+						pageView.userInfo.nickname = plus.storage.getItem('nickname');
+						pageView.userInfo.totalMoney = plus.storage.getItem('total');
+						pageView.userInfo.totalScore = plus.storage.getItem('score');
+						var headicon = plus.storage.getItem('headicon');
+						if(headicon != null) {
+							if(headicon.indexOf('/storage') != -1) {
+								pageView.userInfo.headicon = headicon;
+							} else {
+								pageView.userInfo.headicon = BASE_URL + '/' + headicon;
+							}
+						}
+						pageView.userInfo.level = plus.storage.getItem('level');
+					},
+					checkLogin: function() {
+						var token = plus.storage.getItem('token');
+						var sessionId = plus.storage.getItem('sessionId');
+						var username = plus.storage.getItem('username');
+						if(token != null && token !== undefined && token !== '' &&
+							sessionId != null && sessionId != undefined && sessionId !== '') {
+							mui.post(USER_CHECK_LOGIN, {
+								username: username,
+								userToken: token
+							}, function(data) {
+								if(data.status === 'data-error' || data.status === 'error') {
+									pageView.toLoginPage();
+								} else if(data.code === 10005) {
+									plus.storage.setItem('sessionId', data.sessionId);
+									plus.navigator.setCookie(BASE_URL, 'JSESSIONID=' + data.sessionId);
+									pageView.setUserInfo();
+								} else {
+									pageView.setUserInfo();
+								}
+							}, 'json');
+						} else {
+							pageView.toLoginPage();
+						}
+					}
+				}
 			});
 		</script>
 	</body>

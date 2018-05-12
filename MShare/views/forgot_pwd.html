@@ -31,20 +31,13 @@
 
 			</form>
 			<div class="mui-content-padded">
-				<button id='reg' type="button" class="mui-btn mui-btn-block mui-btn-primary">确定</button>
+				<button v-on:tap="getPwd" type="button" class="mui-btn mui-btn-block mui-btn-primary">确定</button>
 			</div>
 		</div>
 
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/vue.min.js"></script>
 		<script type="text/javascript">
-			var mounted = function() {
-				mui.init();
-				document.getElementById('reg').addEventListener('tap', function(e) {
-					mui.toast(pageView.regForm);
-				});
-			}
-
 			var pageView = new Vue({
 				el: '#content',
 				data: {
@@ -53,7 +46,16 @@
 						verifyCode: ''
 					}
 				},
-				mounted: mounted
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init();
+					})
+				},
+				methods: {
+					getPwd: function () {
+						mui.toast(pageView.regForm);
+					}
+				}
 			});
 		</script>
 	</body>

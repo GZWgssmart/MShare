@@ -1,0 +1,231 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.UserBankCardDAO">
+
+    <insert id="save" parameterType="userBankCardDO">
+        insert into t_bank_card
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bankCardBankName != null">
+				bank_name,
+			</if>
+			<if test="bankCardCardNo != null">
+				card_no,
+			</if>
+			<if test="bankCardRealName != null">
+				real_name,
+			</if>
+			<if test="bankCardPhone != null">
+				phone,
+			</if>
+			<if test="bankCardUserId != null">
+				user_id,
+			</if>
+			<if test="bankCardCreateTime != null">
+				create_time,
+			</if>
+			<if test="bankCardUpdateTime != null">
+				update_time,
+			</if>
+			
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bankCardBankName != null">
+				#{bankCardBankName},
+			</if>
+			<if test="bankCardCardNo != null">
+				#{bankCardCardNo},
+			</if>
+			<if test="bankCardRealName != null">
+				#{bankCardRealName},
+			</if>
+			<if test="bankCardPhone != null">
+				#{bankCardPhone},
+			</if>
+			<if test="bankCardUserId != null">
+				#{bankCardUserId},
+			</if>
+			<if test="bankCardCreateTime != null">
+				#{bankCardCreateTime},
+			</if>
+			<if test="bankCardUpdateTime != null">
+				#{bankCardUpdateTime},
+			</if>
+			
+        </trim>
+    </insert>
+
+    <delete id="remove" parameterType="userBankCardDO">
+        delete from t_bank_card where id = #{bankCardId}
+    </delete>
+
+    <delete id="removeById" parameterType="long">
+        delete from t_bank_card where id = #{id}
+    </delete>
+
+    <delete id="removeByIds">
+        delete from t_bank_card where id in
+        <foreach item="id" collection="array" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="userBankCardDO">
+        update t_bank_card
+        <set>
+            <if test="bankCardBankName != null">
+				bank_name = #{bankCardBankName},
+			</if>
+			<if test="bankCardCardNo != null">
+				card_no = #{bankCardCardNo},
+			</if>
+			<if test="bankCardRealName != null">
+				real_name = #{bankCardRealName},
+			</if>
+			<if test="bankCardPhone != null">
+				phone = #{bankCardPhone},
+			</if>
+			<if test="bankCardUserId != null">
+				user_id = #{bankCardUserId},
+			</if>
+			<if test="bankCardCreateTime != null">
+				create_time = #{bankCardCreateTime},
+			</if>
+			<if test="bankCardUpdateTime != null">
+				update_time = #{bankCardUpdateTime},
+			</if>
+			
+        </set>
+        where id = #{bankCardId}
+    </update>
+
+    <update id="updateActiveStatus" parameterType="top.zywork.query.StatusQuery">
+        update t_bank_card set is_active = #{status} where id = #{id}
+    </update>
+
+    <update id="updateActiveStatuses" parameterType="top.zywork.query.StatusQueries">
+        update t_bank_card set is_active = #{status} where id in
+        <foreach item="id" collection="ids" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <sql id="select_columns">
+        t_bank_card.id as bankCardId, t_bank_card.bank_name as bankCardBankName, t_bank_card.card_no as bankCardCardNo, t_bank_card.real_name as bankCardRealName, t_bank_card.phone as bankCardPhone, t_bank_card.user_id as bankCardUserId, t_bank_card.create_time as bankCardCreateTime, t_bank_card.update_time as bankCardUpdateTime, t_user.id as userId, t_user.phone as userPhone, t_user.nickname as userNickname
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.bankCardId != null">
+			t_bank_card.id = #{query.bankCardId}
+		</if>
+		<if test="query != null and query.bankCardBankName != null and query.bankCardBankName != ''">
+			and t_bank_card.bank_name like concat('%', #{query.bankCardBankName}, '%')
+		</if>
+		<if test="query != null and query.bankCardCardNo != null and query.bankCardCardNo != ''">
+			and t_bank_card.card_no like concat('%', #{query.bankCardCardNo}, '%')
+		</if>
+		<if test="query != null and query.bankCardRealName != null and query.bankCardRealName != ''">
+			and t_bank_card.real_name like concat('%', #{query.bankCardRealName}, '%')
+		</if>
+		<if test="query != null and query.bankCardPhone != null and query.bankCardPhone != ''">
+			and t_bank_card.phone like concat('%', #{query.bankCardPhone}, '%')
+		</if>
+		<if test="query != null and query.bankCardUserId != null">
+			and t_bank_card.user_id = #{query.bankCardUserId}
+		</if>
+		<if test="query != null and query.bankCardCreateTimeStart != null and query.bankCardCreateTimeEnd == null">
+			and t_bank_card.create_time <![CDATA[ >= ]]> #{query.bankCardCreateTimeStart}
+		</if>
+		<if test="query != null and query.bankCardCreateTimeStart == null and query.bankCardCreateTimeEnd != null">
+			and t_bank_card.create_time <![CDATA[ <= ]]> #{query.bankCardCreateTimeEnd}
+		</if>
+		<if test="query != null and query.bankCardCreateTimeStart != null and query.bankCardCreateTimeEnd != null">
+			and t_bank_card.create_time <![CDATA[ >= ]]> #{query.bankCardCreateTimeStart} and t_bank_card.create_time <![CDATA[ <= ]]> #{query.bankCardCreateTimeEnd}
+		</if>
+		<if test="query != null and query.bankCardUpdateTimeStart != null and query.bankCardUpdateTimeEnd == null">
+			and t_bank_card.update_time <![CDATA[ >= ]]> #{query.bankCardUpdateTimeStart}
+		</if>
+		<if test="query != null and query.bankCardUpdateTimeStart == null and query.bankCardUpdateTimeEnd != null">
+			and t_bank_card.update_time <![CDATA[ <= ]]> #{query.bankCardUpdateTimeEnd}
+		</if>
+		<if test="query != null and query.bankCardUpdateTimeStart != null and query.bankCardUpdateTimeEnd != null">
+			and t_bank_card.update_time <![CDATA[ >= ]]> #{query.bankCardUpdateTimeStart} and t_bank_card.update_time <![CDATA[ <= ]]> #{query.bankCardUpdateTimeEnd}
+		</if>
+		<if test="query != null and query.userId != null">
+			and t_user.id = #{query.userId}
+		</if>
+		<if test="query != null and query.userPhone != null and query.userPhone != ''">
+			and t_user.phone like concat('%', #{query.userPhone}, '%')
+		</if>
+		<if test="query != null and query.userNickname != null and query.userNickname != ''">
+			and t_user.nickname like concat('%', #{query.userNickname}, '%')
+		</if>
+		
+        and
+        t_user.id = t_bank_card.user_id
+    </sql>
+
+    <select id="getById" parameterType="long" resultType="userBankCardDO">
+        select
+        <include refid="select_columns"/>
+        from t_bank_card, t_user where t_bank_card.id = #{id} and
+        t_user.id = t_bank_card.user_id
+    </select>
+
+    <select id="listAll" resultType="userBankCardDO">
+        select
+        <include refid="select_columns"/>
+        from t_bank_card, t_user
+        where
+        t_user.id = t_bank_card.user_id
+        order by t_bank_card.update_time desc, t_bank_card.create_time desc
+    </select>
+
+    <select id="listPage" parameterType="top.zywork.query.PageQuery" resultType="userBankCardDO">
+        select
+        <include refid="select_columns"/>
+        from t_bank_card, t_user
+        where
+        t_user.id = t_bank_card.user_id
+        order by
+        <if test="sort != null and sort != ''">
+            ${sort} ${order}
+        </if>
+        <if test="sort == null or sort == ''">
+            t_bank_card.update_time desc, t_bank_card.create_time desc
+        </if>
+        limit #{beginIndex}, #{pageSize}
+    </select>
+
+    <select id="count" resultType="long">
+        select count(*) from t_bank_card, t_user
+        where
+        t_user.id = t_bank_card.user_id
+    </select>
+
+    <select id="listPageByCondition" resultType="userBankCardDO">
+        select
+        <include refid="select_columns"/>
+        from t_bank_card, t_user
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="pager.sort != null and pager.sort != ''">
+            ${pager.sort} ${pager.order}
+        </if>
+        <if test="pager.sort == null or pager.sort == ''">
+            t_bank_card.update_time desc, t_bank_card.create_time desc
+        </if>
+        limit #{pager.beginIndex}, #{pager.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_bank_card, t_user
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>

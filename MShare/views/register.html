@@ -43,59 +43,77 @@
 
 			</form>
 			<div class="mui-content-padded">
-				<button id='reg' type="button" class="mui-btn mui-btn-block mui-btn-primary">注册</button>
+				<button v-on:tap="register" type="button" class="mui-btn mui-btn-block mui-btn-primary">注册</button>
 			</div>
 		</div>
 
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/vue.min.js"></script>
 		<script type="text/javascript" src="../js/api.js"></script>
-		<script type="text/javascript" src="../js/md5.min.js" ></script>
+		<script type="text/javascript" src="../js/md5.min.js"></script>
 		<script type="text/javascript">
-			var mounted = function() {
-					mui.init();
-					document.getElementById('reg').addEventListener('tap', function(e) {
-							if(pageView.regForm.password !== '' && pageView.regForm.password.length >= 6 &&
-								pageView.regForm.confirmPassword === pageView.regForm.password) {
-								mui.ajax(USER_REGISTER, {
-									data: {
-										phone: pageView.regForm.phone,
-										password: md5.base64(pageView.regForm.password),
-										fromId: pageView.regForm.accomendCode
-									},
-									dataType: 'json',
-									type: 'post',
-									success: function(data) {
-										if(data.status === 'ok') {
-											mui.toast('注册成功，请登录');
-											mui.back();
-										} else if(data.status === 'data-error') {
-											mui.alert(data.message, '提示');
-										}
-									},
-									error: function(xhr, type, errorThrown) {
-										mui.alert('似乎没有网络了哦……', '提示');
-									}
-								});
-							} else {
-								mui.alert('请输入正确的密码和确认密码，必须大于等于6个字符', '提示');
-							}
-						});
+			var pageView = new Vue({
+				el: '#content',
+				data: {
+					regForm: {
+						phone: '',
+						password: '',
+						confirmPassword: '',
+						accomendCode: '',
+						verifyCode: ''
 					}
-
-					var pageView = new Vue({
-						el: '#content',
-						data: {
-							regForm: {
-								phone: '',
-								password: '',
-								confirmPassword: '',
-								accomendCode: '',
-								verifyCode: ''
-							}
-						},
-						mounted: mounted
-					});
+				},
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init();
+					})
+				},
+				methods: {
+					register: function() {
+						var phoneExp = /^[1][3,4,5,7,8][0-9]{9}$/;
+						if(!phoneExp.test(pageView.regForm.phone)) {
+							mui.alert('请输入正确的手机号', '提示');
+						} else if(pageView.regForm.password == '' || pageView.regForm.password.length < 6 ||
+							pageView.regForm.confirmPassword !== pageView.regForm.password) {
+							mui.alert('请输入正确的密码和确认密码，必须大于等于6个字符', '提示');
+						} else if(pageView.regForm.accomendCode === '') {
+							mui.alert('请填写推荐码', '提示');
+						} else {
+							mui.ajax(USER_INFO + '/' + pageView.transForm.transTo, {
+								data: {},
+								dataType: 'json',
+								type: 'post',
+								success: function(data) {
+									if(data.phone != null && data.phone !== '') {
+										mui.ajax(USER_REGISTER, {
+											data: {
+												phone: pageView.regForm.phone,
+												password: md5.base64(pageView.regForm.password),
+												fromId: pageView.regForm.accomendCode
+											},
+											dataType: 'json',
+											type: 'post',
+											success: function(data) {
+												if(data.status === 'ok') {
+													mui.toast('注册成功，请登录');
+													mui.back();
+												} else if(data.status === 'data-error') {
+													mui.alert(data.message, '提示');
+												}
+											},
+											error: function(xhr, type, errorThrown) {
+												mui.alert('似乎没有网络了哦……', '提示');
+											}
+										});
+									} else {
+										mui.alert('请输入正确的推荐码', '提示');
+									}
+								}
+							});
+						}
+					}
+				}
+			});
 		</script>
 	</body>
 

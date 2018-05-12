@@ -177,13 +177,15 @@
 	},
 	"views/transin/transin.html": {
 		"refer": [
-			"views/transin/transin_history.html"
+			"views/transin/transin_history.html",
+			"views/transin/transin_history_page.html"
 		],
 		"resources": []
 	},
 	"views/transout/transout.html": {
 		"refer": [
-			"views/transout/transout_history.html"
+			"views/transout/transout_history.html",
+			"views/transout/transout_history_page.html"
 		],
 		"resources": []
 	},

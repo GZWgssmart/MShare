@@ -18,7 +18,7 @@
 			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
 			<h1 class="mui-title">扫码转入</h1>
 		</header>
-		<div class="mui-content qrcode-container">
+		<div class="mui-content qrcode-container" id="content">
 			<div class="qrcode-center">
 				<div id="qrcode"></div>
 				<p class="qrcode-des">打开APP，点击扫一扫，扫描二维码转入</p>
@@ -29,9 +29,11 @@
 			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll">
 					<ul class="mui-table-view">
-						<li class="mui-table-view-cell">
-							<a id="save-qrcode">保存二维码图片</a>
-							<a id="transin">转入记录</a>
+						<li id="saveQrcode" class="mui-table-view-cell">
+							保存二维码图片
+						</li>
+						<li id="transin" class="mui-table-view-cell">
+							转入记录
 						</li>
 					</ul>
 				</div>
@@ -42,43 +44,59 @@
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script src="../../js/qrcode.min.js"></script>
-		<script type="text/javascript" src="../../js/image.js" ></script>
+		<script type="text/javascript" src="../../js/image.js"></script>
+		<script src="../../js/vue.min.js"></script> 
 		<script type="text/javascript">
-			mui.plusReady(function () {
-				mui.init({
-				  preloadPages:[]
-				});
-				mui('.mui-scroll-wrapper').scroll();
-				var qrcode = new QRCode(document.getElementById("qrcode"), {
-					text: plus.storage.getItem('uid'),
-					width: 200,
-					height: 200,
-					colorDark: "#000000",
-					colorLight: "#ffffff",
-					correctLevel: QRCode.CorrectLevel.H
-				});
-				
-				document.getElementById('save-qrcode').addEventListener('tap', function (e) {
-					mui('#topPopover').popover('hide');
-					var image = document.getElementById('qrcode').children[1];
-					saveImageToGallery(image.src.replace('data:image/png:base64,', ''));
-				});
-				
-				document.getElementById('transin').addEventListener('tap', function (e) {
-					mui('#topPopover').popover('hide');
-					mui.openWindow({
-						id: 'transin_history',
-						url: 'transin_history.html',
-						show: {
-							aniShow: 'pop-in'
-						},
-						waiting: {
-							autoShow: true
-						}
+			var pageView = new Vue({
+				el: '#content',
+				data: {},
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init({
+							preloadPages: []
+						});
+						pageView.showQrcode();
+						
+						document.getElementById('saveQrcode').addEventListener('tap', function(e) {
+							pageView.saveQrcode();
+						});
+						
+						document.getElementById('transin').addEventListener('tap', function (e) {
+							pageView.transin();
+						});
 					});
-				});
+				},
+				methods: {
+					showQrcode: function() {
+						var qrcode = new QRCode(document.getElementById("qrcode"), {
+							text: plus.storage.getItem('uid'),
+							width: 200,
+							height: 200,
+							colorDark: "#000000",
+							colorLight: "#ffffff",
+							correctLevel: QRCode.CorrectLevel.H
+						});
+					},
+					saveQrcode: function() {
+						mui('#topPopover').popover('hide');
+						var image = document.getElementById('qrcode').children[1];
+						saveImageToGallery(image.src.replace('data:image/png:base64,', ''));
+					},
+					transin: function() {
+						mui('#topPopover').popover('hide');
+						mui.openWindow({
+							id: 'transin_history_page',
+							url: 'transin_history_page.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					}
+				}
 			});
-			
 		</script>
 	</body>
 

@@ -74,7 +74,7 @@
 				</li>
 			</ul>
 			<ul class="mui-table-view" style="margin-top: 10px;">
-				<li id="logout" class="mui-table-view-cell mui-text-center" style="color: #CF2D28;">
+				<li v-on:tap="logout" class="mui-table-view-cell mui-text-center" style="color: #CF2D28;">
 					退出登录
 				</li>
 			</ul>
@@ -85,36 +85,118 @@
 		<script type="text/javascript" src="../../js/api.js"></script>
 		<script src="../../js/image.js"></script>
 		<script type="text/javascript">
-			var mounted = function() {
-				mui.plusReady(function() {
-					mui.init({
-						preloadPages: []
-					});
-
-					pageView.userInfo.nickname = plus.storage.getItem('nickname');
-					var headicon = plus.storage.getItem('headicon');
-					if(headicon != null) {
-						if(headicon.indexOf('/storage') != -1) {
-							pageView.userInfo.headicon = headicon;
-						} else {
-							pageView.userInfo.headicon = BASE_URL + '/' + headicon;
-						}
+			var pageView = new Vue({
+				el: '#content',
+				data: {
+					userInfo: {
+						headicon: '../../images/timg.jpeg',
+						uid: '',
+						level: '',
+						nickname: ''
 					}
-					pageView.userInfo.uid = plus.storage.getItem('uid');
-					pageView.userInfo.level = plus.storage.getItem('level');
+				},
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init({
+							preloadPages: []
+						});
 
-					mui('#opts').on('tap', '.mui-table-view-cell', function(e) {
-						var id = this.id;
-						if(id === 'user-head') {
-							changeHeadIcon();
-						} else if(id === 'nickname-chg') {
-							changeNickname();
-						} else {
-							showPage(id);
+						pageView.userInfo.nickname = plus.storage.getItem('nickname');
+						var headicon = plus.storage.getItem('headicon');
+						if(headicon != null) {
+							if(headicon.indexOf('/storage') != -1) {
+								pageView.userInfo.headicon = headicon;
+							} else {
+								pageView.userInfo.headicon = BASE_URL + '/' + headicon;
+							}
 						}
-					});
+						pageView.userInfo.uid = plus.storage.getItem('uid');
+						pageView.userInfo.level = plus.storage.getItem('level');
 
-					document.getElementById('logout').addEventListener('tap', function(e) {
+						mui('#opts').on('tap', '.mui-table-view-cell', function(e) {
+							var id = this.id;
+							if(id === 'user-head') {
+								pageView.changeHeadIcon();
+							} else if(id === 'nickname-chg') {
+								pageView.changeNickname();
+							} else {
+								pageView.showPage(id);
+							}
+						});
+					});
+				},
+				methods: {
+					showPage: function(pageId) {
+						if(pageId !== 'code') {
+							mui.openWindow({
+								id: pageId,
+								url: pageId + '.html',
+								show: {
+									aniShow: 'pop-in'
+								},
+								waiting: {
+									autoShow: false
+								}
+							});
+						}
+					},
+					changeHeadIcon: function() {
+						if(mui.os.plus) {
+							var a = [{
+								title: '拍照'
+							}, {
+								title: '从手机相册选择'
+							}];
+							plus.nativeUI.actionSheet({
+								title: '修改头像',
+								cancel: '取消',
+								buttons: a
+							}, function(b) {
+								switch(b.index) {
+									case 0:
+										break;
+									case 1:
+										captureImage(USER_HEADICON_UPDATE);
+										break;
+									case 2:
+										chooseImage(USER_HEADICON_UPDATE);
+										break;
+									default:
+										break;
+								}
+							}, false);
+						}
+					},
+					changeNickname: function() {
+						mui.prompt('请输入新昵称', pageView.userInfo.nickname, '修改昵称', ['确定', '取消'], function(r) {
+							if(r.index === 0) {
+								pageView.userInfo.nickname = r.value;
+								plus.storage.setItem('nickname', r.value);
+								mui.ajax(USER_NICKNAME_UPDATE, {
+									data: {
+										id: pageView.userInfo.uid,
+										nickname: pageView.userInfo.nickname
+									},
+									headers: {
+										'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+									},
+									dataType: 'json',
+									type: 'post',
+									success: function(data) {
+										if(data.status === 'ok') {
+											mui.alert(data.message, '提示');
+										} else if(data.status === 'data-error') {
+											mui.alert(data.message, '提示');
+										}
+									},
+									error: function(xhr, type, errorThrown) {
+										mui.alert('似乎没有网络了哦……', '提示');
+									}
+								});
+							}
+						});
+					},
+					logout: function() {
 						var token = plus.storage.getItem('token');
 						var username = plus.storage.getItem('username');
 						mui.ajax(USER_LOGOUT, {
@@ -126,10 +208,15 @@
 							type: 'post',
 							success: function(data) {
 								if(data.status === 'ok') {
-									plus.webview.close('home');
-									plus.webview.close('user');
+									plus.storage.clear();
+									plus.navigator.removeAllCookie();
 									var loginView = plus.webview.getWebviewById('login');
-									mui.fire(loginView, 'clearForm');
+									if (loginView != null) {
+										plus.webview.close('home');
+										
+									plus.webview.close('user');
+										mui.fire(loginView, 'clearForm');
+									}
 									mui.openWindow({
 										id: 'login',
 										url: '../login.html',
@@ -137,69 +224,9 @@
 											aniShow: 'pop-in'
 										},
 										waiting: {
-											autoShow: true
+											autoShow: false
 										}
 									});
-									plus.storage.clear();
-									plus.navigator.removeAllCookie();
-								}
-							},
-							error: function(xhr, type, errorThrown) {
-								mui.alert('似乎没有网络了哦……', '提示');
-							}
-						});
-					})
-				});
-			}
-
-			function changeHeadIcon() {
-				if(mui.os.plus) {
-					var a = [{
-						title: '拍照'
-					}, {
-						title: '从手机相册选择'
-					}];
-					plus.nativeUI.actionSheet({
-						title: '修改头像',
-						cancel: '取消',
-						buttons: a
-					}, function(b) {
-						switch(b.index) {
-							case 0:
-								break;
-							case 1:
-								captureImage(USER_HEADICON_UPDATE);
-								break;
-							case 2:
-								chooseImage(USER_HEADICON_UPDATE);
-								break;
-							default:
-								break;
-						}
-					}, false);
-				}
-			}
-
-			function changeNickname() {
-				mui.prompt('请输入新昵称', pageView.userInfo.nickname, '修改昵称', ['确定', '取消'], function(r) {
-					if(r.index === 0) {
-						pageView.userInfo.nickname = r.value;
-						plus.storage.setItem('nickname', r.value);
-						mui.ajax(USER_NICKNAME_UPDATE, {
-							data: {
-								id: pageView.userInfo.uid,
-								nickname: pageView.userInfo.nickname
-							},
-							headers: {
-								'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-							},
-							dataType: 'json',
-							type: 'post',
-							success: function(data) {
-								if(data.status === 'ok') {
-									mui.alert(data.message, '提示');
-								} else if(data.status === 'data-error') {
-									mui.alert(data.message, '提示');
 								}
 							},
 							error: function(xhr, type, errorThrown) {
@@ -207,35 +234,7 @@
 							}
 						});
 					}
-				});
-			}
-
-			function showPage(pageId) {
-				if(pageId !== 'code') {
-					mui.openWindow({
-						id: pageId,
-						url: pageId + '.html',
-						show: {
-							aniShow: 'pop-in'
-						},
-						waiting: {
-							autoShow: false
-						}
-					});
 				}
-			}
-
-			var pageView = new Vue({
-				el: '#content',
-				data: {
-					userInfo: {
-						headicon: '../../images/timg.jpeg',
-						uid: '',
-						level: '',
-						nickname: ''
-					}
-				},
-				mounted: mounted
 			});
 		</script>
 	</body>

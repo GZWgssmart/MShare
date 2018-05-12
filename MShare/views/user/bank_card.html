@@ -15,50 +15,108 @@
 			<h1 class="mui-title">我的银行卡</h1>
 		</header>
 
-		<div class="mui-content">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell bank-card-item">
-					<p>姓名：路飞</p>
-					<p>银行：中国银行</p>
-					<p>卡号：666666666666666666666</p>
-					<p>添加时间：2018-04-25 15:00:00</p>
-					<span class="mui-btn mui-btn-danger mui-pull-right">解除绑定</span>
-				</li>
-			</ul>
-			<button id="bank-card-add" type="button" class="mui-btn mui-btn-success mui-btn-block" style="margin-top: 30px;">
-				<i class="mui-icon mui-icon-plus"></i>
-				添加银行卡
-			</button> 
+		<div class="mui-content mui-scroll-wrapper" id="content">
+			<div>
+				<ul class="mui-table-view ">
+					<li v-for="bankCard in bankCards " class="mui-table-view-cell bank-card-item">
+						<p>姓名：{{bankCard.bankCardRealName}}</p>
+						<p>银行：{{bankCard.bankCardBankName}}</p>
+						<p>卡号：{{bankCard.bankCardCardNo}}</p>
+						<p>添加时间：{{bankCard.bankCardCreateTime}}</p>
+						<span v-on:tap="removeBankCard(bankCard.bankCardId)" class="mui-btn mui-btn-danger mui-pull-right">解除绑定</span>
+					</li>
+				</ul>
+				<button v-on:tap="addBankCard" type="button" class="mui-btn mui-btn-success mui-btn-block" style="margin-top: 30px;">
+					<i class="mui-icon mui-icon-plus "></i>
+					添加银行卡
+				</button>
+			</div>
 		</div>
 
-		<script src="../../js/mui.min.js"></script>
-		<script type="text/javascript">
-			mui.plusReady(function () {
-				mui.init(
-					{
-						preloadPages: [
-							{
-								id: 'bank_card_add',
-								url: 'bank_card_add.html'
+		<script src="../../js/mui.min.js "></script>
+		<script src="../../js/api.js "></script>
+		<script type="text/javascript " src="../../js/vue.min.js "></script>
+		<script src="../../js/datetime.js "></script>
+		<script type="text/javascript ">
+			var pageView = new Vue({
+				el: '#content',
+				data: {
+					bankCards: []
+				},
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init({
+							preloadPages: []
+						});
+
+						mui('.mui-scroll-wrapper').scroll();
+						pageView.loadBankCard();
+						window.addEventListener('update',
+							function() {
+								pageView.loadBankCard();
 							}
-						]
-					}
-				);
-				
-				document.getElementById('bank-card-add').addEventListener('tap', function (e) {
-					mui.openWindow(
-						{
+						);
+					});
+				},
+				methods: {
+					loadBankCard: function() {
+						mui.ajax(USER_BANK_CARD_LIST, {
+							data: {
+								offset: 1,
+								limit: 50,
+								bankCardUserId: plus.storage.getItem('uid')
+							},
+							dataType: 'json',
+							type: 'post',
+							success: function(data) {
+								if(data.rows != null && data.rows !== 'undefined' && data.rows !== '') {
+									for(var i = 0, len = data.rows.length; i < len; i++) {
+										var cardNo = data.rows[i].bankCardCardNo;
+										data.rows[i].bankCardCardNo = cardNo.substr(0, cardNo.length - 7) + '****' + cardNo.substr(cardNo.length - 3, 3)
+										data.rows[i].bankCardCreateTime = timestampToDatetime(data.rows[i].bankCardCreateTime);
+									}
+									pageView.bankCards = data.rows;
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.alert('似乎没有网络了哦……', '提示');
+							}
+						});
+					},
+					addBankCard: function() {
+						mui.openWindow({
 							id: 'bank_card_add',
+							url: 'bank_card_add.html',
 							show: {
 								aniShow: 'pop-in'
 							},
 							waiting: {
-								autoShow: true
+								autoShow: false
 							}
-						}
-					);
-				});
-			})
+						});
+					},
+					removeBankCard: function(bankCardId) {
+						mui.confirm('确定解除银行卡绑定吗？', '提示', ['确定', '取消'], function(r) {
+							if(r.index === 0) {
+								mui.ajax(USER_BANK_CARD_REMOVE + '/' + bankCardId, {
+									data: {},
+									dataType: 'json',
+									type: 'get',
+									success: function(data) {
+										if (data.status === 'ok') {
+											pageView.bankCards = [];
+											pageView.loadBankCard();
+										}
+									},
+									error: function(xhr, type, errorThrown) {
+										mui.alert('似乎没有网络了哦……', '提示');
+									}
+								});
+							}
+						});
+					}
+				}
+			});
 		</script>
 	</body>
 

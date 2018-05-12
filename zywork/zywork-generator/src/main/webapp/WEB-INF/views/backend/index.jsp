@@ -53,7 +53,7 @@
                             <a class="J_menuItem" href="<%=path%>/user/page" data-index="0">用户管理</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="<%=path%>/level-setting/page" data-index="0">等级配置</a>
+                            <a class="J_menuItem" href="<%=path%>/user-bankcard/page" data-index="0">银行卡管理</a>
                         </li>
                     </ul>
 

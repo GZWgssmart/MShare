@@ -42,45 +42,6 @@
 		<script src="../../js/mui.min.js"></script>
 		<script src="../../js/vue.min.js"></script>
 		<script type="text/javascript">
-			var mounted = function() {
-				mui.plusReady(function() {
-					mui.init({
-						preloadPages: []
-					});
-					
-					document.getElementById('editPwd').addEventListener('tap', function (e) {
-						editPwd();
-					});
-				});
-			}
-
-			function editPwd() {
-				if(pageView.form.newPwd !== '' && pageView.form.newPwd.length >= 6 &&
-					pageView.form.confNewPwd === pageView.form.newPwd) {
-					mui.ajax(USER_PAY_PASSWORD_UPDATE, {
-						data: {
-							id: plus.storage.getItem('uid'),
-							payPassword: md5.base64(pageView.form.newPwd)
-						},
-						dataType: 'json',
-						type: 'post',
-						success: function(data) {
-							if(data.status === 'ok') {
-								mui.alert('已修改支付密码', '提示');
-							} else if(data.status === 'data-error') {
-								mui.alert(data.message, '提示');
-							}
-						},
-						error: function(xhr, type, errorThrown) {
-							mui.alert('似乎没有网络了哦……', '提示');
-						}
-					});
-				} else {
-					mui.alert('请输入正确的密码和确认密码，必须大于等于6个字符', '提示');
-				}
-
-			}
-
 			var pageView = new Vue({
 				el: '#content',
 				data: {
@@ -90,7 +51,40 @@
 						confNewPwd: ''
 					}
 				},
-				mounted: mounted
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init({
+							preloadPages: []
+						});
+					});
+				},
+				methods: {
+					editPwd: function() {
+						if(pageView.form.newPwd !== '' && pageView.form.newPwd.length >= 6 &&
+							pageView.form.confNewPwd === pageView.form.newPwd) {
+							mui.ajax(USER_PAY_PASSWORD_UPDATE, {
+								data: {
+									id: plus.storage.getItem('uid'),
+									payPassword: md5.base64(pageView.form.newPwd)
+								},
+								dataType: 'json',
+								type: 'post',
+								success: function(data) {
+									if(data.status === 'ok') {
+										mui.alert('已修改支付密码', '提示');
+									} else if(data.status === 'data-error') {
+										mui.alert(data.message, '提示');
+									}
+								},
+								error: function(xhr, type, errorThrown) {
+									mui.alert('似乎没有网络了哦……', '提示');
+								}
+							});
+						} else {
+							mui.alert('请输入正确的密码和确认密码，必须大于等于6个字符', '提示');
+						}
+					}
+				}
 			});
 		</script>
 	</body>

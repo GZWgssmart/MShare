@@ -207,7 +207,7 @@ form textarea {
 	position: absolute;
 }
 
-.qrcode-bar-footer a {
+.page-footer a {
 	display: block;
 	height: 45px;
 	line-height: 45px;
@@ -254,4 +254,10 @@ form textarea {
 /*我的银行卡界面*/
 .bank-card-item span {
 	font-size: 10px;
+}
+
+.bottom-fixed-page {
+	bottom: 45px;
+	left: 0px;
+	position: absolute;
 }
