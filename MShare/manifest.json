@@ -361,7 +361,8 @@
 			"views/buy/buy.html": {
 				"resources": [],
 				"refer": [
-					"views/buy/buy_order.html"
+					"views/buy/buy_order.html",
+					"views/buy/buy_order_page.html"
 				],
 				"priority": 0
 			},
@@ -375,7 +376,8 @@
 			"views/sell/sell.html": {
 				"resources": [],
 				"refer": [
-					"views/sell/sell_order.html"
+					"views/sell/sell_order.html",
+					"views/sell/sell_order_page.html"
 				],
 				"priority": 0
 			},

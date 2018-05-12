@@ -27,7 +27,7 @@
 				</div>
 			</form>
 			<div class="mui-content-padded">
-				<button id="confirm" class="mui-btn mui-btn-primary mui-btn-block">
+				<button v-on:tap="confirm" class="mui-btn mui-btn-primary mui-btn-block">
 					<i class="mui-icon mui-icon-checkmarkempty"></i>
 					确定
 				</button>
@@ -37,31 +37,6 @@
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript" src="../../js/vue.min.js"></script>
 		<script type="text/javascript">
-			var needUpdate = false;
-			var mounted = function() {
-				mui.plusReady(function() {
-					mui.init({
-						beforeback: function() {
-							if(needUpdate) {
-								var orderSubView = plus.webview.getWebviewById('buy_order_sub');
-								mui.fire(orderSubView, 'confirm_buy');
-								needUpdate = false;
-							}
-							return true;
-						}
-					});
-					
-					var self = plus.webview.currentWebview();
-					pageView.buyForm.id = self.currentId;
-					pageView.buyForm.buy = self.currentBuy;
-
-					document.getElementById('confirm').addEventListener('tap', function(e) {
-						needUpdate = true;
-						mui.back();
-					});
-				});
-			}
-
 			var pageView = new Vue({
 				el: '#content',
 				data: {
@@ -70,9 +45,33 @@
 						buy: 0,
 						sellUid: '',
 						sellPhone: ''
-					}
+					},
+					needUpdate: false
 				},
-				mounted: mounted
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init({
+							beforeback: function() {
+								if(pageView.needUpdate) {
+									var orderSubView = plus.webview.getWebviewById('buy_order_sub');
+									mui.fire(orderSubView, 'confirm_buy');
+									pageView.needUpdate = false;
+								}
+								return true;
+							}
+						});
+
+						var self = plus.webview.currentWebview();
+						pageView.buyForm.id = self.currentId;
+						pageView.buyForm.buy = self.currentBuy;
+					});
+				},
+				methods: {
+					confirm: function() {
+						pageView.needUpdate = true;
+						mui.back();
+					}
+				}
 			});
 		</script>
 	</body>

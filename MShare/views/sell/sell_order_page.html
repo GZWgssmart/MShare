@@ -13,7 +13,11 @@
 	</head>
 
 	<body>
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">卖出订单</h1>
+		</header>
+		<div id="content" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<ul class="mui-table-view mui-table-view-chevron content-list">
 					<li v-for="(order, index) in orders" class="mui-table-view-cell" style="padding-right: 15px;">
@@ -57,6 +61,10 @@
 				</ul>
 			</div>
 		</div>
+		<div class="mui-bar mui-bar-footer page-footer">
+			<a id="previousPage" class="mui-pull-left">上一页</a>
+			<a id="nextPage" class="mui-pull-right">下一页</a>
+		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script src="../../js/vue.min.js"></script>
 		<script>
@@ -64,49 +72,8 @@
 			var currentIndex;
 			var currentSell;
 
-			function pulldownRefresh() {
-				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-				pageView.orders = [{
-					id: 1,
-					headicon: '../../images/timg.jpeg',
-					nickname: '大强',
-					uid: '100003',
-					sell: 200,
-					createTime: '2018-04-26 12:00:00',
-					sellStatus: 0,
-					sellTime: '2018-04-26 13:00:00'
-				}];
-			}
-
-			function pullupRefresh() {
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh();
-				pageView.orders = pageView.orders.concat(
-					[{
-						id: 1,
-						headicon: '../../images/timg.jpeg',
-						nickname: '大强',
-						uid: '100003',
-						sell: 200,
-						createTime: '2018-04-26 12:00:00',
-						sellStatus: 0,
-						sellTime: '2018-04-26 13:00:00'
-					}]
-				);
-			}
-			//			if (mui.os.plus) {
-			//				mui.plusReady(function() {
-			//					setTimeout(function() {
-			//						mui('#pullrefresh').pullRefresh().pullupLoading();
-			//					}, 10);
-			//
-			//				});
-			//			} else {
-			//				mui.ready(function() {
-			//					mui('#pullrefresh').pullRefresh().pullupLoading();
-			//				});
-			//			}
 			var pageView = new Vue({
-				el: '#pullrefresh',
+				el: '#content',
 				data: {
 					orders: [{
 							id: 1,
@@ -132,18 +99,9 @@
 				},
 				mounted: function() {
 					mui.plusReady(function() {
-						mui.init({
-							pullRefresh: {
-								container: '#pullrefresh',
-								down: {
-									callback: pulldownRefresh
-								},
-								up: {
-									contentrefresh: '正在加载...',
-									callback: pullupRefresh
-								}
-							}
-						});
+						mui.init();
+						
+						mui('.mui-scroll-wrapper').scroll();
 
 						window.addEventListener('confirm_sell', function(e) {
 							pageView.orders[currentIndex].sellStatus = 1;

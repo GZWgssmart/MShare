@@ -38,8 +38,8 @@
 			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll">
 					<ul class="mui-table-view">
-						<li class="mui-table-view-cell">
-							<a id="transin">卖出订单</a>
+						<li id="transin" class="mui-table-view-cell">
+							卖出订单
 						</li>
 					</ul>
 				</div>
@@ -47,34 +47,35 @@
 
 		</div>
 
-	</div>
+		</div>
 		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
 		<script type="text/javascript">
-			mui.plusReady(function () {
-				mui.init({
-				  preloadPages:[
-				    		{
-					    		id: 'sell_order',
-					      	url: 'sell_order.html'
-				      	}
-				    ]
-				});
-				mui('.mui-scroll-wrapper').scroll();
-				
-				document.getElementById('transin').addEventListener('tap', function (e) {
-					mui('#topPopover').popover('hide');
-					mui.openWindow({
-						id: 'sell_order',
-						show: {
-							aniShow: 'pop-in'
-						},
-						waiting: {
-							autoShow: true
-						}
+			var pageView = new Vue({
+				el: '#content',
+				data: {
+
+				},
+				mounted: function() {
+					mui.init({
+						preloadPages: []
 					});
-				});
+
+					document.getElementById('transin').addEventListener('tap', function(e) {
+						mui('#topPopover').popover('hide');
+						mui.openWindow({
+							id: 'sell_order_page',
+							url: 'sell_order_page.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: true
+							}
+						});
+					});
+				}
 			});
-			
 		</script>
 	</body>
 
