@@ -34,8 +34,8 @@
                         <span><img alt="image" class="img-circle" src="<%=path%>/static/img/profile_small.jpeg" style="width:64px; height:64px;"/></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                               <span class="block m-t-xs"><strong class="font-bold">王振宇</strong></span>
-                                <span class="text-muted text-xs block">zywork.top</span>
+                               <span class="block m-t-xs"><strong class="font-bold">瑞信宝</strong></span>
+                                <span class="text-muted text-xs block">Admin</span>
                                 </span>
                         </a>
                     </div>
@@ -143,7 +143,7 @@
                     data-id="index_v1.html" seamless></iframe>
         </div>
         <div class="footer">
-            <div class="pull-right">&copy; 2018 <a href="http://zywork.top" target="_blank">zywork.top 王振宇</a>
+            <div class="pull-right">&copy; 2018 <a href="#">瑞信宝</a>
             </div>
         </div>
     </div>

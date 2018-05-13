@@ -1,4 +1,4 @@
-const BASE_URL = 'http://192.168.0.113:8080';
+const BASE_URL = 'http://zywork.top/mshare';
 
 const USER_LOGIN = BASE_URL +'/user/login';
 
@@ -29,3 +29,27 @@ const USER_TRANS_OUT = BASE_URL + '/trans/save';
 const USER_TRANS_IN_HISTORY = BASE_URL + '/user-transin/pager-cond';
 
 const USER_TRANS_OUT_HISTORY = BASE_URL + '/user-transout/pager-cond';
+
+const USER_ORDER_CREATE = BASE_URL + '/order/save';
+
+const USER_ORDER_UPDATE = BASE_URL + '/order/update'
+
+const USER_ORDER_SELL_LIST = BASE_URL + '/sell-order/pager-cond';
+
+const USER_ORDER_BUY_LIST = BASE_URL + '/buy-order/pager-cond';
+
+const ORDER_NOT_SELL = 0;
+
+const ORDER_NOT_SELL_WAIT_BUY_CONFIRM = 1;
+
+const ORDER_ALREADY_SELL = 2;
+
+const ORDER_CANCEL_SELL = 3;
+
+const ORDER_NOT_BUY = 4;
+
+const ORDER_NOT_BUY_WAIT_SELL_CONFIRM = 5;
+
+const ORDER_ALREADY_BUY = 6;
+
+const ORDER_CANCEL_BUY = 7;

@@ -106,7 +106,7 @@
         t_trans.id as transId, t_trans.trans_from as transTransFrom, t_trans.trans_to as transTransTo,
         (select t_user.nickname from t_user where t_user.id = t_trans.trans_to) as toNickname,
          (select t_user.phone from t_user where t_user.id = t_trans.trans_to) as toPhone,
-         (select t_user.headicon from t_user where t_user.id = t_trans.trans_from) as toHeadicon,
+         (select t_user.headicon from t_user where t_user.id = t_trans.trans_to) as toHeadicon,
         t_trans.total as transTotal, t_trans.trans_time as transTransTime, t_trans.create_time as transCreateTime, t_trans.update_time as transUpdateTime, t_user.id as userId, t_user.phone as userPhone, t_user.nickname as userNickname, t_user.headicon as userHeadicon
     </sql>
 

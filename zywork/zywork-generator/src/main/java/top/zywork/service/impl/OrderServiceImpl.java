@@ -2,9 +2,14 @@ package top.zywork.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.zywork.common.ExceptionUtils;
+import top.zywork.constant.OrderStatusConstant;
 import top.zywork.dao.OrderDAO;
+import top.zywork.dao.UserDAO;
 import top.zywork.dos.OrderDO;
+import top.zywork.dos.UserDO;
 import top.zywork.dto.OrderDTO;
+import top.zywork.query.UserOrderQuery;
 import top.zywork.service.AbstractBaseService;
 import top.zywork.service.OrderService;
 
@@ -23,10 +28,34 @@ public class OrderServiceImpl extends AbstractBaseService implements OrderServic
 
     private OrderDAO orderDAO;
 
+    private UserDAO userDAO;
+
+    @Override
+    public void update(Object dataTransferObj) {
+        try {
+            OrderDO orderDO = getBeanMapper().map(dataTransferObj, OrderDO.class);
+            orderDAO.update(orderDO);
+            UserOrderQuery userOrderQuery = new UserOrderQuery();
+            if (orderDO.getStatus() == OrderStatusConstant.ORDER_ALREADY_SELL || orderDO.getStatus() == OrderStatusConstant.ORDER_ALREADY_BUY) {
+                userOrderQuery.setId(orderDO.getId());
+                userOrderQuery.setTotal(orderDO.getTotal());
+                userDAO.updateOrderBuy(userOrderQuery);
+                userDAO.updateOrderSell(userOrderQuery);
+            }
+        } catch (RuntimeException e) {
+            throw ExceptionUtils.serviceException(e);
+        }
+    }
+
     @Autowired
     public void setOrderDAO(OrderDAO orderDAO) {
         super.setBaseDAO(orderDAO);
         this.orderDAO = orderDAO;
+    }
+
+    @Autowired
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     @PostConstruct

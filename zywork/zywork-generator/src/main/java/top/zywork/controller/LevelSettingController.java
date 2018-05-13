@@ -1,5 +1,6 @@
 package top.zywork.controller;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,7 @@ public class LevelSettingController extends BaseController {
 
     private LevelSettingService levelSettingService;
 
+    @RequiresRoles(value = {"admin"})
     @GetMapping("page")
     public String page() {
         return "LevelSetting/LevelSetting";
@@ -67,6 +69,7 @@ public class LevelSettingController extends BaseController {
         return "LevelSetting/LevelSettingSearchModal";
     }
 
+    @RequiresRoles(value = {"admin"})
     @PostMapping("save")
     @ResponseBody
     public ControllerStatusVO save(@Validated LevelSettingVO levelSettingVO, BindingResult bindingResult) {
@@ -85,6 +88,7 @@ public class LevelSettingController extends BaseController {
         return statusVO;
     }
 
+    @RequiresRoles(value = {"admin"})
     @PostMapping("remove")
     @ResponseBody
     public ControllerStatusVO remove(LevelSettingVO levelSettingVO) {
@@ -99,6 +103,7 @@ public class LevelSettingController extends BaseController {
         return statusVO;
     }
 
+    @RequiresRoles(value = {"admin"})
     @GetMapping("remove/{id}")
     @ResponseBody
     public ControllerStatusVO removeById(@PathVariable("id") Long id) {
@@ -113,6 +118,7 @@ public class LevelSettingController extends BaseController {
         return statusVO;
     }
 
+    @RequiresRoles(value = {"admin"})
     @PostMapping("batch-remove")
     @ResponseBody
     public ControllerStatusVO removeByIds(String ids) {
@@ -127,6 +133,7 @@ public class LevelSettingController extends BaseController {
         return statusVO;
     }
 
+    @RequiresRoles(value = {"admin"})
     @PostMapping("update")
     @ResponseBody
     public ControllerStatusVO update(@Validated LevelSettingVO levelSettingVO, BindingResult bindingResult) {
@@ -145,6 +152,7 @@ public class LevelSettingController extends BaseController {
         return statusVO;
     }
 
+    @RequiresRoles(value = {"admin"})
     @PostMapping("active")
     @ResponseBody
     public ControllerStatusVO updateActiveStatus(StatusQuery statusQuery) {
@@ -159,6 +167,7 @@ public class LevelSettingController extends BaseController {
         return statusVO;
     }
 
+    @RequiresRoles(value = {"admin"})
     @PostMapping("batch-active")
     @ResponseBody
     public ControllerStatusVO updateActiveStatuses(String ids, StatusQueries statusQueries) {
@@ -174,6 +183,7 @@ public class LevelSettingController extends BaseController {
         return statusVO;
     }
 
+    @RequiresRoles(value = {"admin"})
     @RequestMapping("one/{id}")
     @ResponseBody
     public LevelSettingVO getById(@PathVariable("id") Long id) {
@@ -189,6 +199,7 @@ public class LevelSettingController extends BaseController {
         return levelSettingVO;
     }
 
+    @RequiresRoles(value = {"admin"})
     @GetMapping("all")
     @ResponseBody
     public List<LevelSettingVO> listAll() {
@@ -202,6 +213,7 @@ public class LevelSettingController extends BaseController {
         return levelSettingVOList;
     }
 
+    @RequiresRoles(value = {"admin"})
     @RequestMapping("pager")
     @ResponseBody
     public PagerVO listPage(int offset, int limit, String sort, String order) {
@@ -218,6 +230,7 @@ public class LevelSettingController extends BaseController {
         return pagerVO;
     }
 
+    @RequiresRoles(value = {"admin"})
     @RequestMapping("pager-cond")
     @ResponseBody
     public PagerVO listPageByCondition(int offset, int limit, String sort, String order, LevelSettingQuery levelSettingQuery) {

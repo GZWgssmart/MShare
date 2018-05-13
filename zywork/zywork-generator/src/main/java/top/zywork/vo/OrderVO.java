@@ -23,12 +23,12 @@ public class OrderVO extends BaseVO {
 	/**
 	 * 订单编号
 	 */
-	@NotBlank(message = "此项是必须项")
+	// @NotBlank(message = "此项是必须项")
 	private String orderNo;
 	/**
 	 * 订单总额
 	 */
-	@NotNull(message = "此项是必须项")
+	// @NotNull(message = "此项是必须项")
 	private Long total;
 	/**
 	 * 订单类型

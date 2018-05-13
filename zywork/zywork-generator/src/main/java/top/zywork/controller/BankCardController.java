@@ -1,5 +1,7 @@
 package top.zywork.controller;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +44,7 @@ public class BankCardController extends BaseController {
 
     private BankCardService bankCardService;
 
+    @RequiresRoles(value = {"admin"})
     @GetMapping("page")
     public String page() {
         return "BankCard/BankCard";
@@ -67,6 +70,7 @@ public class BankCardController extends BaseController {
         return "BankCard/BankCardSearchModal";
     }
 
+    @RequiresUser
     @PostMapping("save")
     @ResponseBody
     public ControllerStatusVO save(@Validated BankCardVO bankCardVO, BindingResult bindingResult) {
@@ -85,6 +89,7 @@ public class BankCardController extends BaseController {
         return statusVO;
     }
 
+    @RequiresUser
     @PostMapping("remove")
     @ResponseBody
     public ControllerStatusVO remove(BankCardVO bankCardVO) {
@@ -99,6 +104,7 @@ public class BankCardController extends BaseController {
         return statusVO;
     }
 
+    @RequiresUser
     @GetMapping("remove/{id}")
     @ResponseBody
     public ControllerStatusVO removeById(@PathVariable("id") Long id) {
@@ -127,6 +133,7 @@ public class BankCardController extends BaseController {
         return statusVO;
     }
 
+    @RequiresUser
     @PostMapping("update")
     @ResponseBody
     public ControllerStatusVO update(@Validated BankCardVO bankCardVO, BindingResult bindingResult) {
@@ -189,6 +196,7 @@ public class BankCardController extends BaseController {
         return bankCardVO;
     }
 
+    @RequiresUser
     @GetMapping("all")
     @ResponseBody
     public List<BankCardVO> listAll() {
@@ -202,6 +210,7 @@ public class BankCardController extends BaseController {
         return bankCardVOList;
     }
 
+    @RequiresUser
     @RequestMapping("pager")
     @ResponseBody
     public PagerVO listPage(int offset, int limit, String sort, String order) {
@@ -218,6 +227,7 @@ public class BankCardController extends BaseController {
         return pagerVO;
     }
 
+    @RequiresUser
     @RequestMapping("pager-cond")
     @ResponseBody
     public PagerVO listPageByCondition(int offset, int limit, String sort, String order, BankCardQuery bankCardQuery) {

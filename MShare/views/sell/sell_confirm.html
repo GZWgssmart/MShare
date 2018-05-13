@@ -16,10 +16,10 @@
 		</header>
 		<div class="mui-content" id="content">
 			<form class="mui-input-group">
-				<p>卖出：{{sellForm.sell}}</p>
+				<p>卖出：{{sellForm.total}}</p>
 				<div class="mui-input-row">
 					<label>买入UID</label>
-					<input type="text" class="mui-input-clear mui-input" placeholder="请输入买入人UID" v-model="sellForm.buyUid">
+					<input type="text" class="mui-input-clear mui-input" placeholder="请输入买入人UID" v-model="sellForm.buyId">
 				</div>
 				<div class="mui-input-row">
 					<label>买入手机号</label>
@@ -36,15 +36,18 @@
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript" src="../../js/vue.min.js"></script>
+		<script src="../../js/api.js"></script>
+		<script src="../../js/datetime.js"></script>
 		<script type="text/javascript">
 			var pageView = new Vue({
 				el: '#content',
 				data: {
 					sellForm: {
 						id: 0,
-						sell: 0,
-						buyUid: '',
-						buyPhone: ''
+						total: 0,
+						buyId: '',
+						buyPhone: '',
+						orderStatus: -1
 					},
 					needUpdate: false
 				},
@@ -53,8 +56,10 @@
 						mui.init({
 							beforeback: function() {
 								if(pageView.needUpdate) {
-									var orderSubView = plus.webview.getWebviewById('sell_order_sub');
-									mui.fire(orderSubView, 'confirm_sell');
+									var orderSubView = plus.webview.getWebviewById('sell_order_page');
+									mui.fire(orderSubView, 'confirm_sell', {
+										status: pageView.sellForm.orderStatus
+									});
 									pageView.needUpdate = false;
 								}
 								return true;
@@ -62,14 +67,69 @@
 						});
 
 						var self = plus.webview.currentWebview();
-						pageView.sellForm.id = self.currentId;
-						pageView.sellForm.sell = self.currentSell;
+						pageView.sellForm.id = self.orderId;
+						pageView.sellForm.total = self.total;
+						pageView.sellForm.buyId = self.buyUserId;
+						if (self.buyPhone != null || self.buyPhone != '') {
+							pageView.sellForm.buyPhone = self.buyPhone.substr(7, 4);
+						}
+						pageView.sellForm.orderStatus = self.orderStatus;
 					});
 				},
 				methods: {
 					confirm: function() {
-						pageView.needUpdate = true;
-						mui.back();
+						mui.ajax(USER_INFO + '/' + pageView.sellForm.buyId, {
+							data: {},
+							dataType: 'json',
+							type: 'post',
+							success: function(data) {
+								if(data.id + '' == pageView.sellForm.buyId && data.phone.substr(7, 4) == pageView.sellForm.buyPhone) {
+									var date = new Date();
+									var data;
+									if(pageView.sellForm.orderStatus == ORDER_NOT_BUY_WAIT_SELL_CONFIRM) {
+										pageView.sellForm.orderStatus = ORDER_ALREADY_SELL;
+										// 当前为等待卖家确认状态，确认后则变为已卖出状态
+										data = {
+											id: pageView.sellForm.id,
+											status: pageView.sellForm.orderStatus,
+											sellConfirmTime: timestampToDatetime(date),
+											buyConfirmTime: timestampToDatetime(date),
+											total: pageView.sellForm.total
+										};
+									} else {
+										// 当前为新建状态，确认后则等待买家确认
+										pageView.sellForm.orderStatus = ORDER_NOT_SELL_WAIT_BUY_CONFIRM;
+										data = {
+											id: pageView.sellForm.id,
+											buyId: pageView.sellForm.buyId,
+											status: pageView.sellForm.orderStatus,
+											sellConfirmTime: timestampToDatetime(date),
+											buyConfirmTime: timestampToDatetime(date),
+											total: pageView.sellForm.total
+										};
+									}
+									mui.ajax(USER_ORDER_UPDATE, {
+										data: data,
+										dataType: 'json',
+										type: 'post',
+										success: function(data) {
+											if(data.status === 'ok') {
+												pageView.needUpdate = true;
+												mui.back();
+											}
+										},
+										error: function(xhr, type, errorThrown) {
+											mui.alert('似乎没有网络了哦……', '提示');
+										}
+									});
+								} else {
+									mui.alert('请输入正确的UID和手机号后四位', '提示');
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.alert('似乎没有网络了哦……', '提示');
+							}
+						});
 					}
 				}
 			});

@@ -30,7 +30,7 @@ CREATE TABLE `t_bank_card` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,13 +56,14 @@ CREATE TABLE `t_basic_setting` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `t_basic_setting`
 --
 
+INSERT INTO `t_basic_setting` VALUES (1,20,80,20,'',NULL,NULL,'2018-05-09 09:17:24',NULL);
 
 --
 -- Table structure for table `t_level_setting`
@@ -132,7 +133,7 @@ CREATE TABLE `t_order` (
   `buy_confirm_time` datetime DEFAULT NULL COMMENT '买入确认时间',
   `deal_time` datetime DEFAULT NULL COMMENT '成交时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,13 +183,14 @@ CREATE TABLE `t_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `t_role`
 --
 
+INSERT INTO `t_role` VALUES (1,'admin','admin','2018-05-13 11:16:46',NULL,0);
 
 --
 -- Table structure for table `t_role_permission`
@@ -232,7 +234,7 @@ CREATE TABLE `t_trans` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` varchar(45) DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -265,21 +267,19 @@ CREATE TABLE `t_user` (
   `gender` tinyint(4) DEFAULT '0' COMMENT '性别',
   `birthday` date DEFAULT NULL COMMENT '生日',
   `age` int(11) DEFAULT NULL COMMENT '年龄',
-  `from_id` BIGINT NULL COMMENT '推荐人编号',
+  `from_id` bigint(20) DEFAULT NULL COMMENT '推荐人编号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=100004 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-ALTER TABLE `t_user` AUTO_INCREMENT = 100000;
 
 --
 -- Dumping data for table `t_user`
 --
 
-INSERT INTO `t_user` VALUES (100000,NULL,'13672297775',NULL,'wzNncBURtPYCDsYd7TUgWQ==','cz174hlv9w769pE/yL3Kvw==','','Wgssmart','static/uploads/aef594de-389e-4498-954f-1ecbde7c74e6.png',0,0,'A','10',NULL,NULL,NULL,NULL,'2017-12-11 19:13:08',NULL,0);
+INSERT INTO `t_user` VALUES (100000,NULL,'13888888888',NULL,'4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,'Test',NULL,4900,2468,'A','10',NULL,NULL,NULL,NULL,NULL,'2017-12-11 19:13:08',NULL,0),(100001,NULL,'18888888888',NULL,'4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,'测试',NULL,2100,190,NULL,NULL,NULL,0,NULL,NULL,100000,'2018-05-09 09:11:17',NULL,0),(100002,NULL,'13666666666',NULL,'4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,'小米',NULL,8,2,NULL,NULL,NULL,0,NULL,NULL,100000,'2018-05-09 12:50:21',NULL,0),(100003,NULL,'15555555555',NULL,'4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,'AA',NULL,0,0,NULL,NULL,NULL,0,NULL,NULL,100000,'2018-05-10 20:57:38',NULL,0);
 
 --
 -- Table structure for table `t_user_role`
@@ -299,13 +299,14 @@ CREATE TABLE `t_user_role` (
   KEY `fk_user_role_rold_id` (`role_id`),
   CONSTRAINT `fk_user_role_rold_id` FOREIGN KEY (`role_id`) REFERENCES `t_role` (`id`),
   CONSTRAINT `fk_user_role_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `t_user_role`
 --
 
+INSERT INTO `t_user_role` VALUES (2,100000,1,'2018-05-13 11:17:35',0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -315,4 +316,4 @@ CREATE TABLE `t_user_role` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-08 15:50:00
+-- Dump completed on 2018-05-13 12:22:45

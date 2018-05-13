@@ -18,15 +18,15 @@
 			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
 			<h1 class="mui-title">买入</h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="content">
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label>买入数额</label>
-					<input type="text" class="mui-input-clear mui-input" placeholder="请输入买入数额">
+					<input type="text" class="mui-input-clear mui-input" placeholder="请输入买入数额" v-model="buyForm.total">
 				</div>
 			</form>
 			<div class="mui-content-padded">
-				<button type="button" class="mui-btn mui-btn-block mui-btn-primary">
+				<button v-on:tap="buy" type="button" class="mui-btn mui-btn-block mui-btn-primary">
 					<i class="mui-icon mui-icon-checkmarkempty"></i>
 					创建订单
 				</button>
@@ -49,11 +49,14 @@
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/api.js"></script> 
 		<script type="text/javascript">
 			var pageView = new Vue({
 				el: '#content',
 				data: {
-
+					buyForm: {
+						total: 100
+					}
 				},
 				mounted: function() {
 					mui.plusReady(function() {
@@ -62,18 +65,48 @@
 						});
 						document.getElementById('transin').addEventListener('tap', function(e) {
 							mui('#topPopover').popover('hide');
-							mui.openWindow({
-								id: 'buy_order_page',
-								url: 'buy_order_page.html',
-								show: {
-									aniShow: 'pop-in'
-								},
-								waiting: {
-									autoShow: true
-								}
-							});
+							pageView.toOrderPage();
 						});
 					});
+				},
+				methods: {
+					toOrderPage: function() {
+						mui.openWindow({
+							id: 'buy_order_page',
+							url: 'buy_order_page.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},
+					buy: function() {
+						if(pageView.buyForm.total == '' || pageView.buyForm.total <= 0) {
+							mui.alert('请输入正确的买入数额，且买入数额不能小于零', '提示');
+						} else {
+							mui.ajax(USER_ORDER_CREATE, {
+								data: {
+									buyId: plus.storage.getItem('uid'),
+									total: pageView.buyForm.total
+								},
+								dataType: 'json',
+								type: 'post',
+								success: function(data) {
+									if(data.status === 'ok') {
+										mui.toast('已创建订单');
+										pageView.toOrderPage();
+									} else if(data.status === 'data-error') {
+										mui.alert(data.message, '提示');
+									}
+								},
+								error: function(xhr, type, errorThrown) {
+									mui.alert('似乎没有网络了哦……', '提示');
+								}
+							});
+						}
+					}
 				}
 			});
 		</script>

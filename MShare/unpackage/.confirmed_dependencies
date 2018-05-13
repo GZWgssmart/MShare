@@ -262,5 +262,16 @@
       "views/buy/buy_confirm.html"
     ],
     "resources": []
+  },
+  "views/buy/buy_order_page.html": {
+    "refer": [
+      "views/buy/buy_confirm.html"
+    ],
+    "resources": []
+  },
+  "views/sell/sell_order_page.html": {
+    "refer": [
+      "views/sell/sell_confirm.html"
+    ]
   }
 }

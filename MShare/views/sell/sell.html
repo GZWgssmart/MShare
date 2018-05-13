@@ -18,16 +18,16 @@
 			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
 			<h1 class="mui-title">卖出</h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="content">
 			<form class="mui-input-group">
-				<p>您的余额：200</p>
+				<p>您的余额：{{userInfo.total}}</p>
 				<div class="mui-input-row">
 					<label>卖出数额</label>
-					<input type="text" class="mui-input-clear mui-input" placeholder="请输入卖出数额">
+					<input type="text" class="mui-input-clear mui-input" placeholder="请输入卖出数额" v-model="sellForm.total">
 				</div>
 			</form>
 			<div class="mui-content-padded">
-				<button type="button" class="mui-btn mui-btn-block mui-btn-primary">
+				<button v-on:tap="sell" type="button" class="mui-btn mui-btn-block mui-btn-primary">
 					<i class="mui-icon mui-icon-checkmarkempty"></i>
 					创建订单
 				</button>
@@ -50,19 +50,34 @@
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/api.js"></script> 
 		<script type="text/javascript">
 			var pageView = new Vue({
 				el: '#content',
 				data: {
-
+					sellForm: {
+						total: 100
+					},
+					userInfo: {
+						total: 0
+					}
 				},
 				mounted: function() {
-					mui.init({
-						preloadPages: []
-					});
+					mui.plusReady(function() {
+						mui.init({
+							preloadPages: []
+						});
 
-					document.getElementById('transin').addEventListener('tap', function(e) {
-						mui('#topPopover').popover('hide');
+						pageView.userInfo.total = parseInt(plus.storage.getItem('total'));
+
+						document.getElementById('transin').addEventListener('tap', function(e) {
+							mui('#topPopover').popover('hide');
+							pageView.toOrderPage();
+						});
+					});
+				},
+				methods: {
+					toOrderPage: function() {
 						mui.openWindow({
 							id: 'sell_order_page',
 							url: 'sell_order_page.html',
@@ -70,10 +85,35 @@
 								aniShow: 'pop-in'
 							},
 							waiting: {
-								autoShow: true
+								autoShow: false
 							}
 						});
-					});
+					},
+					sell: function() {
+						if(pageView.sellForm.total == '' || pageView.sellForm.total <= 0 || pageView.sellForm.total > pageView.userInfo.total) {
+							mui.alert('请输入正确的卖出数额，且卖出数额不能大于余额', '提示');
+						} else {
+							mui.ajax(USER_ORDER_CREATE, {
+								data: {
+									sellId: plus.storage.getItem('uid'),
+									total: pageView.sellForm.total
+								},
+								dataType: 'json',
+								type: 'post',
+								success: function(data) {
+									if(data.status === 'ok') {
+										mui.toast('已创建订单');
+										pageView.toOrderPage();
+									} else if(data.status === 'data-error') {
+										mui.alert(data.message, '提示');
+									}
+								},
+								error: function(xhr, type, errorThrown) {
+									mui.alert('似乎没有网络了哦……', '提示');
+								}
+							});
+						}
+					}
 				}
 			});
 		</script>

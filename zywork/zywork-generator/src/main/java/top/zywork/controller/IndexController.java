@@ -1,5 +1,7 @@
 package top.zywork.controller;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/")
-public class IndexController {
+public class IndexController extends BaseController {
 
+    @GetMapping("backend/login")
+    public String login() {
+        return "backend/login";
+    }
+
+    @RequiresRoles(value = {"admin"})
     @GetMapping("backend/index")
     public String index() {
         return "backend/index";
     }
 
+    @RequiresRoles(value = {"admin"})
     @GetMapping("backend/home")
     public String home() {
         return "backend/home";

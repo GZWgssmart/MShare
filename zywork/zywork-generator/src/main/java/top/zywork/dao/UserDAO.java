@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import top.zywork.query.PageQuery;
 import top.zywork.query.UserAccountPasswordQuery;
+import top.zywork.query.UserOrderQuery;
 import top.zywork.query.UserTransferQuery;
 
 import java.util.List;
@@ -41,4 +42,8 @@ public interface UserDAO extends BaseDAO {
     String getPassword(String username);
 
     void updateTrans(UserTransferQuery userTransQuery);
+
+    void updateOrderBuy(UserOrderQuery userOrderQuery);
+
+    void updateOrderSell(UserOrderQuery userOrderQuery);
 }

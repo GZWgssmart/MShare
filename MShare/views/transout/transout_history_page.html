@@ -25,15 +25,15 @@
 							<img v-bind:src="history.toHeadicon" class="mui-pull-left" />
 							<div class="mui-pull-left head-info">
 								<span>
-									{{history.fromNickname}}
+									{{history.toNickname}}
 								</span>
 								<span>
-									UID:{{history.transTransFrom}}
+									UID:{{history.transTransTo}}
 								</span>
 							</div>
 						</div>
 						<div class="mui-pull-right head-info mui-text-right">
-							<span style="color: #DD524D">+{{history.transTotal}}</span>
+							<span style="color: #DD524D">-{{history.transTotal}}</span>
 							<span>{{history.transTransTime}}</span>
 						</div>
 					</li>
@@ -56,7 +56,7 @@
 					histories: [],
 					totalPage: 0,
 					currentPageNo: 1,
-					offset: 1
+					offset: 0
 				},
 				mounted: function() {
 					mui.plusReady(function() {

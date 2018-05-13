@@ -9,7 +9,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.zywork.common.BindingResultUtils;
 import top.zywork.common.DozerMapperUtils;
+import top.zywork.common.RandomUtils;
 import top.zywork.common.StringUtils;
+import top.zywork.constant.OrderStatusConstant;
 import top.zywork.dto.OrderDTO;
 import top.zywork.dto.PagerDTO;
 import top.zywork.exception.ServiceException;
@@ -75,6 +77,12 @@ public class OrderController extends BaseController {
             statusVO.dataErrorStatus(500, BindingResultUtils.errorString(bindingResult));
         } else {
             try {
+                if (orderVO.getBuyId() != null) {
+                    orderVO.setStatus(OrderStatusConstant.ORDER_NOT_BUY);
+                } else {
+                    orderVO.setStatus(OrderStatusConstant.ORDER_NOT_SELL);
+                }
+                orderVO.setOrderNo(System.currentTimeMillis() + RandomUtils.randomNum(100, 100000) + "");
                 orderService.save(getBeanMapper().map(orderVO, OrderDTO.class));
                 statusVO.okStatus(200, "添加成功");
             } catch (ServiceException e) {
