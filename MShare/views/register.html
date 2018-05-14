@@ -79,7 +79,7 @@
 						} else if(pageView.regForm.accomendCode === '') {
 							mui.alert('请填写推荐码', '提示');
 						} else {
-							mui.ajax(USER_INFO + '/' + pageView.transForm.transTo, {
+							mui.ajax(USER_INFO + '/' + pageView.regForm.accomendCode, {
 								data: {},
 								dataType: 'json',
 								type: 'post',
