@@ -112,8 +112,10 @@
 						var uid = plus.storage.getItem('uid');
 						if (pageView.transForm.transTo == uid) {
 							mui.alert('不能转出给自己', '提示');
-						} else if(pageView.transForm.money == '' || pageView.transForm.money <= 0 || pageView.transForm.money > pageView.userInfo.total) {
-							mui.alert('请输入正确的转出数额，且转出数额不能大于余额', '提示');
+						} else if(pageView.transForm.money == '' || pageView.transForm.money <= 0 
+							|| pageView.transForm.money > pageView.userInfo.total
+							|| pageView.transForm.money % 100 != 0) {
+							mui.alert('请输入100的整数倍的转出数额，且转出数额不能大于余额', '提示');
 						} else if(pageView.transForm.transTo == null || pageView.transForm.transTo === '') {
 							mui.alert('请输入对方UID', '提示');
 						} else {

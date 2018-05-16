@@ -1,4 +1,4 @@
-const BASE_URL = 'http://zywork.top/mshare';
+const BASE_URL = 'http://123.1.189.98:8080/mshare';
 
 const USER_LOGIN = BASE_URL +'/user/login';
 

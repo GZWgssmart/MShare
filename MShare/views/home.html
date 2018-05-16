@@ -134,7 +134,10 @@
 							preloadPages: [{
 								id: 'qrcode_scan',
 								url: 'qrcode/qrcode_scan.html'
-							}]
+							}],
+							beforeback: function() {
+								return false;
+							}
 						});
 
 						var adsGallery = mui('#adsGallery');
