@@ -102,12 +102,12 @@ function getBase64Image(img) {
 	return dataUrl.replace('data:image/png:base64,', '');
 }
 
-function saveImageToGallery(imageData) {
+function saveImageToGallery(imageData, imageName) {
 	var bitmap = new plus.nativeObj.Bitmap("bitmap");
 	bitmap.loadBase64Data(imageData, function() {
-		bitmap.save('_doc/mshare_qrcode.png', {},
+		bitmap.save('_doc/' + imageName, {},
 			function(i) {
-				plus.gallery.save("_doc/mshare_qrcode.png", function() {
+				plus.gallery.save("_doc/" + imageName, function() {
 					mui.alert('已保存二维码图片到相册');
 				});
 			},

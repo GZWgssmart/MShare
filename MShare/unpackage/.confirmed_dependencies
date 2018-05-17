@@ -234,7 +234,8 @@
       "views/user/bank_card.html",
       "views/user/suggest.html",
       "views/user/login_pwd.html",
-      "views/login.html"
+      "views/login.html",
+      "views/user/code.html"
     ],
     "resources": []
   },

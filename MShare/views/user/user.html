@@ -127,18 +127,16 @@
 				},
 				methods: {
 					showPage: function(pageId) {
-						if(pageId !== 'code') {
-							mui.openWindow({
-								id: pageId,
-								url: pageId + '.html',
-								show: {
-									aniShow: 'pop-in'
-								},
-								waiting: {
-									autoShow: false
-								}
-							});
-						}
+						mui.openWindow({
+							id: pageId,
+							url: pageId + '.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
 					},
 					changeHeadIcon: function() {
 						if(mui.os.plus) {
@@ -211,10 +209,10 @@
 									plus.storage.clear();
 									plus.navigator.removeAllCookie();
 									var loginView = plus.webview.getWebviewById('login');
-									if (loginView != null) {
+									if(loginView != null) {
 										plus.webview.close('home');
-										
-									plus.webview.close('user');
+
+										plus.webview.close('user');
 										mui.fire(loginView, 'clearForm');
 									}
 									mui.openWindow({

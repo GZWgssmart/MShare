@@ -27,6 +27,8 @@ const USER_BANK_CARD_REMOVE = BASE_URL + '/user-bankcard/remove';
 
 const USER_PAY_PASSWORD_CHECK = BASE_URL + '/user/paypwd';
 
+const USER_REGISTER_PAGE = BASE_URL + '/reg';
+
 const USER_TRANS_OUT = BASE_URL + '/trans/save';
 
 const USER_TRANS_IN_HISTORY = BASE_URL + '/user-transin/pager-cond';

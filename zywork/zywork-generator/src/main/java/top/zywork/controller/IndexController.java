@@ -4,7 +4,9 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 显示首页和主页的控制器<br/>
@@ -33,6 +35,13 @@ public class IndexController extends BaseController {
     @GetMapping("backend/home")
     public String home() {
         return "backend/home";
+    }
+
+    @GetMapping("/reg/{fromId}")
+    public ModelAndView register(@PathVariable("fromId") String fromId) {
+        ModelAndView mav = new ModelAndView("register");
+        mav.addObject("fromId", fromId);
+        return mav;
     }
 
 }

@@ -102,8 +102,8 @@
 				"ios": {
 					"iphone": {
 						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
-						"retina35": "/Users/wangzhenyu/development/git_projects/MShare/icon/640x960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": "/Users/wangzhenyu/development/git_projects/MShare/icon/640x1136.png","iphonex":"/Users/wangzhenyu/development/git_projects/MShare/icon/1125x2436.png","iphonexl":"/Users/wangzhenyu/development/git_projects/MShare/icon/2436x1125.png","retina47":"/Users/wangzhenyu/development/git_projects/MShare/icon/750x1334.png","retina55":"/Users/wangzhenyu/development/git_projects/MShare/icon/1242x2208.png","retina55l":"/Users/wangzhenyu/development/git_projects/MShare/icon/2208x1242.png"
+						"retina35": "/Users/wangzhenyu/development/git_projects/MShare/icon/v2/640x960s.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": "/Users/wangzhenyu/development/git_projects/MShare/icon/v2/640x1136s.png","iphonex":"/Users/wangzhenyu/development/git_projects/MShare/icon/v2/1125x2436s.png","iphonexl":"/Users/wangzhenyu/development/git_projects/MShare/icon/v2/2436x1125s.png","retina47":"/Users/wangzhenyu/development/git_projects/MShare/icon/v2/750x1334s.png","retina55":"/Users/wangzhenyu/development/git_projects/MShare/icon/v2/1242x2208s.png","retina55l":"/Users/wangzhenyu/development/git_projects/MShare/icon/v2/2208x1242s.png"
 					},
 					"ipad": {
 						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
@@ -119,9 +119,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "/Users/wangzhenyu/development/git_projects/MShare/icon/480x762.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "/Users/wangzhenyu/development/git_projects/MShare/icon/720x1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "/Users/wangzhenyu/development/git_projects/MShare/icon/1080x1882.png"
+					"hdpi": "/Users/wangzhenyu/development/git_projects/MShare/icon/v2/480x762s.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "/Users/wangzhenyu/development/git_projects/MShare/icon/v2/720x1242s.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "/Users/wangzhenyu/development/git_projects/MShare/icon/v2/1080x1882s.png"
 				}
 			}
 		},"ads":{"rp":false,"splash":false,"push":false},"adid":""
@@ -389,7 +389,8 @@
 					"views/user/bank_card.html",
 					"views/user/suggest.html",
 					"views/user/login_pwd.html",
-					"views/login.html"
+					"views/login.html",
+					"views/user/code.html"
 				],
 				"priority": 0
 			},

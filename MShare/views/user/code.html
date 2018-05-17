@@ -16,12 +16,12 @@
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
-			<h1 class="mui-title">扫码转入</h1>
+			<h1 class="mui-title">推荐注册</h1>
 		</header>
 		<div class="mui-content qrcode-container" id="content">
 			<div class="qrcode-center">
 				<div id="qrcode"></div>
-				<p class="qrcode-des">打开APP，点击扫一扫，扫描二维码转入</p>
+				<p class="qrcode-des">使用微信扫一扫，打开网页注册成为瑞信宝用户</p>
 			</div>
 		</div>
 		<div id="topPopover" class="mui-popover">
@@ -31,9 +31,6 @@
 					<ul class="mui-table-view">
 						<li id="saveQrcode" class="mui-table-view-cell">
 							保存二维码图片
-						</li>
-						<li id="transin" class="mui-table-view-cell">
-							转入记录
 						</li>
 					</ul>
 				</div>
@@ -46,6 +43,7 @@
 		<script src="../../js/qrcode.min.js"></script>
 		<script type="text/javascript" src="../../js/image.js"></script>
 		<script src="../../js/vue.min.js"></script> 
+		<script src="../../js/api.js"></script>
 		<script type="text/javascript">
 			var pageView = new Vue({
 				el: '#content',
@@ -60,16 +58,12 @@
 						document.getElementById('saveQrcode').addEventListener('tap', function(e) {
 							pageView.saveQrcode();
 						});
-						
-						document.getElementById('transin').addEventListener('tap', function (e) {
-							pageView.transin();
-						});
 					});
 				},
 				methods: {
 					showQrcode: function() {
 						var qrcode = new QRCode(document.getElementById("qrcode"), {
-							text: plus.storage.getItem('uid'),
+							text: USER_REGISTER_PAGE + '/' + plus.storage.getItem('uid'),
 							width: 200,
 							height: 200,
 							colorDark: "#000000",
@@ -80,20 +74,7 @@
 					saveQrcode: function() {
 						mui('#topPopover').popover('hide');
 						var image = document.getElementById('qrcode').children[1];
-						saveImageToGallery(image.src.replace('data:image/png:base64,', ''), 'mshare_qrcode.png');
-					},
-					transin: function() {
-						mui('#topPopover').popover('hide');
-						mui.openWindow({
-							id: 'transin_history_page',
-							url: 'transin_history_page.html',
-							show: {
-								aniShow: 'pop-in'
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
+						saveImageToGallery(image.src.replace('data:image/png:base64,', ''), 'mshare-code.png');
 					}
 				}
 			});
