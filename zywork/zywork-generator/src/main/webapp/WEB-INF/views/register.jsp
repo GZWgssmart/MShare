@@ -59,6 +59,7 @@
             <button type="button" class="btn btn-primary block full-width m-b" onclick="reg()">注册</button>
 
         </form>
+        <a href="<%=path%>/download">我要下载APP</a>
     </div>
 </div>
 </body>

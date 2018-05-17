@@ -44,4 +44,9 @@ public class IndexController extends BaseController {
         return mav;
     }
 
+    @GetMapping("/download")
+    public String download() {
+        return "download";
+    }
+
 }
