@@ -2,6 +2,7 @@ package top.zywork.service;
 
 import top.zywork.dto.UserTokenDTO;
 import top.zywork.query.UserAccountPasswordQuery;
+import top.zywork.query.UserPayPasswordQuery;
 
 /**
  * UserService服务接口<br/>
@@ -45,5 +46,7 @@ public interface UserService extends BaseService {
      * @param username 用户名
      */
     void removeUserToken(String username);
+
+    Object getByPayPassword(UserPayPasswordQuery userPayPasswordQuery);
 
 }

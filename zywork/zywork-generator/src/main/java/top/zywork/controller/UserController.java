@@ -21,10 +21,7 @@ import top.zywork.dto.UserTokenDTO;
 import top.zywork.enums.MIMETypeEnum;
 import top.zywork.enums.UserControllerStatusEnum;
 import top.zywork.exception.ServiceException;
-import top.zywork.query.PageQuery;
-import top.zywork.query.StatusQueries;
-import top.zywork.query.StatusQuery;
-import top.zywork.query.UserQuery;
+import top.zywork.query.*;
 import top.zywork.security.shiro.CustomToken;
 import top.zywork.service.UserService;
 import top.zywork.vo.*;
@@ -392,6 +389,21 @@ public class UserController extends BaseController {
                     UserControllerStatusEnum.USER_LOGOUT_ERROR.getMessage());
         }
         return statusVO;
+    }
+
+    @PostMapping("paypwd")
+    @ResponseBody
+    public UserVO getByPayPassword(UserPayPasswordQuery userPayPasswordQuery) {
+        UserVO userVO = new UserVO();
+        try {
+            Object obj = userService.getByPayPassword(userPayPasswordQuery);
+            if (obj != null) {
+                userVO = getBeanMapper().map(obj, UserVO.class);
+            }
+        } catch (ServiceException e) {
+            logger.error("返回单个对象JSON数据失败：{}", e.getMessage());
+        }
+        return userVO;
     }
 
     @Resource

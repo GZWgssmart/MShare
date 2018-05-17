@@ -9,6 +9,7 @@ import top.zywork.dos.UserDO;
 import top.zywork.dto.UserDTO;
 import top.zywork.dto.UserTokenDTO;
 import top.zywork.query.UserAccountPasswordQuery;
+import top.zywork.query.UserPayPasswordQuery;
 import top.zywork.service.AbstractBaseService;
 import top.zywork.service.UserService;
 
@@ -59,6 +60,15 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
     @Override
     public void removeUserToken(String username) {
         redisTemplate.delete("user:" + username);
+    }
+
+    @Override
+    public Object getByPayPassword(UserPayPasswordQuery userPayPasswordQuery) {
+        Object obj = userDAO.getByPayPassword(userPayPasswordQuery);
+        if (obj != null) {
+            return getBeanMapper().map(obj, getDtoClass());
+        }
+        return null;
     }
 
     @Autowired

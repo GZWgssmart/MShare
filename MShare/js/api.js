@@ -1,4 +1,5 @@
-const BASE_URL = 'http://123.1.189.98:8080/mshare';
+// const BASE_URL = 'http://123.1.189.98:8080/mshare';
+const BASE_URL = 'http://192.168.2.114:8080';
 
 const USER_LOGIN = BASE_URL +'/user/login';
 
@@ -23,6 +24,8 @@ const USER_BIND_BANK_CARD = BASE_URL + '/user-bankcard/save';
 const USER_BANK_CARD_LIST = BASE_URL + '/user-bankcard/pager-cond';
 
 const USER_BANK_CARD_REMOVE = BASE_URL + '/user-bankcard/remove';
+
+const USER_PAY_PASSWORD_CHECK = BASE_URL + '/user/paypwd';
 
 const USER_TRANS_OUT = BASE_URL + '/trans/save';
 

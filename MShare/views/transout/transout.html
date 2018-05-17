@@ -65,6 +65,7 @@
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript" src="../../js/vue.min.js"></script>
 		<script type="text/javascript" src="../../js/api.js"></script>
+		<script src="../../js/md5.min.js"></script> 
 		<script type="text/javascript">
 			var pageView = new Vue({
 				el: "#content",
@@ -110,11 +111,11 @@
 					},
 					transout: function() {
 						var uid = plus.storage.getItem('uid');
-						if (pageView.transForm.transTo == uid) {
+						if(pageView.transForm.transTo == uid) {
 							mui.alert('不能转出给自己', '提示');
-						} else if(pageView.transForm.money == '' || pageView.transForm.money <= 0 
-							|| pageView.transForm.money > pageView.userInfo.total
-							|| pageView.transForm.money % 100 != 0) {
+						} else if(pageView.transForm.money == '' || pageView.transForm.money <= 0 ||
+							pageView.transForm.money > pageView.userInfo.total ||
+							pageView.transForm.money % 100 != 0) {
 							mui.alert('请输入100的整数倍的转出数额，且转出数额不能大于余额', '提示');
 						} else if(pageView.transForm.transTo == null || pageView.transForm.transTo === '') {
 							mui.alert('请输入对方UID', '提示');
@@ -125,33 +126,59 @@
 								type: 'post',
 								success: function(data) {
 									if(data.phone != null && data.phone !== '') {
-										mui.confirm('确定转出' + pageView.transForm.money + '数额吗？对方手机尾号：' + data.phone.substr(7, 4), '提示', ['确定', '取消'], function(r) {
+										mui.prompt('请输入支付密码', '', '支付密码', ['确定', '取消'], function(r) {
 											if(r.index === 0) {
-												mui.ajax(USER_TRANS_OUT, {
-													data: {
-														transFrom: uid,
-														transTo: pageView.transForm.transTo,
-														total: pageView.transForm.money
-													},
-													dataType: 'json',
-													type: 'post',
-													success: function(data) {
-														if(data.status === 'ok') {
-															pageView.userInfo.total -= pageView.transForm.money;
-															plus.storage.setItem('total', pageView.userInfo.total + '');
-															mui.alert('转出成功');
-														} else if(data.status === 'data-error') {
-															mui.alert(data.message, '提示');
+												if(r.value == '') {
+													mui.alert('请输入正确的支付密码，如果未设置支付密码，请先到用户中心设置', '提示');
+												} else {
+													mui.ajax(USER_PAY_PASSWORD_CHECK, {
+														data: {
+															id: plus.storage.getItem('uid'),
+															payPassword: md5.base64(r.value)
+														},
+														dataType: 'json',
+														type: 'post',
+														success: function(data) {
+															if(data.id != null && data.id != '') {
+																mui.confirm('确定转出' + pageView.transForm.money + '数额吗？对方手机尾号：' + data.phone.substr(7, 4), '提示', ['确定', '取消'], function(r) {
+																	if(r.index === 0) {
+																		mui.ajax(USER_TRANS_OUT, {
+																			data: {
+																				transFrom: uid,
+																				transTo: pageView.transForm.transTo,
+																				total: pageView.transForm.money
+																			},
+																			dataType: 'json',
+																			type: 'post',
+																			success: function(data) {
+																				if(data.status === 'ok') {
+																					pageView.userInfo.total -= pageView.transForm.money;
+																					plus.storage.setItem('total', pageView.userInfo.total + '');
+																					mui.alert('转出成功');
+																				} else if(data.status === 'data-error') {
+																					mui.alert(data.message, '提示');
+																				}
+																			},
+																			error: function(xhr, type, errorThrown) {
+																				mui.alert('似乎没有网络了哦……', '提示');
+																			}
+																		});
+																	}
+																});
+															} else {
+																mui.alert('请输入正确的支付密码，如果未设置支付密码，请先到用户中心设置', '提示');
+															}
+														},
+														error: function(xhr, type, errorThrown) {
+															mui.alert('似乎没有网络了哦……', '提示');
 														}
-													},
-													error: function(xhr, type, errorThrown) {
-														mui.alert('似乎没有网络了哦……', '提示');
-													}
-												});
+													});
+												}
 											}
-										});
+										}, 'div');
+										document.querySelector('.mui-popup-input input').type = 'password';
 									} else {
-										mui.alert('请输入正确的对方UID', '提示');
+										mui.alert('对方未填写手机号', '提示');
 									}
 								},
 								error: function(xhr, type, errorThrown) {

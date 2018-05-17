@@ -70,7 +70,7 @@
 						pageView.buyForm.id = self.orderId;
 						pageView.buyForm.total = self.total;
 						pageView.buyForm.sellId = self.sellUserId;
-						if(self.sellPhone != null || self.sellPhone != '') {
+						if(self.sellPhone != null && self.sellPhone != '') {
 							pageView.buyForm.sellPhone = self.sellPhone.substr(7, 4);
 						}
 						pageView.buyForm.orderStatus = self.orderStatus;
