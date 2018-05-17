@@ -79,13 +79,14 @@ CREATE TABLE `t_bonus_accounts` (
   `total` bigint(20) NOT NULL COMMENT '奖励额',
   `updated_date` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='奖金记录表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `t_bonus_accounts`
 --
 
+INSERT INTO `t_bonus_accounts` VALUES (1,100000,'分享奖',100,'2018-05-17 16:14:34'),(2,100000,'见点奖',200,'2018-05-18 16:45:39');
 
 --
 -- Table structure for table `t_level_setting`
@@ -255,13 +256,14 @@ CREATE TABLE `t_suggest` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `t_suggest`
 --
 
+INSERT INTO `t_suggest` VALUES (1,100000,'很好用的app','2018-05-17 16:02:41','2018-05-17 16:02:41'),(2,100000,'哈哈','2018-05-17 16:03:24','2018-05-17 16:03:24');
 
 --
 -- Table structure for table `t_trans`
@@ -362,4 +364,4 @@ INSERT INTO `t_user_role` VALUES (2,100000,1,'2018-05-13 11:17:35',0);
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-17 15:48:23
+-- Dump completed on 2018-05-17 16:28:35
