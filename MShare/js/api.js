@@ -58,3 +58,5 @@ const ORDER_NOT_BUY_WAIT_SELL_CONFIRM = 5;
 const ORDER_ALREADY_BUY = 6;
 
 const ORDER_CANCEL_BUY = 7;
+
+const APP_DOWNLOAD_URL = BASE_URL + '/download'

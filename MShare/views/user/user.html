@@ -67,6 +67,11 @@
 						<i class="iconfont icon-jianyi user-icon" style="background-color:#FF5053;"></i> 投诉建议
 					</a>
 				</li>
+				<li id="download" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<i class="iconfont icon-zhuanchu user-icon" style="background-color:#4CD964;"></i> 分享APP下载链接
+					</a>
+				</li>
 				<li id="about" class="mui-table-view-cell">
 					<a class="mui-navigate-right">
 						<i class="iconfont icon-iconset0142 user-icon" style="background-color:#EC971F;"></i> 关于
@@ -84,6 +89,7 @@
 		<script type="text/javascript" src="../../js/vue.min.js"></script>
 		<script type="text/javascript" src="../../js/api.js"></script>
 		<script src="../../js/image.js"></script>
+		<script src="../../js/clipboard.js"></script> 
 		<script type="text/javascript">
 			var pageView = new Vue({
 				el: '#content',
@@ -93,7 +99,8 @@
 						uid: '',
 						level: '',
 						nickname: ''
-					}
+					},
+					downloadUrl: ''
 				},
 				mounted: function() {
 					mui.plusReady(function() {
@@ -119,10 +126,15 @@
 								pageView.changeHeadIcon();
 							} else if(id === 'nickname-chg') {
 								pageView.changeNickname();
+							} else if (id === 'download') {
+								toClipboard(pageView.downloadUrl);
+								mui.alert('已复制APP下载地址，请在其他APP中粘贴分享：\n' + pageView.downloadUrl, '提示');
 							} else {
 								pageView.showPage(id);
 							}
 						});
+						
+						pageView.downloadUrl = APP_DOWNLOAD_URL;
 					});
 				},
 				methods: {
