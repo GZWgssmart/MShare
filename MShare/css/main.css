@@ -261,3 +261,8 @@ form textarea {
 	left: 0px;
 	position: absolute;
 }
+
+.bonus-list div {
+	height: 40px;
+	line-height: 40px;
+}

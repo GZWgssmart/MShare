@@ -1,278 +1,279 @@
 {
-  "login.html": {
-    "refer": [
-      "main.html",
-      "reg.html",
-      "forget_password.html",
-      "home.html",
-      "register.html"
-    ],
-    "resources": [
-      "css/mui.min.css",
-      "css/main.css",
-      "js/mui.min.js"
-    ]
-  },
-  "home.html": {
-    "refer": [
-      "user.html",
-      "qrcode.html",
-      "qrcode_scan.html",
-      "transin.html",
-      "transout.html",
-      "sell.html",
-      "buy.html"
-    ],
-    "resources": [
-      "css/mui.min.css",
-      "css/main.css",
-      "iconfont/iconfont.css",
-      "js/mui.min.js",
-      "images/timg.jpeg"
-    ]
-  },
-  "qrcode_scan.html": {
-    "refer": [
-      "qrcode_result.html"
-    ],
-    "resources": [
-      "css/mui.min.css",
-      "css/main.css",
-      "iconfont/iconfont.css",
-      "js/mui.min.js",
-      "js/qrcode.js"
-    ]
-  },
-  "qrcode.html": {
-    "href": "qrcode.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/main.css",
-      "js/qrcode.min.js",
-      "js/mui.min.js"
-    ],
-    "refer": [
-      "transin_history.html"
-    ],
-    "priority": 0
-  },
-  "qrcode_result.html": {
-    "href": "qrcode_result.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/main.css",
-      "iconfont/iconfont.css",
-      "js/mui.min.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "user.html": {
-    "href": "user.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/main.css",
-      "iconfont/iconfont.css",
-      "js/mui.min.js",
-      "js/image.js",
-      "images/timg.jpeg"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "register.html": {
-    "href": "register.html",
-    "resources": [
-      "css/mui.min.css",
-      "css/main.css",
-      "js/mui.min.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "transin.html": {
-    "refer": [
-      "transin_history.html"
-    ],
-    "resources": []
-  },
-  "transout.html": {
-    "refer": [
-      "transout_history.html"
-    ],
-    "resources": []
-  },
-  "buy.html": {
-    "refer": [
-      "transout_history.html",
-      "buy_order.html"
-    ],
-    "resources": []
-  },
-  "transin_history.html": {
-    "resources": [
-      "transin_history_sub.html"
-    ],
-    "refer": [
-      "transin_history_sub.html"
-    ]
-  },
-  "transout_history.html": {
-    "resources": [
-      "transout_history_sub.html"
-    ],
-    "refer": [
-      "transout_history_sub.html"
-    ]
-  },
-  "buy_order.html": {
-    "refer": [
-      "buy_order_sub.html"
-    ],
-    "resources": [
-      "buy_order_sub.html"
-    ]
-  },
-  "sell.html": {
-    "refer": [
-      "sell_order.html"
-    ],
-    "resources": []
-  },
-  "sell_order.html": {
-    "resources": [
-      "sell_order_sub.html"
-    ],
-    "refer": [
-      "sell_order_sub.html"
-    ]
-  },
-  "views/home.html": {
-    "refer": [
-      "views/transout/transout.html",
-      "views/qrcode/qrcode_scan.html",
-      "views/buy/buy.html",
-      "views/user/user.html",
-      "views/transin/transin.html",
-      "views/sell/sell.html",
-      "views/login.html"
-    ],
-    "resources": []
-  },
-  "views/login.html": {
-    "refer": [
-      "views/home.html",
-      "views/register.html",
-      "views/forgot_pwd.html"
-    ],
-    "resources": []
-  },
-  "views/transin/transin_history.html": {
-    "resources": [
-      "views/transin/transin_history_sub.html"
-    ],
-    "refer": [
-      "views/transin/transin_history_sub.html"
-    ]
-  },
-  "views/transin/transin.html": {
-    "refer": [
-      "views/transin/transin_history.html",
-      "views/transin/transin_history_page.html"
-    ],
-    "resources": []
-  },
-  "views/transout/transout.html": {
-    "refer": [
-      "views/transout/transout_history.html",
-      "views/transout/transout_history_page.html"
-    ],
-    "resources": []
-  },
-  "views/transout/transout_history.html": {
-    "resources": [
-      "views/transout/transout_history_sub.html"
-    ],
-    "refer": [
-      "views/transout/transout_history_sub.html"
-    ]
-  },
-  "views/buy/buy_order.html": {
-    "resources": [
-      "views/buy/buy_order_sub.html"
-    ],
-    "refer": [
-      "views/buy/buy_order_sub.html"
-    ]
-  },
-  "views/buy/buy.html": {
-    "refer": [
-      "views/buy/buy_order.html",
-      "views/buy/buy_order_page.html"
-    ],
-    "resources": []
-  },
-  "views/sell/sell_order.html": {
-    "resources": [
-      "views/sell/sell_order_sub.html"
-    ],
-    "refer": [
-      "views/sell/sell_order_sub.html"
-    ]
-  },
-  "views/sell/sell.html": {
-    "refer": [
-      "views/sell/sell_order.html",
-      "views/sell/sell_order_page.html"
-    ],
-    "resources": []
-  },
-  "views/user/user.html": {
-    "refer": [
-      "views/user/about.html",
-      "views/user/pay_pwd.html",
-      "views/user/bank_card.html",
-      "views/user/suggest.html",
-      "views/user/login_pwd.html",
-      "views/login.html",
-      "views/user/code.html"
-    ],
-    "resources": []
-  },
-  "views/qrcode/qrcode_scan.html": {
-    "refer": [
-      "views/qrcode/qrcode_result.html",
-      "views/transout/transout.html"
-    ],
-    "resources": []
-  },
-  "views/user/bank_card.html": {
-    "refer": [
-      "views/user/bank_card_add.html"
-    ],
-    "resources": []
-  },
-  "views/sell/sell_order_sub.html": {
-    "refer": [
-      "views/sell/sell_confirm.html"
-    ],
-    "resources": []
-  },
-  "views/buy/buy_order_sub.html": {
-    "refer": [
-      "views/buy/buy_confirm.html"
-    ],
-    "resources": []
-  },
-  "views/buy/buy_order_page.html": {
-    "refer": [
-      "views/buy/buy_confirm.html"
-    ],
-    "resources": []
-  },
-  "views/sell/sell_order_page.html": {
-    "refer": [
-      "views/sell/sell_confirm.html"
-    ]
-  }
+	"login.html": {
+		"refer": [
+			"main.html",
+			"reg.html",
+			"forget_password.html",
+			"home.html",
+			"register.html"
+		],
+		"resources": [
+			"css/mui.min.css",
+			"css/main.css",
+			"js/mui.min.js"
+		]
+	},
+	"home.html": {
+		"refer": [
+			"user.html",
+			"qrcode.html",
+			"qrcode_scan.html",
+			"transin.html",
+			"transout.html",
+			"sell.html",
+			"buy.html"
+		],
+		"resources": [
+			"css/mui.min.css",
+			"css/main.css",
+			"iconfont/iconfont.css",
+			"js/mui.min.js",
+			"images/timg.jpeg"
+		]
+	},
+	"qrcode_scan.html": {
+		"refer": [
+			"qrcode_result.html"
+		],
+		"resources": [
+			"css/mui.min.css",
+			"css/main.css",
+			"iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/qrcode.js"
+		]
+	},
+	"qrcode.html": {
+		"href": "qrcode.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/main.css",
+			"js/qrcode.min.js",
+			"js/mui.min.js"
+		],
+		"refer": [
+			"transin_history.html"
+		],
+		"priority": 0
+	},
+	"qrcode_result.html": {
+		"href": "qrcode_result.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/main.css",
+			"iconfont/iconfont.css",
+			"js/mui.min.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"user.html": {
+		"href": "user.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/main.css",
+			"iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/image.js",
+			"images/timg.jpeg"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"register.html": {
+		"href": "register.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/main.css",
+			"js/mui.min.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"transin.html": {
+		"refer": [
+			"transin_history.html"
+		],
+		"resources": []
+	},
+	"transout.html": {
+		"refer": [
+			"transout_history.html"
+		],
+		"resources": []
+	},
+	"buy.html": {
+		"refer": [
+			"transout_history.html",
+			"buy_order.html"
+		],
+		"resources": []
+	},
+	"transin_history.html": {
+		"resources": [
+			"transin_history_sub.html"
+		],
+		"refer": [
+			"transin_history_sub.html"
+		]
+	},
+	"transout_history.html": {
+		"resources": [
+			"transout_history_sub.html"
+		],
+		"refer": [
+			"transout_history_sub.html"
+		]
+	},
+	"buy_order.html": {
+		"refer": [
+			"buy_order_sub.html"
+		],
+		"resources": [
+			"buy_order_sub.html"
+		]
+	},
+	"sell.html": {
+		"refer": [
+			"sell_order.html"
+		],
+		"resources": []
+	},
+	"sell_order.html": {
+		"resources": [
+			"sell_order_sub.html"
+		],
+		"refer": [
+			"sell_order_sub.html"
+		]
+	},
+	"views/home.html": {
+		"refer": [
+			"views/transout/transout.html",
+			"views/qrcode/qrcode_scan.html",
+			"views/buy/buy.html",
+			"views/user/user.html",
+			"views/transin/transin.html",
+			"views/sell/sell.html",
+			"views/login.html",
+			"views/user/bonus_page.html"
+		],
+		"resources": []
+	},
+	"views/login.html": {
+		"refer": [
+			"views/home.html",
+			"views/register.html",
+			"views/forgot_pwd.html"
+		],
+		"resources": []
+	},
+	"views/transin/transin_history.html": {
+		"resources": [
+			"views/transin/transin_history_sub.html"
+		],
+		"refer": [
+			"views/transin/transin_history_sub.html"
+		]
+	},
+	"views/transin/transin.html": {
+		"refer": [
+			"views/transin/transin_history.html",
+			"views/transin/transin_history_page.html"
+		],
+		"resources": []
+	},
+	"views/transout/transout.html": {
+		"refer": [
+			"views/transout/transout_history.html",
+			"views/transout/transout_history_page.html"
+		],
+		"resources": []
+	},
+	"views/transout/transout_history.html": {
+		"resources": [
+			"views/transout/transout_history_sub.html"
+		],
+		"refer": [
+			"views/transout/transout_history_sub.html"
+		]
+	},
+	"views/buy/buy_order.html": {
+		"resources": [
+			"views/buy/buy_order_sub.html"
+		],
+		"refer": [
+			"views/buy/buy_order_sub.html"
+		]
+	},
+	"views/buy/buy.html": {
+		"refer": [
+			"views/buy/buy_order.html",
+			"views/buy/buy_order_page.html"
+		],
+		"resources": []
+	},
+	"views/sell/sell_order.html": {
+		"resources": [
+			"views/sell/sell_order_sub.html"
+		],
+		"refer": [
+			"views/sell/sell_order_sub.html"
+		]
+	},
+	"views/sell/sell.html": {
+		"refer": [
+			"views/sell/sell_order.html",
+			"views/sell/sell_order_page.html"
+		],
+		"resources": []
+	},
+	"views/user/user.html": {
+		"refer": [
+			"views/user/about.html",
+			"views/user/pay_pwd.html",
+			"views/user/bank_card.html",
+			"views/user/suggest.html",
+			"views/user/login_pwd.html",
+			"views/login.html",
+			"views/user/code.html"
+		],
+		"resources": []
+	},
+	"views/qrcode/qrcode_scan.html": {
+		"refer": [
+			"views/qrcode/qrcode_result.html",
+			"views/transout/transout.html"
+		],
+		"resources": []
+	},
+	"views/user/bank_card.html": {
+		"refer": [
+			"views/user/bank_card_add.html"
+		],
+		"resources": []
+	},
+	"views/sell/sell_order_sub.html": {
+		"refer": [
+			"views/sell/sell_confirm.html"
+		],
+		"resources": []
+	},
+	"views/buy/buy_order_sub.html": {
+		"refer": [
+			"views/buy/buy_confirm.html"
+		],
+		"resources": []
+	},
+	"views/buy/buy_order_page.html": {
+		"refer": [
+			"views/buy/buy_confirm.html"
+		],
+		"resources": []
+	},
+	"views/sell/sell_order_page.html": {
+		"refer": [
+			"views/sell/sell_confirm.html"
+		]
+	}
 }

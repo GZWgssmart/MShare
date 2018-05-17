@@ -308,7 +308,8 @@
 					"views/transin/transin.html",
 					"views/sell/sell.html",
 					"views/login.html",
-					null
+					null,
+					"views/user/bonus_page.html"
 				],
 				"priority": 0
 			},

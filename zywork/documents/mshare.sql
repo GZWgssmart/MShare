@@ -66,6 +66,28 @@ CREATE TABLE `t_basic_setting` (
 INSERT INTO `t_basic_setting` VALUES (1,20,80,20,'',NULL,NULL,'2018-05-09 09:17:24',NULL);
 
 --
+-- Table structure for table `t_bonus_accounts`
+--
+
+DROP TABLE IF EXISTS `t_bonus_accounts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_bonus_accounts` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `uid` bigint(20) NOT NULL COMMENT '用户编号',
+  `bonus_name` varchar(30) NOT NULL COMMENT '奖励名称',
+  `total` bigint(20) NOT NULL COMMENT '奖励额',
+  `updated_date` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_bonus_accounts`
+--
+
+
+--
 -- Table structure for table `t_level_setting`
 --
 
@@ -133,13 +155,14 @@ CREATE TABLE `t_order` (
   `buy_confirm_time` datetime DEFAULT NULL COMMENT '买入确认时间',
   `deal_time` datetime DEFAULT NULL COMMENT '成交时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `t_order`
 --
 
+INSERT INTO `t_order` VALUES (34,'1526532460696',100,NULL,100000,100001,'2018-05-17 12:47:18',NULL,1,'2018-05-17 12:55:10','2018-05-17 12:55:10',NULL),(35,'1526533069900',100,NULL,100000,100001,'2018-05-17 12:57:31',NULL,1,'2018-05-17 12:59:32','2018-05-17 12:59:32',NULL),(36,'1526533587759',100,NULL,100000,NULL,'2018-05-17 13:05:39',NULL,0,NULL,NULL,NULL),(37,'1526533789529',100,NULL,NULL,100000,'2018-05-17 13:09:06',NULL,4,NULL,NULL,NULL);
 
 --
 -- Table structure for table `t_permission`
@@ -219,6 +242,28 @@ CREATE TABLE `t_role_permission` (
 
 
 --
+-- Table structure for table `t_suggest`
+--
+
+DROP TABLE IF EXISTS `t_suggest`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_suggest` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `suggest` varchar(500) DEFAULT NULL COMMENT '投诉建议',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_suggest`
+--
+
+
+--
 -- Table structure for table `t_trans`
 --
 
@@ -234,13 +279,14 @@ CREATE TABLE `t_trans` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` varchar(45) DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `t_trans`
 --
 
+INSERT INTO `t_trans` VALUES (23,100000,100001,100,'2018-05-17 12:45:04','2018-05-17 12:45:04',NULL);
 
 --
 -- Table structure for table `t_user`
@@ -272,14 +318,14 @@ CREATE TABLE `t_user` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100004 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=100005 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `t_user`
 --
 
-INSERT INTO `t_user` VALUES (100000,NULL,'13888888888',NULL,'4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,'Test',NULL,4900,2468,'A','10',NULL,NULL,NULL,NULL,NULL,'2017-12-11 19:13:08',NULL,0),(100001,NULL,'18888888888',NULL,'4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,'测试',NULL,2100,190,NULL,NULL,NULL,0,NULL,NULL,100000,'2018-05-09 09:11:17',NULL,0),(100002,NULL,'13666666666',NULL,'4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,'小米',NULL,8,2,NULL,NULL,NULL,0,NULL,NULL,100000,'2018-05-09 12:50:21',NULL,0),(100003,NULL,'15555555555',NULL,'4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,'AA',NULL,0,0,NULL,NULL,NULL,0,NULL,NULL,100000,'2018-05-10 20:57:38',NULL,0);
+INSERT INTO `t_user` VALUES (100000,NULL,'13888888888',NULL,'4QrcOUm6Wau+VuBX8g+IPg==','4QrcOUm6Wau+VuBX8g+IPg==',NULL,'Test',NULL,4800,2548,'A','10',NULL,NULL,NULL,NULL,NULL,'2017-12-11 19:13:08',NULL,0),(100001,NULL,'18888888888',NULL,'4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,'测试',NULL,2180,210,NULL,NULL,NULL,0,NULL,NULL,100000,'2018-05-09 09:11:17',NULL,0),(100002,NULL,'13666666666',NULL,'4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,'小米',NULL,8,2,NULL,NULL,NULL,0,NULL,NULL,100000,'2018-05-09 12:50:21',NULL,0),(100003,NULL,'15555555555',NULL,'4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,'AA',NULL,0,0,NULL,NULL,NULL,0,NULL,NULL,100000,'2018-05-10 20:57:38',NULL,0),(100004,NULL,'18888889999',NULL,'4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,NULL,NULL,0,0,NULL,NULL,NULL,0,NULL,NULL,NULL,'2018-05-17 14:27:56',NULL,0);
 
 --
 -- Table structure for table `t_user_role`
@@ -316,4 +362,4 @@ INSERT INTO `t_user_role` VALUES (2,100000,1,'2018-05-13 11:17:35',0);
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-13 12:22:45
+-- Dump completed on 2018-05-17 15:48:23

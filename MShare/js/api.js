@@ -59,4 +59,8 @@ const ORDER_ALREADY_BUY = 6;
 
 const ORDER_CANCEL_BUY = 7;
 
-const APP_DOWNLOAD_URL = BASE_URL + '/download'
+const APP_DOWNLOAD_URL = BASE_URL + '/download';
+
+const USER_SUGGEST_ADD = BASE_URL + '/suggest/save';
+
+const USER_BONUS_HISTORY = BASE_URL + '/user-bonus/pager-cond';

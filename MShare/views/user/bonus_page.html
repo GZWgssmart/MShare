@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/main.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">奖励记录</h1>
+		</header>
+		<div id="content" class="mui-content mui-scroll-wrapper bottom-fixed-page">
+			<div class="mui-scroll">
+				<ul class="mui-table-view mui-table-view-chevron content-list bonus-list">
+					<li v-for="history in histories" class="mui-table-view-cell" style="padding-right: 15px;">
+						<div class="mui-pull-left">
+							<span>{{history.bonusAccountsUpdatedDate}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+							<span style="color: blue;">{{history.bonusAccountsBonusName}}</span>
+						</div>
+						<div class="mui-pull-right mui-text-right">
+							<span style="color: red;">+{{history.bonusAccountsTotal}}</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="mui-bar mui-bar-footer page-footer">
+			<a id="previousPage" class="mui-pull-left">上一页</a>
+			<a id="nextPage" class="mui-pull-right">下一页</a>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/api.js"></script>
+		<script type="text/javascript" src="../../js/pager.js"></script>
+		<script src="../../js/datetime.js"></script>
+		<script>
+			var pageView = new Vue({
+				el: '#content',
+				data: {
+					histories: [],
+					totalPage: 0,
+					currentPageNo: 1,
+					offset: 0
+				},
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init();
+						mui('.mui-scroll-wrapper').scroll();
+						pageView.loadData();
+						
+						document.getElementById('previousPage').addEventListener('tap', function (e) {
+							pageView.previous();
+						});
+						
+						document.getElementById('nextPage').addEventListener('tap', function (e) {
+							pageView.next();
+						});
+					});
+				},
+				methods: {
+					loadData: function() {
+						mui.ajax(USER_BONUS_HISTORY, {
+							data: {
+								offset: pageView.offset,
+								limit: PAGE_SIZE,
+								bonusAccountsUid: plus.storage.getItem('uid')
+							},
+							dataType: 'json',
+							type: 'post',
+							success: function(data) {
+								for(var i = 0, len = data.rows.length; i < len; i++) {
+									data.rows[i].bonusAccountsUpdatedDate = timestampToDatetime(data.rows[i].bonusAccountsUpdatedDate);
+								}
+								pageView.histories = data.rows;
+								pageView.totalPage = data.totalPage;
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.alert('似乎没有网络了哦……', '提示');
+							}
+						});
+					},
+					previous: function() {
+						if (pageView.currentPageNo === 1) {
+							mui.toast('已经是第一页了……');
+						} else {
+							pageView.offset -= PAGE_SIZE;
+							pageView.currentPageNo -= 1;
+							pageView.loadData();
+						}
+					},
+					next: function() {
+						if (pageView.currentPageNo === pageView.totalPage) {
+							mui.toast('已经是最后一页了……');
+						} else {
+							pageView.offset += PAGE_SIZE;
+							pageView.currentPageNo += 1;
+							pageView.loadData();
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

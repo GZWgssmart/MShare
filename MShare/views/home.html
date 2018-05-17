@@ -30,7 +30,7 @@
 			<div class="mui-content">
 				<div class="barcode">
 					<div v-on:tap="scanBarcode" class="barcode-scan">扫一扫</div>
-					<div class="prop-info">
+					<div v-on:tap="showBonus" class="prop-info">
 						<div>
 							<p>余额</p>
 							<p>{{userInfo.totalMoney}}</p>
@@ -265,6 +265,18 @@
 						} else {
 							pageView.toLoginPage();
 						}
+					},
+					showBonus: function () {
+						mui.openWindow({
+							id: 'bonus_page',
+							url: 'user/bonus_page.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
 					}
 				}
 			});

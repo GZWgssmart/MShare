@@ -55,6 +55,12 @@
                         <li>
                             <a class="J_menuItem" href="<%=path%>/user-bankcard/page" data-index="0">银行卡管理</a>
                         </li>
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/user-bonus/page" data-index="0">奖励管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<%=path%>/user-suggest/page" data-index="0">投诉建议管理</a>
+                        </li>
                     </ul>
 
                 </li>
