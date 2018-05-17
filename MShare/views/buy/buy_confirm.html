@@ -78,58 +78,63 @@
 				},
 				methods: {
 					confirm: function() {
-						mui.ajax(USER_INFO + '/' + pageView.buyForm.sellId, {
-							data: {},
-							dataType: 'json',
-							type: 'post',
-							success: function(data) {
-								if(data.id + '' == pageView.buyForm.sellId && data.phone.substr(7, 4) == pageView.buyForm.sellPhone) {
-									var date = new Date();
-									var data;
-									if(pageView.buyForm.orderStatus == ORDER_NOT_SELL_WAIT_BUY_CONFIRM) {
-										// 当前状态为等待买家确认，确认后则变为已买入状态
-										pageView.buyForm.orderStatus = ORDER_ALREADY_BUY;
-										data = {
-											id: pageView.buyForm.id,
-											status: pageView.buyForm.orderStatus,
-											sellConfirmTime: timestampToDatetime(date),
-											buyConfirmTime: timestampToDatetime(date),
-											total: pageView.buyForm.total
-										};
-									} else {
-										// 当前状态为新建状态，确认后则等待卖家确认
-										pageView.buyForm.orderStatus = ORDER_NOT_BUY_WAIT_SELL_CONFIRM;
-										data = {
-											id: pageView.buyForm.id,
-											status: pageView.buyForm.orderStatus,
-											sellId: pageView.buyForm.sellId,
-											sellConfirmTime: timestampToDatetime(date),
-											buyConfirmTime: timestampToDatetime(date),
-											total: pageView.buyForm.total
-										};
-									}
-									mui.ajax(USER_ORDER_UPDATE, {
-										data: data,
-										dataType: 'json',
-										type: 'post',
-										success: function(data) {
-											if(data.status === 'ok') {
-												pageView.needUpdate = true;
-												mui.back();
-											}
-										},
-										error: function(xhr, type, errorThrown) {
-											mui.alert('似乎没有网络了哦……', '提示');
+						var uid = plus.storage.getItem('uid');
+						if(pageView.buyForm.sellId == uid) {
+							mui.alert('卖出人必须是其他用户', '提示');
+						} else {
+							mui.ajax(USER_INFO + '/' + pageView.buyForm.sellId, {
+								data: {},
+								dataType: 'json',
+								type: 'post',
+								success: function(data) {
+									if(data.id + '' == pageView.buyForm.sellId && data.phone.substr(7, 4) == pageView.buyForm.sellPhone) {
+										var date = new Date();
+										var data;
+										if(pageView.buyForm.orderStatus == ORDER_NOT_SELL_WAIT_BUY_CONFIRM) {
+											// 当前状态为等待买家确认，确认后则变为已买入状态
+											pageView.buyForm.orderStatus = ORDER_ALREADY_BUY;
+											data = {
+												id: pageView.buyForm.id,
+												status: pageView.buyForm.orderStatus,
+												sellConfirmTime: timestampToDatetime(date),
+												buyConfirmTime: timestampToDatetime(date),
+												total: pageView.buyForm.total
+											};
+										} else {
+											// 当前状态为新建状态，确认后则等待卖家确认
+											pageView.buyForm.orderStatus = ORDER_NOT_BUY_WAIT_SELL_CONFIRM;
+											data = {
+												id: pageView.buyForm.id,
+												status: pageView.buyForm.orderStatus,
+												sellId: pageView.buyForm.sellId,
+												sellConfirmTime: timestampToDatetime(date),
+												buyConfirmTime: timestampToDatetime(date),
+												total: pageView.buyForm.total
+											};
 										}
-									});
-								} else {
-									mui.alert('请输入正确的UID和手机号后四位', '提示');
+										mui.ajax(USER_ORDER_UPDATE, {
+											data: data,
+											dataType: 'json',
+											type: 'post',
+											success: function(data) {
+												if(data.status === 'ok') {
+													pageView.needUpdate = true;
+													mui.back();
+												}
+											},
+											error: function(xhr, type, errorThrown) {
+												mui.alert('似乎没有网络了哦……', '提示');
+											}
+										});
+									} else {
+										mui.alert('请输入正确的UID和手机号后四位', '提示');
+									}
+								},
+								error: function(xhr, type, errorThrown) {
+									mui.alert('似乎没有网络了哦……', '提示');
 								}
-							},
-							error: function(xhr, type, errorThrown) {
-								mui.alert('似乎没有网络了哦……', '提示');
-							}
-						});
+							});
+						}
 					}
 				}
 			});

@@ -79,84 +79,89 @@
 				},
 				methods: {
 					confirm: function() {
-						mui.ajax(USER_INFO + '/' + pageView.sellForm.buyId, {
-							data: {},
-							dataType: 'json',
-							type: 'post',
-							success: function(data) {
-								if(data.id + '' == pageView.sellForm.buyId && data.phone.substr(7, 4) == pageView.sellForm.buyPhone) {
-									mui.prompt('请输入支付密码', '', '支付密码', ['确定', '取消'], function(r) {
-										if(r.index === 0) {
-											if(r.value == '') {
-												mui.alert('请输入正确的支付密码，如果未设置支付密码，请先到用户中心设置', '提示');
-											} else {
-												mui.ajax(USER_PAY_PASSWORD_CHECK, {
-													data: {
-														id: plus.storage.getItem('uid'),
-														payPassword: md5.base64(r.value)
-													},
-													dataType: 'json',
-													type: 'post',
-													success: function(data) {
-														if(data.id != null && data.id != '') {
-															var date = new Date();
-															var data;
-															if(pageView.sellForm.orderStatus == ORDER_NOT_BUY_WAIT_SELL_CONFIRM) {
-																pageView.sellForm.orderStatus = ORDER_ALREADY_SELL;
-																// 当前为等待卖家确认状态，确认后则变为已卖出状态
-																data = {
-																	id: pageView.sellForm.id,
-																	status: pageView.sellForm.orderStatus,
-																	sellConfirmTime: timestampToDatetime(date),
-																	buyConfirmTime: timestampToDatetime(date),
-																	total: pageView.sellForm.total
-																};
-															} else {
-																// 当前为新建状态，确认后则等待买家确认
-																pageView.sellForm.orderStatus = ORDER_NOT_SELL_WAIT_BUY_CONFIRM;
-																data = {
-																	id: pageView.sellForm.id,
-																	buyId: pageView.sellForm.buyId,
-																	status: pageView.sellForm.orderStatus,
-																	sellConfirmTime: timestampToDatetime(date),
-																	buyConfirmTime: timestampToDatetime(date),
-																	total: pageView.sellForm.total
-																};
-															}
-															mui.ajax(USER_ORDER_UPDATE, {
-																data: data,
-																dataType: 'json',
-																type: 'post',
-																success: function(data) {
-																	if(data.status === 'ok') {
-																		pageView.needUpdate = true;
-																		mui.back();
-																	}
-																},
-																error: function(xhr, type, errorThrown) {
-																	mui.alert('似乎没有网络了哦……', '提示');
+						var uid = plus.storage.getItem('uid');
+						if(pageView.sellForm.buyId == uid) {
+							mui.alert('买入人必须是其他用户', '提示');
+						} else {
+							mui.ajax(USER_INFO + '/' + pageView.sellForm.buyId, {
+								data: {},
+								dataType: 'json',
+								type: 'post',
+								success: function(data) {
+									if(data.id + '' == pageView.sellForm.buyId && data.phone.substr(7, 4) == pageView.sellForm.buyPhone) {
+										mui.prompt('请输入支付密码', '', '支付密码', ['确定', '取消'], function(r) {
+											if(r.index === 0) {
+												if(r.value == '') {
+													mui.alert('请输入正确的支付密码，如果未设置支付密码，请先到用户中心设置', '提示');
+												} else {
+													mui.ajax(USER_PAY_PASSWORD_CHECK, {
+														data: {
+															id: uid,
+															payPassword: md5.base64(r.value)
+														},
+														dataType: 'json',
+														type: 'post',
+														success: function(data) {
+															if(data.id != null && data.id != '') {
+																var date = new Date();
+																var data;
+																if(pageView.sellForm.orderStatus == ORDER_NOT_BUY_WAIT_SELL_CONFIRM) {
+																	pageView.sellForm.orderStatus = ORDER_ALREADY_SELL;
+																	// 当前为等待卖家确认状态，确认后则变为已卖出状态
+																	data = {
+																		id: pageView.sellForm.id,
+																		status: pageView.sellForm.orderStatus,
+																		sellConfirmTime: timestampToDatetime(date),
+																		buyConfirmTime: timestampToDatetime(date),
+																		total: pageView.sellForm.total
+																	};
+																} else {
+																	// 当前为新建状态，确认后则等待买家确认
+																	pageView.sellForm.orderStatus = ORDER_NOT_SELL_WAIT_BUY_CONFIRM;
+																	data = {
+																		id: pageView.sellForm.id,
+																		buyId: pageView.sellForm.buyId,
+																		status: pageView.sellForm.orderStatus,
+																		sellConfirmTime: timestampToDatetime(date),
+																		buyConfirmTime: timestampToDatetime(date),
+																		total: pageView.sellForm.total
+																	};
 																}
-															});
-														} else {
-															mui.alert('请输入正确的支付密码，如果未设置支付密码，请先到用户中心设置', '提示');
+																mui.ajax(USER_ORDER_UPDATE, {
+																	data: data,
+																	dataType: 'json',
+																	type: 'post',
+																	success: function(data) {
+																		if(data.status === 'ok') {
+																			pageView.needUpdate = true;
+																			mui.back();
+																		}
+																	},
+																	error: function(xhr, type, errorThrown) {
+																		mui.alert('似乎没有网络了哦……', '提示');
+																	}
+																});
+															} else {
+																mui.alert('请输入正确的支付密码，如果未设置支付密码，请先到用户中心设置', '提示');
+															}
+														},
+														error: function(xhr, type, errorThrown) {
+															mui.alert('似乎没有网络了哦……', '提示');
 														}
-													},
-													error: function(xhr, type, errorThrown) {
-														mui.alert('似乎没有网络了哦……', '提示');
-													}
-												});
+													});
+												}
 											}
-										}
-									}, 'div');
-									document.querySelector('.mui-popup-input input').type = 'password';
-								} else {
-									mui.alert('请输入正确的UID和手机号后四位', '提示');
+										}, 'div');
+										document.querySelector('.mui-popup-input input').type = 'password';
+									} else {
+										mui.alert('请输入正确的UID和手机号后四位', '提示');
+									}
+								},
+								error: function(xhr, type, errorThrown) {
+									mui.alert('似乎没有网络了哦……', '提示');
 								}
-							},
-							error: function(xhr, type, errorThrown) {
-								mui.alert('似乎没有网络了哦……', '提示');
-							}
-						});
+							});
+						}
 					}
 				}
 			});
