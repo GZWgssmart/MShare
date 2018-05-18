@@ -113,7 +113,28 @@
     <favorites_list name="zywork" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file leaf-file-name="jdbc.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/zywork-generator/src/main/resources/config/jdbc.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="redis.properties" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/zywork-generator/src/main/resources/config/redis.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="23" lean-forward="true" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -213,8 +234,6 @@
         <option value="$PROJECT_DIR$/zywork-generator/src/main/webapp/WEB-INF/views/backend/index.jsp" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/resources/mapper/UserBonusDAOMapper.xml" />
         <option value="$PROJECT_DIR$/documents/mshare.sql" />
-        <option value="$PROJECT_DIR$/zywork-generator/src/main/resources/config/redis.properties" />
-        <option value="$PROJECT_DIR$/zywork-generator/src/main/resources/config/jdbc.properties" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/sms/SendSms.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/sms/SmsTest.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/query/SmsCodeQuery.java" />
@@ -245,6 +264,8 @@
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/service/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/vo/LoginStatusVO.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/zywork-generator/src/main/resources/config/jdbc.properties" />
+        <option value="$PROJECT_DIR$/zywork-generator/src/main/resources/config/redis.properties" />
       </list>
     </option>
   </component>
@@ -338,8 +359,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -371,7 +393,7 @@
               <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
@@ -379,25 +401,14 @@
               <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -681,11 +692,12 @@
         </option>
       </method>
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Tomcat Server.zywork" />
-      <item index="1" class="java.lang.String" itemvalue="Application.GeneratorApp" />
-      <item index="2" class="java.lang.String" itemvalue="Application.GeneratorRemoveApp" />
-      <item index="3" class="java.lang.String" itemvalue="Application.SendPost" />
+      <item index="1" class="java.lang.String" itemvalue="Application.SmsTest" />
+      <item index="2" class="java.lang.String" itemvalue="Application.GeneratorApp" />
+      <item index="3" class="java.lang.String" itemvalue="Application.GeneratorRemoveApp" />
+      <item index="4" class="java.lang.String" itemvalue="Application.SendPost" />
     </list>
     <recent_temporary>
       <list size="4">
@@ -749,6 +761,7 @@
       <workItem from="1525258909155" duration="16699000" />
       <workItem from="1525345208091" duration="54916000" />
       <workItem from="1525849673946" duration="78420000" />
+      <workItem from="1526655807035" duration="638000" />
     </task>
     <servers />
   </component>
@@ -785,7 +798,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1021902000" />
+    <option name="totallyTimeSpent" value="1022540000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -798,6 +811,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="777" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5366569" sideWeight="0.50646204" order="8" side_tool="true" content_ui="tabs" />
@@ -811,22 +825,20 @@
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34750733" sideWeight="0.49676898" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34750733" sideWeight="0.49676898" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991204" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32844576" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5175953" sideWeight="0.49353796" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991204" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5175953" sideWeight="0.49353796" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991204" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991204" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3029079" sideWeight="0.49120235" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30775446" sideWeight="0.49120235" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28836834" sideWeight="0.50879765" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32844576" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28836834" sideWeight="0.5058651" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -836,6 +848,8 @@
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991204" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293944" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991204" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32844576" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -932,42 +946,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="277">
           <caret line="81" column="36" lean-forward="false" selection-start-line="81" selection-start-column="36" selection-end-line="81" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/zywork-generator/src/main/resources/config/redis.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/zywork-generator/src/main/resources/config/jdbc.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="23" lean-forward="true" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/sms/SmsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="5" lean-forward="true" selection-start-line="3" selection-start-column="4" selection-end-line="16" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/sms/SmsTest.java" />
     <entry file="file://$PROJECT_DIR$/zywork-common/src/main/java/top/zywork/common/RandomUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="21" column="22" lean-forward="false" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-          <folding>
-            <element signature="e#400#401#0" expanded="false" />
-            <element signature="e#460#461#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -975,15 +961,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="27" lean-forward="false" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
-          <folding>
-            <element signature="e#384#385#0" expanded="true" />
-            <element signature="e#420#421#0" expanded="true" />
-            <element signature="e#448#449#0" expanded="true" />
-            <element signature="e#480#481#0" expanded="true" />
-            <element signature="e#508#509#0" expanded="true" />
-            <element signature="e#550#551#0" expanded="true" />
-            <element signature="e#584#585#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -999,7 +976,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="157">
           <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1007,9 +983,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1017,19 +990,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="27" lean-forward="false" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
-          <folding>
-            <element signature="e#433#434#0" expanded="true" />
-            <element signature="e#469#470#0" expanded="true" />
-            <element signature="e#497#498#0" expanded="true" />
-            <element signature="e#529#530#0" expanded="true" />
-            <element signature="e#557#558#0" expanded="true" />
-            <element signature="e#599#600#0" expanded="true" />
-            <element signature="e#633#634#0" expanded="true" />
-            <element signature="e#664#665#0" expanded="true" />
-            <element signature="e#691#692#0" expanded="true" />
-            <element signature="e#731#732#0" expanded="true" />
-            <element signature="e#763#764#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1037,9 +997,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding>
-            <marker date="1526622081238" expanded="false" signature="568:574" ph=" }" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1047,10 +1004,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
           <caret line="29" column="26" lean-forward="false" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
-          <folding>
-            <element signature="e#824#825#0" expanded="true" />
-            <element signature="e#877#878#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1058,7 +1011,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="512">
           <caret line="40" column="36" lean-forward="false" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1066,7 +1018,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
           <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1074,7 +1025,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="31" lean-forward="false" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1082,9 +1032,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-213">
           <caret line="30" column="25" lean-forward="true" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1092,9 +1039,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="302">
           <caret line="23" column="94" lean-forward="false" selection-start-line="23" selection-start-column="94" selection-end-line="23" selection-end-column="94" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1102,7 +1046,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1129,9 +1072,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
           <caret line="96" column="47" lean-forward="true" selection-start-line="96" selection-start-column="47" selection-end-line="96" selection-end-column="47" />
-          <folding>
-            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1147,7 +1087,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1155,7 +1094,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1179,7 +1117,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1187,12 +1124,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1509">
           <caret line="116" column="27" lean-forward="false" selection-start-line="116" selection-start-column="27" selection-end-line="116" selection-end-column="27" />
-          <folding>
-            <element signature="e#3486#3487#0" expanded="true" />
-            <element signature="e#3505#3506#0" expanded="true" />
-            <element signature="e#3544#3545#0" expanded="true" />
-            <element signature="e#3569#3570#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1200,12 +1131,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="223" column="8" lean-forward="false" selection-start-line="223" selection-start-column="8" selection-end-line="223" selection-end-column="27" />
-          <folding>
-            <element signature="e#3492#3493#0" expanded="true" />
-            <element signature="e#3511#3512#0" expanded="true" />
-            <element signature="e#3550#3551#0" expanded="true" />
-            <element signature="e#3575#3576#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1213,12 +1138,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="316">
           <caret line="253" column="8" lean-forward="false" selection-start-line="253" selection-start-column="8" selection-end-line="253" selection-end-column="27" />
-          <folding>
-            <element signature="e#4166#4167#0" expanded="true" />
-            <element signature="e#4185#4186#0" expanded="true" />
-            <element signature="e#4224#4225#0" expanded="true" />
-            <element signature="e#4249#4250#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1226,13 +1145,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="355" column="5" lean-forward="false" selection-start-line="355" selection-start-column="0" selection-end-line="355" selection-end-column="5" />
-          <folding>
-            <marker date="1526631697514" expanded="true" signature="3656:3662" ph="&amp;nbsp;" />
-            <marker date="1526631697514" expanded="true" signature="4121:4127" ph="&amp;nbsp;" />
-            <marker date="1526631697514" expanded="true" signature="4322:4328" ph="&amp;nbsp;" />
-            <marker date="1526631697514" expanded="true" signature="4513:4519" ph="&amp;nbsp;" />
-            <marker date="1526631697514" expanded="true" signature="4683:4689" ph="&amp;nbsp;" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1240,7 +1152,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="100" column="17" lean-forward="false" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1248,7 +1159,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
           <caret line="121" column="43" lean-forward="false" selection-start-line="121" selection-start-column="38" selection-end-line="121" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1256,7 +1166,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="301">
           <caret line="80" column="86" lean-forward="false" selection-start-line="80" selection-start-column="86" selection-end-line="80" selection-end-column="86" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1264,7 +1173,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
           <caret line="63" column="54" lean-forward="false" selection-start-line="63" selection-start-column="54" selection-end-line="63" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1272,7 +1180,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="331">
           <caret line="81" column="86" lean-forward="false" selection-start-line="81" selection-start-column="86" selection-end-line="81" selection-end-column="86" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1280,7 +1187,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
           <caret line="95" column="18" lean-forward="true" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1288,12 +1194,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1351">
           <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding>
-            <element signature="e#4096#4097#0" expanded="true" />
-            <element signature="e#4115#4116#0" expanded="true" />
-            <element signature="e#4154#4155#0" expanded="true" />
-            <element signature="e#4179#4180#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1301,7 +1201,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="30" column="18" lean-forward="false" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1309,7 +1208,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="263">
           <caret line="37" column="34" lean-forward="false" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1317,28 +1215,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
           <caret line="418" column="43" lean-forward="false" selection-start-line="418" selection-start-column="43" selection-end-line="418" selection-end-column="43" />
-          <folding>
-            <marker date="1526632580020" expanded="true" signature="2720:2755" ph="delete from " />
-            <marker date="1526632580020" expanded="true" signature="2817:2852" ph="delete from " />
-            <marker date="1526632580020" expanded="true" signature="3080:4523" ph="update t_use... " />
-            <marker date="1526632580020" expanded="true" signature="4617:4673" ph="update t_use... " />
-            <marker date="1526632580020" expanded="true" signature="9395:9468" ph="select from t_user" />
-            <marker date="1526632580020" expanded="true" signature="9526:9628" ph="select from t_user" />
-            <marker date="1526632580020" expanded="true" signature="9730:9989" ph="select from t_user" />
-            <marker date="1526632580020" expanded="true" signature="10043:10070" ph="select count... t_user" />
-            <marker date="1526632580020" expanded="true" signature="10140:10509" ph="select from t_user" />
-            <marker date="1526632580020" expanded="true" signature="10574:10601" ph="select count... t_user" />
-            <marker date="1526632580020" expanded="true" signature="10734:10897" ph="select from t_user" />
-            <marker date="1526632580020" expanded="true" signature="10982:11085" ph="select passw... t_user" />
-            <marker date="1526632580020" expanded="true" signature="11178:11263" ph="update t_use... " />
-            <marker date="1526632580020" expanded="true" signature="11356:11471" ph="update t_use... " />
-            <marker date="1526632580020" expanded="true" signature="11411:11470" ph="select t_ord... t_order" />
-            <marker date="1526632580020" expanded="true" signature="11565:11681" ph="update t_use... " />
-            <marker date="1526632580020" expanded="true" signature="11620:11680" ph="select t_ord... t_order" />
-            <marker date="1526632580020" expanded="true" signature="11802:11887" ph="select * fro... t_user" />
-            <marker date="1526632580020" expanded="true" signature="11971:12022" ph="select id fr... t_user" />
-            <marker date="1526632580020" expanded="true" signature="12087:12146" ph="update t_use... " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1346,7 +1222,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="18" column="17" lean-forward="false" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1354,7 +1229,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="25" column="36" lean-forward="false" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1362,7 +1236,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="572">
           <caret line="50" column="35" lean-forward="false" selection-start-line="50" selection-start-column="35" selection-end-line="50" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1370,7 +1243,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="497">
           <caret line="53" column="43" lean-forward="false" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1378,7 +1250,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-263">
           <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1411,12 +1282,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="602">
           <caret line="97" column="8" lean-forward="false" selection-start-line="97" selection-start-column="8" selection-end-line="97" selection-end-column="27" />
-          <folding>
-            <element signature="e#1675#1676#0" expanded="true" />
-            <element signature="e#1703#1704#0" expanded="true" />
-            <element signature="e#1745#1746#0" expanded="true" />
-            <element signature="e#1779#1780#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1424,6 +1289,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="323" column="52" lean-forward="false" selection-start-line="323" selection-start-column="52" selection-end-line="323" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/zywork-generator/src/main/resources/config/jdbc.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/zywork-generator/src/main/resources/config/redis.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="23" lean-forward="true" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
           <folding />
         </state>
       </provider>

@@ -1,5 +1,5 @@
-const BASE_URL = 'http://192.168.2.114:8080';
-// const BASE_URL = 'http://123.1.189.98:8080/mshare';
+//const BASE_URL = 'http://192.168.2.114:8080';
+const BASE_URL = 'http://123.1.189.98:8080/mshare';
 
 const DOMAIN_BASE_URL = 'http://www.cstpayshare.com';
 
