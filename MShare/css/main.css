@@ -266,3 +266,12 @@ form textarea {
 	height: 40px;
 	line-height: 40px;
 }
+
+.slider-text {
+	width: 100%;
+	position: absolute; 
+	top: 0px; 
+	background-color: rgba(0, 0, 0, 0.4); 
+	color: #FFF; 
+	text-align: center;
+}

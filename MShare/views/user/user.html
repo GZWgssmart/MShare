@@ -89,7 +89,7 @@
 		<script type="text/javascript" src="../../js/vue.min.js"></script>
 		<script type="text/javascript" src="../../js/api.js"></script>
 		<script src="../../js/image.js"></script>
-		<script src="../../js/clipboard.js"></script> 
+		<script src="../../js/clipboard.js"></script>
 		<script type="text/javascript">
 			var pageView = new Vue({
 				el: '#content',
@@ -126,14 +126,14 @@
 								pageView.changeHeadIcon();
 							} else if(id === 'nickname-chg') {
 								pageView.changeNickname();
-							} else if (id === 'download') {
+							} else if(id === 'download') {
 								toClipboard(pageView.downloadUrl);
 								mui.alert('已复制APP下载地址，请在其他APP中粘贴分享：\n' + pageView.downloadUrl, '提示');
 							} else {
 								pageView.showPage(id);
 							}
 						});
-						
+
 						pageView.downloadUrl = APP_DOWNLOAD_URL;
 					});
 				},
@@ -207,40 +207,44 @@
 						});
 					},
 					logout: function() {
-						var token = plus.storage.getItem('token');
-						var username = plus.storage.getItem('username');
-						mui.ajax(USER_LOGOUT, {
-							data: {
-								username: username,
-								userToken: token
-							},
-							dataType: 'json',
-							type: 'post',
-							success: function(data) {
-								if(data.status === 'ok') {
-									plus.storage.clear();
-									plus.navigator.removeAllCookie();
-									var loginView = plus.webview.getWebviewById('login');
-									if(loginView != null) {
-										plus.webview.close('home');
+						mui.confirm('确认退出吗？', '提示', ['确定', '取消'], function(r) {
+							if(r.index === 0) {
+								var token = plus.storage.getItem('token');
+								var username = plus.storage.getItem('username');
+								mui.ajax(USER_LOGOUT, {
+									data: {
+										username: username,
+										userToken: token
+									},
+									dataType: 'json',
+									type: 'post',
+									success: function(data) {
+										if(data.status === 'ok') {
+											plus.storage.clear();
+											plus.navigator.removeAllCookie();
+											var loginView = plus.webview.getWebviewById('login');
+											if(loginView != null) {
+												plus.webview.close('home');
 
-										plus.webview.close('user');
-										mui.fire(loginView, 'clearForm');
-									}
-									mui.openWindow({
-										id: 'login',
-										url: '../login.html',
-										show: {
-											aniShow: 'pop-in'
-										},
-										waiting: {
-											autoShow: false
+												plus.webview.close('user');
+												mui.fire(loginView, 'clearForm');
+											}
+											mui.openWindow({
+												id: 'login',
+												url: '../login.html',
+												show: {
+													aniShow: 'pop-in'
+												},
+												waiting: {
+													autoShow: false
+												}
+											});
 										}
-									});
-								}
-							},
-							error: function(xhr, type, errorThrown) {
-								mui.alert('似乎没有网络了哦……', '提示');
+									},
+									error: function(xhr, type, errorThrown) {
+										mui.alert('似乎没有网络了哦……', '提示');
+									}
+								});
 							}
 						});
 					}
