@@ -75,6 +75,13 @@
     </div>
 </div>
 
+        <div class="form-group">
+            <label for="props" class="col-sm-2 control-label">资产：</label>
+            <div class="col-sm-10">
+                <input id="props" name="props" class="form-control" placeholder="请输入资产"/>
+            </div>
+        </div>
+
 <div class="form-group">
     <label for="level" class="col-sm-2 control-label">信用等级：</label>
     <div class="col-sm-10">

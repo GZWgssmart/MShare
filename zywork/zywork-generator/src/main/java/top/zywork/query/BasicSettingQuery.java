@@ -5,14 +5,14 @@ import java.util.Date;
 /**
  * BasicSettingQuery查询对象类<br/>
  *
- * 创建于2018-05-08<br/>
+ * 创建于2018-05-18<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class BasicSettingQuery extends BaseQuery {
 
-    private static final long serialVersionUID = -9223372036505426918L;
+    private static final long serialVersionUID = -9223372035406417352L;
 
     /**
 	 * 编号
@@ -43,6 +43,18 @@ public class BasicSettingQuery extends BaseQuery {
 	 */
 	private String sliderImg3;
 	/**
+	 * 轮播图4
+	 */
+	private String sliderImg4;
+	/**
+	 * 轮播图5
+	 */
+	private String sliderImg5;
+	/**
+	 * 注册资产奖励
+	 */
+	private Double regBonus;
+	/**
 	 * 创建时间
 	 */
 	private Date createTime;
@@ -69,7 +81,7 @@ public class BasicSettingQuery extends BaseQuery {
 	
     public BasicSettingQuery() {}
 
-    public BasicSettingQuery(Long id, Double feePercent, Double moneyPercent, Double scorePercent, String sliderImg1, String sliderImg2, String sliderImg3, Date createTime, Date createTimeStart, Date createTimeEnd, Date updateTime, Date updateTimeStart, Date updateTimeEnd) {
+    public BasicSettingQuery(Long id, Double feePercent, Double moneyPercent, Double scorePercent, String sliderImg1, String sliderImg2, String sliderImg3, String sliderImg4, String sliderImg5, Double regBonus, Date createTime, Date createTimeStart, Date createTimeEnd, Date updateTime, Date updateTimeStart, Date updateTimeEnd) {
         this.id = id;
 		this.feePercent = feePercent;
 		this.moneyPercent = moneyPercent;
@@ -77,6 +89,9 @@ public class BasicSettingQuery extends BaseQuery {
 		this.sliderImg1 = sliderImg1;
 		this.sliderImg2 = sliderImg2;
 		this.sliderImg3 = sliderImg3;
+		this.sliderImg4 = sliderImg4;
+		this.sliderImg5 = sliderImg5;
+		this.regBonus = regBonus;
 		this.createTime = createTime;
 		this.createTimeStart = createTimeStart;
 		this.createTimeEnd = createTimeEnd;
@@ -140,6 +155,30 @@ public class BasicSettingQuery extends BaseQuery {
 
 	public void setSliderImg3(String sliderImg3) {
 		this.sliderImg3 = sliderImg3;
+	}
+
+	public String getSliderImg4() {
+		return sliderImg4;
+	}
+
+	public void setSliderImg4(String sliderImg4) {
+		this.sliderImg4 = sliderImg4;
+	}
+
+	public String getSliderImg5() {
+		return sliderImg5;
+	}
+
+	public void setSliderImg5(String sliderImg5) {
+		this.sliderImg5 = sliderImg5;
+	}
+
+	public Double getRegBonus() {
+		return regBonus;
+	}
+
+	public void setRegBonus(Double regBonus) {
+		this.regBonus = regBonus;
 	}
 
 	public Date getCreateTime() {

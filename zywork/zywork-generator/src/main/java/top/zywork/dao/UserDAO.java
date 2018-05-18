@@ -47,4 +47,6 @@ public interface UserDAO extends BaseDAO {
     Object getByPayPassword(UserPayPasswordQuery userPayPasswordQuery);
 
     Object getByPhone(String phone);
+
+    void updateProps(Object dataObj);
 }

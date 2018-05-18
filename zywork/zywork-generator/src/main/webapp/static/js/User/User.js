@@ -111,6 +111,12 @@ function loadTable() {
 	align: 'center',
 	sortable: true
 },
+            {
+                title: '资产',
+                field: 'props',
+                align: 'center',
+                sortable: true
+            },
 {
 	title: '信用等级',
 	field: 'level',
@@ -207,7 +213,7 @@ function formatOperators(value, row, index) {
     return strArray.join('');
 }
 
-let fieldTitles = {'id':'编号','email':'邮箱','phone':'手机号','accountName':'账户名','password':'登录密码','payPassword':'支付密码','salt':'加密盐值','nickname':'昵称','headicon':'头像地址','total':'余额','score':'积分','level':'信用等级','identity':'身份证号','realName':'真实姓名','gender':'性别','birthday-date':'生日','age':'年龄','fromId':'推荐人编号','createTime-date':'创建时间','updateTime-date':'更新时间','isActive':'是否激活'};
+let fieldTitles = {'id':'编号','email':'邮箱','phone':'手机号','accountName':'账户名','password':'登录密码','payPassword':'支付密码','salt':'加密盐值','nickname':'昵称','headicon':'头像地址','total':'余额','score':'积分','props':'资产','level':'信用等级','identity':'身份证号','realName':'真实姓名','gender':'性别','birthday-date':'生日','age':'年龄','fromId':'推荐人编号','createTime-date':'创建时间','updateTime-date':'更新时间','isActive':'是否激活'};
 
 window.operateEvents = {
     'click .to-detail': function (e, value, row, index) {
@@ -351,6 +357,10 @@ score: {
 	validators: {
 	}
 },
+        props: {
+            validators: {
+            }
+        },
 level: {
 	validators: {
 

@@ -58,6 +58,7 @@ public class UserQuery extends BaseQuery {
 	 * 积分
 	 */
 	private Long score;
+	private Double props;
 	/**
 	 * 信用等级
 	 */
@@ -125,7 +126,7 @@ public class UserQuery extends BaseQuery {
 	
     public UserQuery () {}
 
-    public UserQuery (Long id, String email, String phone, String accountName, String password, String payPassword, String salt, String nickname, String headicon, Long total, Long score, String level, String identity, String realName, Byte gender, Date birthday, Date birthdayStart, Date birthdayEnd, Integer age, Long fromId, Date createTime, Date createTimeStart, Date createTimeEnd, Date updateTime, Date updateTimeStart, Date updateTimeEnd, Byte isActive) {
+    public UserQuery (Long id, String email, String phone, String accountName, String password, String payPassword, String salt, String nickname, String headicon, Long total, Long score, Double props, String level, String identity, String realName, Byte gender, Date birthday, Date birthdayStart, Date birthdayEnd, Integer age, Long fromId, Date createTime, Date createTimeStart, Date createTimeEnd, Date updateTime, Date updateTimeStart, Date updateTimeEnd, Byte isActive) {
         this.id = id;
 		this.email = email;
 		this.phone = phone;
@@ -137,6 +138,7 @@ public class UserQuery extends BaseQuery {
 		this.headicon = headicon;
 		this.total = total;
 		this.score = score;
+		this.props = props;
 		this.level = level;
 		this.identity = identity;
 		this.realName = realName;
@@ -242,6 +244,14 @@ public class UserQuery extends BaseQuery {
 
 	public void setScore(Long score) {
 		this.score = score;
+	}
+
+	public Double getProps() {
+		return props;
+	}
+
+	public void setProps(Double props) {
+		this.props = props;
 	}
 
 	public String getLevel() {

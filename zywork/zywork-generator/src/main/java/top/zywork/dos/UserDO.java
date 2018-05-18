@@ -58,6 +58,7 @@ public class UserDO extends BaseDO {
 	 * 积分
 	 */
 	private Long score;
+	private Double props;
 	/**
 	 * 信用等级
 	 */
@@ -98,10 +99,10 @@ public class UserDO extends BaseDO {
 	 * 是否激活
 	 */
 	private Byte isActive;
-	
+
     public UserDO () {}
 
-    public UserDO (Long id, String email, String phone, String accountName, String password, String payPassword, String salt, String nickname, String headicon, Long total, Long score, String level, String identity, String realName, Byte gender, Date birthday, Integer age, Long fromId, Date createTime, Date updateTime, Byte isActive) {
+    public UserDO (Long id, String email, String phone, String accountName, String password, String payPassword, String salt, String nickname, String headicon, Long total, Long score, Double props, String level, String identity, String realName, Byte gender, Date birthday, Integer age, Long fromId, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.email = email;
 		this.phone = phone;
@@ -113,6 +114,7 @@ public class UserDO extends BaseDO {
 		this.headicon = headicon;
 		this.total = total;
 		this.score = score;
+		this.props = props;
 		this.level = level;
 		this.identity = identity;
 		this.realName = realName;
@@ -212,6 +214,14 @@ public class UserDO extends BaseDO {
 
 	public void setScore(Long score) {
 		this.score = score;
+	}
+
+	public Double getProps() {
+		return props;
+	}
+
+	public void setProps(Double props) {
+		this.props = props;
 	}
 
 	public String getLevel() {

@@ -48,6 +48,27 @@
     </div>
 </div>
 
+<div class="form-group">
+    <label for="sliderImg4" class="col-sm-2 control-label">轮播图4：</label>
+    <div class="col-sm-10">
+        <input id="sliderImg4" name="sliderImg4" class="form-control" placeholder="请输入轮播图4"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="sliderImg5" class="col-sm-2 control-label">轮播图5：</label>
+    <div class="col-sm-10">
+        <input id="sliderImg5" name="sliderImg5" class="form-control" placeholder="请输入轮播图5"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="regBonus" class="col-sm-2 control-label">注册资产奖励：</label>
+    <div class="col-sm-10">
+        <input id="regBonus" name="regBonus" class="form-control" placeholder="请输入注册资产奖励"/>
+    </div>
+</div>
+
 
     </form>
 </div>

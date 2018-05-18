@@ -79,6 +79,24 @@ function basicSettingSearchTable() {
 	sortable: true
 },
 {
+	title: '轮播图4',
+	field: 'sliderImg4',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '轮播图5',
+	field: 'sliderImg5',
+	align: 'center',
+	sortable: true
+},
+{
+	title: '注册资产奖励',
+	field: 'regBonus',
+	align: 'center',
+	sortable: true
+},
+{
 	title: '创建时间',
 	field: 'createTime',
 	align: 'center',

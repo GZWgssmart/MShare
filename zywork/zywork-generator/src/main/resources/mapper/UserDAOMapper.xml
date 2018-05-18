@@ -37,6 +37,9 @@
 			<if test="score != null">
 				score,
 			</if>
+			<if test="props != null">
+				props,
+			</if>
 			<if test="level != null">
 				level,
 			</if>
@@ -99,6 +102,9 @@
 			</if>
 			<if test="score != null">
 				#{score},
+			</if>
+			<if test="props != null">
+				#{props},
 			</if>
 			<if test="level != null">
 				#{level},
@@ -182,6 +188,9 @@
 			<if test="score != null">
 				score = #{score},
 			</if>
+			<if test="props != null">
+				props = #{props},
+			</if>
 			<if test="level != null">
 				level = #{level},
 			</if>
@@ -229,7 +238,7 @@
 	</update>
 
 	<sql id="select_columns">
-		id as id, email as email, phone as phone, account_name as accountName, password as password, pay_password as payPassword, salt as salt, nickname as nickname, headicon as headicon, total as total, score as score, level as level, identity as identity, real_name as realName, gender as gender, birthday as birthday, age as age, from_id as fromId, create_time as createTime, update_time as updateTime, is_active as isActive
+		id as id, email as email, phone as phone, account_name as accountName, password as password, pay_password as payPassword, salt as salt, nickname as nickname, headicon as headicon, total as total, score as score, props as props, level as level, identity as identity, real_name as realName, gender as gender, birthday as birthday, age as age, from_id as fromId, create_time as createTime, update_time as updateTime, is_active as isActive
 	</sql>
 
 	<sql id="query_where_clause">
@@ -265,6 +274,9 @@
 		</if>
 		<if test="query != null and query.score != null">
 			and score = #{query.score}
+		</if>
+		<if test="query != null and query.props != null">
+			and props = #{query.props}
 		</if>
 		<if test="query != null and query.level != null and query.level != ''">
 			and level like concat('%', #{query.level}, '%')
@@ -402,5 +414,9 @@
 	<select id="getByPhone" parameterType="string" resultType="userDO">
 		select id from t_user where t_user.phone = #{phone}
 	</select>
+
+	<update id="updateProps" parameterType="userDO">
+		update t_user set props = props + #{props} where id = #{id}
+	</update>
 
 </mapper>

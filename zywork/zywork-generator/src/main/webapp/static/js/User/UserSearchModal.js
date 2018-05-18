@@ -102,6 +102,12 @@ function userSearchTable() {
 	align: 'center',
 	sortable: true
 },
+            {
+                title: '资产',
+                field: 'props',
+                align: 'center',
+                sortable: true
+            },
 {
 	title: '信用等级',
 	field: 'level',

@@ -4,14 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import top.zywork.common.ExceptionUtils;
+import top.zywork.dao.BasicSettingDAO;
 import top.zywork.dao.UserDAO;
 import top.zywork.dos.UserDO;
+import top.zywork.dto.BasicSettingDTO;
 import top.zywork.dto.UserDTO;
 import top.zywork.dto.UserTokenDTO;
 import top.zywork.query.UserAccountPasswordQuery;
 import top.zywork.query.UserPayPasswordQuery;
 import top.zywork.service.AbstractBaseService;
+import top.zywork.service.BasicSettingService;
 import top.zywork.service.UserService;
+import top.zywork.vo.UserVO;
 
 import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
@@ -29,6 +34,24 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
 
     private UserDAO userDAO;
     private RedisTemplate<String, UserTokenDTO> redisTemplate;
+
+    private BasicSettingService basicSettingService;
+
+    @Override
+    public void save(Object dataTransferObj) {
+        try {
+            BasicSettingDTO basicSettingDTO = (BasicSettingDTO) basicSettingService.getByIdCache(1L);
+            UserDO userDO = getBeanMapper().map(dataTransferObj, UserDO.class);
+            userDO.setProps(basicSettingDTO.getRegBonus());
+            userDAO.save(userDO);
+            UserDO userDO1 = new UserDO();
+            userDO1.setId(userDO.getFromId());
+            userDO1.setProps(basicSettingDTO.getRegBonus());
+            userDAO.updateProps(userDO1);
+        } catch (RuntimeException e) {
+            throw ExceptionUtils.serviceException(e);
+        }
+    }
 
     @Override
     public Object getByAccountPassword(UserAccountPasswordQuery userAccountPasswordQuery) {
@@ -80,6 +103,11 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
         return null;
     }
 
+    @Override
+    public void updateProps(Object dataTransferObj) {
+        userDAO.updateProps(getBeanMapper().map(dataTransferObj, UserDO.class));
+    }
+
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
         super.setBaseDAO(userDAO);
@@ -89,6 +117,11 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
     @Autowired
     public void setRedisTemplate(RedisTemplate<String, UserTokenDTO> redisTemplate) {
         this.redisTemplate = redisTemplate;
+    }
+
+    @Autowired
+    public void setBasicSettingService(BasicSettingService basicSettingService) {
+        this.basicSettingService = basicSettingService;
     }
 
     @PostConstruct

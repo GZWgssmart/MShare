@@ -51,4 +51,6 @@ public interface UserService extends BaseService {
 
     Object getByPhone(String phone);
 
+    void updateProps(Object dataTransferObj);
+
 }

@@ -60,6 +60,11 @@
     <span class="col-sm-8" id=scoreDetail></span>
 </div>
 
+        <div class="col-sm-6 detail-content">
+            <span class="col-sm-4 row-detail-title">资产：</span>
+            <span class="col-sm-8" id=propsDetail></span>
+        </div>
+
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">信用等级：</span>
     <span class="col-sm-8" id=levelDetail></span>

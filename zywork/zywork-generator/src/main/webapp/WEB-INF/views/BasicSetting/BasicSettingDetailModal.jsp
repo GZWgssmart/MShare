@@ -7,47 +7,62 @@
     <div class="row">
         <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">编号：</span>
-    <span class="col-sm-8" id=idDetail></span>
+    <span class="col-sm-8" id="idDetail"></span>
 </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">手续费比例：</span>
-    <span class="col-sm-8" id=feePercentDetail></span>
+    <span class="col-sm-8" id="feePercentDetail"></span>
 </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">金额转换比例：</span>
-    <span class="col-sm-8" id=moneyPercentDetail></span>
+    <span class="col-sm-8" id="moneyPercentDetail"></span>
 </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">积分转换比例：</span>
-    <span class="col-sm-8" id=scorePercentDetail></span>
+    <span class="col-sm-8" id="scorePercentDetail"></span>
 </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">轮播图1：</span>
-    <span class="col-sm-8" id=sliderImg1Detail></span>
+    <span class="col-sm-8" id="sliderImg1Detail"></span>
 </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">轮播图2：</span>
-    <span class="col-sm-8" id=sliderImg2Detail></span>
+    <span class="col-sm-8" id="sliderImg2Detail"></span>
 </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">轮播图3：</span>
-    <span class="col-sm-8" id=sliderImg3Detail></span>
+    <span class="col-sm-8" id="sliderImg3Detail"></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">轮播图4：</span>
+    <span class="col-sm-8" id="sliderImg4Detail"></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">轮播图5：</span>
+    <span class="col-sm-8" id="sliderImg5Detail"></span>
+</div>
+
+<div class="col-sm-6 detail-content">
+    <span class="col-sm-4 row-detail-title">注册资产奖励：</span>
+    <span class="col-sm-8" id="regBonusDetail"></span>
 </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">创建时间：</span>
-    <span class="col-sm-8" id=createTimeDetail></span>
+    <span class="col-sm-8" id="createTimeDetail"></span>
 </div>
 
 <div class="col-sm-6 detail-content">
     <span class="col-sm-4 row-detail-title">更新时间：</span>
-    <span class="col-sm-8" id=updateTimeDetail></span>
+    <span class="col-sm-8" id="updateTimeDetail"></span>
 </div>
 
 

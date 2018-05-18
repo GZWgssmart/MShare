@@ -1,6 +1,5 @@
 package top.zywork.controller;
 
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +29,7 @@ import java.util.List;
 /**
  * BasicSettingController控制器类<br/>
  *
- * 创建于2018-05-08<br/>
+ * 创建于2018-05-18<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
@@ -43,7 +42,6 @@ public class BasicSettingController extends BaseController {
 
     private BasicSettingService basicSettingService;
 
-    @RequiresRoles(value = {"admin"})
     @GetMapping("page")
     public String page() {
         return "BasicSetting/BasicSetting";
@@ -69,7 +67,6 @@ public class BasicSettingController extends BaseController {
         return "BasicSetting/BasicSettingSearchModal";
     }
 
-    @RequiresRoles(value = {"admin"})
     @PostMapping("save")
     @ResponseBody
     public ControllerStatusVO save(@Validated BasicSettingVO basicSettingVO, BindingResult bindingResult) {
@@ -88,7 +85,6 @@ public class BasicSettingController extends BaseController {
         return statusVO;
     }
 
-    @RequiresRoles(value = {"admin"})
     @PostMapping("remove")
     @ResponseBody
     public ControllerStatusVO remove(BasicSettingVO basicSettingVO) {
@@ -103,7 +99,6 @@ public class BasicSettingController extends BaseController {
         return statusVO;
     }
 
-    @RequiresRoles(value = {"admin"})
     @GetMapping("remove/{id}")
     @ResponseBody
     public ControllerStatusVO removeById(@PathVariable("id") Long id) {
@@ -118,7 +113,6 @@ public class BasicSettingController extends BaseController {
         return statusVO;
     }
 
-    @RequiresRoles(value = {"admin"})
     @PostMapping("batch-remove")
     @ResponseBody
     public ControllerStatusVO removeByIds(String ids) {
@@ -133,7 +127,6 @@ public class BasicSettingController extends BaseController {
         return statusVO;
     }
 
-    @RequiresRoles(value = {"admin"})
     @PostMapping("update")
     @ResponseBody
     public ControllerStatusVO update(@Validated BasicSettingVO basicSettingVO, BindingResult bindingResult) {
@@ -152,7 +145,6 @@ public class BasicSettingController extends BaseController {
         return statusVO;
     }
 
-    @RequiresRoles(value = {"admin"})
     @PostMapping("active")
     @ResponseBody
     public ControllerStatusVO updateActiveStatus(StatusQuery statusQuery) {
@@ -167,7 +159,6 @@ public class BasicSettingController extends BaseController {
         return statusVO;
     }
 
-    @RequiresRoles(value = {"admin"})
     @PostMapping("batch-active")
     @ResponseBody
     public ControllerStatusVO updateActiveStatuses(String ids, StatusQueries statusQueries) {
@@ -183,7 +174,6 @@ public class BasicSettingController extends BaseController {
         return statusVO;
     }
 
-    @RequiresRoles(value = {"admin"})
     @RequestMapping("one/{id}")
     @ResponseBody
     public BasicSettingVO getById(@PathVariable("id") Long id) {
@@ -199,7 +189,6 @@ public class BasicSettingController extends BaseController {
         return basicSettingVO;
     }
 
-    @RequiresRoles(value = {"admin"})
     @GetMapping("all")
     @ResponseBody
     public List<BasicSettingVO> listAll() {
@@ -213,7 +202,6 @@ public class BasicSettingController extends BaseController {
         return basicSettingVOList;
     }
 
-    @RequiresRoles(value = {"admin"})
     @RequestMapping("pager")
     @ResponseBody
     public PagerVO listPage(int offset, int limit, String sort, String order) {
@@ -230,7 +218,6 @@ public class BasicSettingController extends BaseController {
         return pagerVO;
     }
 
-    @RequiresRoles(value = {"admin"})
     @RequestMapping("pager-cond")
     @ResponseBody
     public PagerVO listPageByCondition(int offset, int limit, String sort, String order, BasicSettingQuery basicSettingQuery) {

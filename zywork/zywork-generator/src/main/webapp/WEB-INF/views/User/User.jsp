@@ -123,6 +123,13 @@
     </div>
 </div>
 
+                <div class="col-sm-6 form-group">
+                    <label for="propsSearch" class="col-sm-4 control-label">资产：</label>
+                    <div class="col-sm-8">
+                        <input id="propsSearch" name="props" class="form-control" placeholder="请输入资产">
+                    </div>
+                </div>
+
 <div class="col-sm-6 form-group">
     <label for="levelSearch" class="col-sm-4 control-label">信用等级：</label>
     <div class="col-sm-8">

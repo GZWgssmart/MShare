@@ -61,6 +61,27 @@
 </div>
 
 <div class="col-sm-6 form-group">
+    <label for="sliderImg4Search" class="col-sm-4 control-label">轮播图4：</label>
+    <div class="col-sm-8">
+        <input id="sliderImg4Search" name="sliderImg4" class="form-control" placeholder="请输入轮播图4">
+    </div>
+</div>
+
+<div class="col-sm-6 form-group">
+    <label for="sliderImg5Search" class="col-sm-4 control-label">轮播图5：</label>
+    <div class="col-sm-8">
+        <input id="sliderImg5Search" name="sliderImg5" class="form-control" placeholder="请输入轮播图5">
+    </div>
+</div>
+
+<div class="col-sm-6 form-group">
+    <label for="regBonusSearch" class="col-sm-4 control-label">注册资产奖励：</label>
+    <div class="col-sm-8">
+        <input id="regBonusSearch" name="regBonus" class="form-control" placeholder="请输入注册资产奖励">
+    </div>
+</div>
+
+<div class="col-sm-6 form-group">
     <label for="createTimeStartSearch" class="col-sm-4 control-label">创建时间(开始)：</label>
     <div class="input-group date form_datetime col-sm-8" style="padding-left: 15px; padding-right: 15px;">
         <input id="createTimeStartSearch" name="createTimeStart" class="form-control input-datetime" type="text" value="" readonly placeholder="请选择创建时间(开始)"/>
