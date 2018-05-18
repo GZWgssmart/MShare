@@ -17,72 +17,80 @@
 			<h1 class="mui-title">个人中心</h1>
 		</header>
 
-		<div class="mui-content" id="content">
-			<ul id="opts" class="mui-table-view">
-				<li id="user-head" class="mui-table-view-cell user-head">
-					<div id="head-icon" class="head-icon mui-pull-left">
-						<img id="head" v-bind:src="userInfo.headicon" class="mui-pull-left" />
-						<div class="mui-pull-left head-info">
-							<span>
+		<div class="mui-content mui-scroll-wrapper" id="content">
+			<div class="mui-scroll">
+				<ul id="opts" class="mui-table-view">
+					<li id="user-head" class="mui-table-view-cell user-head">
+						<div id="head-icon" class="head-icon mui-pull-left">
+							<img id="head" v-bind:src="userInfo.headicon" class="mui-pull-left" />
+							<div class="mui-pull-left head-info">
+								<span>
 								UID:{{userInfo.uid}}
 							</span>
-							<span>
+								<span>
 								信用等级：{{userInfo.level}}
 							</span>
+							</div>
 						</div>
-					</div>
-					<span class="mui-pull-right item-info">更换头像</span>
-				</li>
-				<li id="nickname-chg" class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<i class="iconfont icon-yonghu user-icon" style="background-color:#2AC845;"></i> 昵称
-						<span id="nickname" class="mui-pull-right item-info">{{userInfo.nickname}}</span>
-					</a>
-				</li>
-				<li id="code" class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<i class="iconfont icon-icon- user-icon" style="background-color:#0088CC;"></i> 我的推荐码
-						<span id="nickname" class="mui-pull-right item-info">{{userInfo.uid}}</span>
-					</a>
-				</li>
-				<li id="bank_card" class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<i class="iconfont icon-yinxingqia3 user-icon" style="background-color:#0062CC;"></i> 我的银行卡
-					</a>
-				</li>
-				<li id="login_pwd" class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<i class="iconfont icon-mima user-icon" style="background-color:#6641E2;"></i> 登录密码
-						<span class="mui-pull-right item-info">点击修改</span>
-					</a>
-				</li>
-				<li id="pay_pwd" class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<i class="iconfont icon-icon- user-icon" style="background-color:#BD2C00;"></i> 支付密码
-						<span class="mui-pull-right item-info">点击修改</span>
-					</a>
-				</li>
-				<li id="suggest" class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<i class="iconfont icon-jianyi user-icon" style="background-color:#FF5053;"></i> 投诉建议
-					</a>
-				</li>
-				<li id="download" class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<i class="iconfont icon-zhuanchu user-icon" style="background-color:#4CD964;"></i> 分享APP下载链接
-					</a>
-				</li>
-				<li id="about" class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<i class="iconfont icon-iconset0142 user-icon" style="background-color:#EC971F;"></i> 关于
-					</a>
-				</li>
-			</ul>
-			<ul class="mui-table-view" style="margin-top: 10px;">
-				<li v-on:tap="logout" class="mui-table-view-cell mui-text-center" style="color: #CF2D28;">
-					退出登录
-				</li>
-			</ul>
+						<span class="mui-pull-right item-info">更换头像</span>
+					</li>
+					<li id="nickname-chg" class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<i class="iconfont icon-yonghu user-icon" style="background-color:#2AC845;"></i> 昵称
+							<span id="nickname" class="mui-pull-right item-info">{{userInfo.nickname}}</span>
+						</a>
+					</li>
+					<li id="props" class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<i class="iconfont icon-jianyi user-icon" style="background-color:#EC971F;"></i> 我的数字资产
+							<span id="props" class="mui-pull-right item-info">{{userInfo.props}}</span>
+						</a>
+					</li>
+					<li id="code" class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<i class="iconfont icon-icon- user-icon" style="background-color:#0088CC;"></i> 我的推荐码
+							<span id="nickname" class="mui-pull-right item-info">{{userInfo.uid}}</span>
+						</a>
+					</li>
+					<li id="bank_card" class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<i class="iconfont icon-yinxingqia3 user-icon" style="background-color:#0062CC;"></i> 我的银行卡
+						</a>
+					</li>
+					<li id="login_pwd" class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<i class="iconfont icon-mima user-icon" style="background-color:#6641E2;"></i> 登录密码
+							<span class="mui-pull-right item-info">点击修改</span>
+						</a>
+					</li>
+					<li id="pay_pwd" class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<i class="iconfont icon-icon- user-icon" style="background-color:#BD2C00;"></i> 支付密码
+							<span class="mui-pull-right item-info">点击修改</span>
+						</a>
+					</li>
+					<li id="suggest" class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<i class="iconfont icon-jianyi user-icon" style="background-color:#FF5053;"></i> 投诉建议
+						</a>
+					</li>
+					<li id="download" class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<i class="iconfont icon-zhuanchu user-icon" style="background-color:#4CD964;"></i> 分享APP下载链接
+						</a>
+					</li>
+					<li id="about" class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<i class="iconfont icon-iconset0142 user-icon" style="background-color:#323232;"></i> 关于
+						</a>
+					</li>
+				</ul>
+				<ul class="mui-table-view" style="margin-top: 10px;">
+					<li v-on:tap="logout" class="mui-table-view-cell mui-text-center" style="color: #CF2D28;">
+						退出登录
+					</li>
+				</ul>
+			</div>
 		</div>
 
 		<script src="../../js/mui.min.js"></script>
@@ -98,7 +106,8 @@
 						headicon: '../../images/timg.jpeg',
 						uid: '',
 						level: '',
-						nickname: ''
+						nickname: '',
+						props: '0'
 					},
 					downloadUrl: ''
 				},
@@ -108,7 +117,10 @@
 							preloadPages: []
 						});
 
+						mui('.mui-scroll-wrapper').scroll();
+
 						pageView.userInfo.nickname = plus.storage.getItem('nickname');
+						pageView.userInfo.props = plus.storage.getItem('props');
 						var headicon = plus.storage.getItem('headicon');
 						if(headicon != null) {
 							if(headicon.indexOf('/storage') != -1) {
@@ -139,16 +151,18 @@
 				},
 				methods: {
 					showPage: function(pageId) {
-						mui.openWindow({
-							id: pageId,
-							url: pageId + '.html',
-							show: {
-								aniShow: 'pop-in'
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
+						if(pageId !== 'props') {
+							mui.openWindow({
+								id: pageId,
+								url: pageId + '.html',
+								show: {
+									aniShow: 'pop-in'
+								},
+								waiting: {
+									autoShow: false
+								}
+							});
+						}
 					},
 					changeHeadIcon: function() {
 						if(mui.os.plus) {

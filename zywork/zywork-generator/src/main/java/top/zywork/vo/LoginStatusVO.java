@@ -23,6 +23,7 @@ public class LoginStatusVO extends ControllerStatusVO {
     private String nickname;
     private Long total;
     private Long score;
+    private Double props;
 
 
     public String getSessionId() {
@@ -87,5 +88,13 @@ public class LoginStatusVO extends ControllerStatusVO {
 
     public void setScore(Long score) {
         this.score = score;
+    }
+
+    public Double getProps() {
+        return props;
+    }
+
+    public void setProps(Double props) {
+        this.props = props;
     }
 }

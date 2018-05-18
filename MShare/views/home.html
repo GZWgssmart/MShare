@@ -230,6 +230,7 @@
 								pageView.userInfo.totalScore = data.score;
 								plus.storage.setItem('total', data.total + '');
 								plus.storage.setItem('score', data.score + '');
+								plus.storage.setItem('props', data.props + '');
 							},
 							error: function(xhr, type, errorThrown) {
 								// mui.alert('似乎没有网络了哦……', '提示');

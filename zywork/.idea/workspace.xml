@@ -194,7 +194,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/dos/SellOrderDO.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/dto/BuyOrderDTO.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/dto/SellOrderDTO.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/vo/BuyOrderVO.java" />
@@ -229,7 +228,6 @@
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/controller/SmsController.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/controller/IndexController.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/webapp/WEB-INF/views/register.jsp" />
-        <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/controller/UserController.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/dos/UserDO.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/dto/UserDTO.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/query/UserQuery.java" />
@@ -245,6 +243,8 @@
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/dao/UserDAO.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/service/UserService.java" />
         <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/service/impl/UserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/vo/LoginStatusVO.java" />
+        <option value="$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/controller/UserController.java" />
       </list>
     </option>
   </component>
@@ -350,11 +350,6 @@
             <path>
               <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
               <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="documents" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
               <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -396,162 +391,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="zywork" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="dos" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="dto" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="query" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="vo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="mapper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="User" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork-generator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="User" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -909,7 +748,7 @@
       <workItem from="1525257954800" duration="911000" />
       <workItem from="1525258909155" duration="16699000" />
       <workItem from="1525345208091" duration="54916000" />
-      <workItem from="1525849673946" duration="77690000" />
+      <workItem from="1525849673946" duration="78420000" />
     </task>
     <servers />
   </component>
@@ -946,7 +785,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1021172000" />
+    <option name="totallyTimeSpent" value="1021902000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -967,7 +806,7 @@
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13893376" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13893376" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1089,13 +928,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="das://table:/cb80d0bc/89b524cc-b894-4cdd-a57e-8a3ba2685044/mshare.t_bonus_accounts">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/documents/mshare.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="277">
@@ -1575,10 +1407,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/vo/LoginStatusVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="602">
+          <caret line="97" column="8" lean-forward="false" selection-start-line="97" selection-start-column="8" selection-end-line="97" selection-end-column="27" />
+          <folding>
+            <element signature="e#1675#1676#0" expanded="true" />
+            <element signature="e#1703#1704#0" expanded="true" />
+            <element signature="e#1745#1746#0" expanded="true" />
+            <element signature="e#1779#1780#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/zywork-generator/src/main/java/top/zywork/controller/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+        <state relative-caret-position="468">
+          <caret line="323" column="52" lean-forward="false" selection-start-line="323" selection-start-column="52" selection-end-line="323" selection-end-column="52" />
           <folding />
         </state>
       </provider>

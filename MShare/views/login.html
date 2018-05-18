@@ -97,6 +97,7 @@
 									plus.storage.setItem('level', data.level);
 									plus.storage.setItem('total', data.total + '');
 									plus.storage.setItem('score', data.score + '');
+									plus.storage.setItem('props', data.props + '');
 									plus.navigator.setCookie(BASE_URL, 'JSESSIONID=' + data.sessionId);
 									pageView.toHomePage();
 								} else if(data.status === 'data-error') {

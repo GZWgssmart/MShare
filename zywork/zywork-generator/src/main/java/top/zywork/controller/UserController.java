@@ -304,7 +304,7 @@ public class UserController extends BaseController {
          */
         @PostMapping("login")
         @ResponseBody
-        public LoginStatusVO login (UserLoginVO userLoginVO){
+        public LoginStatusVO login(UserLoginVO userLoginVO){
             LoginStatusVO statusVO = new LoginStatusVO();
             Subject subject = SecurityUtils.getSubject();
             String username = userLoginVO.getAccount();
@@ -321,6 +321,7 @@ public class UserController extends BaseController {
                 statusVO.setLevel(userDTO.getLevel());
                 statusVO.setTotal(userDTO.getTotal());
                 statusVO.setScore(userDTO.getScore());
+                statusVO.setProps(userDTO.getProps());
             } catch (AuthenticationException e) {
                 logger.error(e.getMessage());
                 statusVO.dataErrorStatus(UserControllerStatusEnum.USER_LOGIN_DATA_ERROR.getCode(),
