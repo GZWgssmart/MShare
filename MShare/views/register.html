@@ -33,15 +33,13 @@
 					<label>推荐码</label>
 					<input type="text" class="mui-input-clear mui-input" placeholder="请输入推荐码" v-model="regForm.accomendCode">
 				</div>
-				<!--
 				<div class="mui-input-row">
 					<label>验证码</label>
 					<input type="text" class="mui-input-clear mui-input" placeholder="请输入手机验证码" v-model="regForm.verifyCode">
 				</div>
-				<div class="mui-input-row input-row-a">
-					<a class="mui-pull-right" href="javascript:void(0);">获取手机验证码</a>
+				<div v-if="!sendCode" class="mui-input-row input-row-a">
+					<a id="getCode" class="mui-pull-right" href="javascript:void(0);">获取手机验证码</a>
 				</div>
-				-->
 			</form>
 			<div class="mui-content-padded">
 				<button v-on:tap="register" type="button" class="mui-btn mui-btn-block mui-btn-primary">注册</button>
@@ -62,11 +60,18 @@
 						confirmPassword: '',
 						accomendCode: '',
 						verifyCode: ''
-					}
+					},
+					sendCode: false
 				},
 				mounted: function() {
 					mui.plusReady(function() {
 						mui.init();
+						var getCode = document.getElementById('getCode');
+						if(getCode != null && getCode !== 'undefined') {
+							getCode.addEventListener('tap', function() {
+								pageView.getCode();
+							})
+						}
 					})
 				},
 				methods: {
@@ -90,7 +95,8 @@
 											data: {
 												phone: pageView.regForm.phone,
 												password: md5.base64(pageView.regForm.password),
-												fromId: pageView.regForm.accomendCode
+												fromId: pageView.regForm.accomendCode,
+												code: pageView.regForm.verifyCode
 											},
 											dataType: 'json',
 											type: 'post',
@@ -99,6 +105,8 @@
 													mui.toast('注册成功，请登录');
 													mui.back();
 												} else if(data.status === 'data-error') {
+													mui.alert(data.message, '提示');
+												} else if(data.code == 654321 || data.code == 654322 || data.code == 654323) {
 													mui.alert(data.message, '提示');
 												}
 											},
@@ -109,6 +117,29 @@
 									} else {
 										mui.alert('请输入正确的推荐码', '提示');
 									}
+								}
+							});
+						}
+					},
+					getCode: function() {
+						var phoneExp = /^[1][3,4,5,7,8][0-9]{9}$/;
+						if(!phoneExp.test(pageView.regForm.phone)) {
+							mui.alert('请输入正确的手机号', '提示');
+						} else {
+							mui.ajax(USER_SMS_CODE, {
+								data: {
+									phone: pageView.regForm.phone
+								},
+								dataType: 'json',
+								type: 'post',
+								success: function(data) {
+									if(data.status === 'ok') {
+										pageView.sendCode = true;
+									}
+									mui.alert(data.message, '提示');
+								},
+								error: function(xhr, type, errorThrown) {
+									mui.alert('似乎没有网络了哦……', '提示');
 								}
 							});
 						}

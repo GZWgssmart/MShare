@@ -45,4 +45,6 @@ public interface UserDAO extends BaseDAO {
     void updateOrderSell(UserOrderQuery userOrderQuery);
 
     Object getByPayPassword(UserPayPasswordQuery userPayPasswordQuery);
+
+    Object getByPhone(String phone);
 }

@@ -49,4 +49,6 @@ public interface UserService extends BaseService {
 
     Object getByPayPassword(UserPayPasswordQuery userPayPasswordQuery);
 
+    Object getByPhone(String phone);
+
 }

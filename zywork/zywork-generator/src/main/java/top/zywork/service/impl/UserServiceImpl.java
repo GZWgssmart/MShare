@@ -71,6 +71,15 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
         return null;
     }
 
+    @Override
+    public Object getByPhone(String phone) {
+        Object obj = userDAO.getByPhone(phone);
+        if (obj != null) {
+            return getBeanMapper().map(obj, getDtoClass());
+        }
+        return null;
+    }
+
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
         super.setBaseDAO(userDAO);

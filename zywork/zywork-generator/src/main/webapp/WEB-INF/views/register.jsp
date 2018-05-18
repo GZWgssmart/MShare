@@ -38,7 +38,7 @@
         }
     </style>
 </head>
-<body class="gray-bg">
+<body class="gray-bg" style="padding-top: 150px;">
 <div class="login text-center animated fadeInDown">
     <div>
         <h2>瑞信宝用户注册</h2>
@@ -56,6 +56,11 @@
             <div class="form-group">
                 <input id="fromId" name="fromId" class="form-control" placeholder="请输入推荐码" value="${requestScope.fromId}" required>
             </div>
+            <div class="form-group">
+                <input id="code" name="code" class="form-control" placeholder="请输入手机验证码" required>
+            </div>
+            <button id="getCode" type="button" class="btn btn-primary block full-width m-b" onclick="getCodes()">获取手机验证码</button>
+
             <button type="button" class="btn btn-primary block full-width m-b" onclick="reg()">注册</button>
 
         </form>
@@ -71,6 +76,21 @@
 <script src="<%=path%>/static/js/plugins/sweetalert/sweetalert2.min.js"></script>
 <script src="<%=path%>/static/js/plugins/md5/md5.min.js"></script>
 <script>
+    function getCodes() {
+        var phoneExp = /^[1][3,4,5,7,8][0-9]{9}$/;
+        if(!phoneExp.test($('#phone').val())) {
+            swal('提示', '请输入正确的手机号', 'warning');
+        } else {
+            $.post('<%=path%>/sms/send', {
+                phone: $('#phone').val()
+            }, function(data) {
+                if(data.status === 'ok') {
+                    $('#getCode').attr('style', 'display: none;');
+                }
+                swal('提示', data.message, 'warning');
+            }, 'json');
+        }
+    }
 
     function reg() {
         var phoneExp = /^[1][3,4,5,7,8][0-9]{9}$/;
@@ -86,11 +106,14 @@
                     $.post('<%=path%>/user/save',
                         {
                             phone: $('#phone').val(),
-                            password: md5.base64($('#password').val())
+                            password: md5.base64($('#password').val()),
+                            code: $('#code').val()
                         },
                         function (data) {
                             if (data.status === 'ok') {
                                 swal('提示', '注册成功，请使用瑞信宝APP登录', 'success');
+                            } else if(data.code == 654321 || data.code == 654322 || data.code == 654323) {
+                                swal('提示', data.message, 'warning');
                             } else {
                                 swal('提示', data.message, 'warning');
                             }

@@ -37,14 +37,14 @@ public class IndexController extends BaseController {
         return "backend/home";
     }
 
-    @GetMapping("/reg/{fromId}")
+    @GetMapping("reg/{fromId}")
     public ModelAndView register(@PathVariable("fromId") String fromId) {
         ModelAndView mav = new ModelAndView("register");
         mav.addObject("fromId", fromId);
         return mav;
     }
 
-    @GetMapping("/download")
+    @GetMapping("download")
     public String download() {
         return "download";
     }

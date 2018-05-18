@@ -1,4 +1,7 @@
-const BASE_URL = 'http://www.cstpayshare.com';
+const BASE_URL = 'http://192.168.2.114:8080';
+// const BASE_URL = 'http://123.1.189.98:8080/mshare';
+
+const DOMAIN_BASE_URL = 'http://www.cstpayshare.com';
 
 const USER_LOGIN = BASE_URL +'/user/login';
 
@@ -26,7 +29,7 @@ const USER_BANK_CARD_REMOVE = BASE_URL + '/user-bankcard/remove';
 
 const USER_PAY_PASSWORD_CHECK = BASE_URL + '/user/paypwd';
 
-const USER_REGISTER_PAGE = BASE_URL + '/reg';
+const USER_REGISTER_PAGE = DOMAIN_BASE_URL + '/reg';
 
 const USER_TRANS_OUT = BASE_URL + '/trans/save';
 
@@ -58,8 +61,10 @@ const ORDER_ALREADY_BUY = 6;
 
 const ORDER_CANCEL_BUY = 7;
 
-const APP_DOWNLOAD_URL = BASE_URL + '/download';
+const APP_DOWNLOAD_URL = DOMAIN_BASE_URL + '/download';
 
 const USER_SUGGEST_ADD = BASE_URL + '/suggest/save';
 
 const USER_BONUS_HISTORY = BASE_URL + '/user-bonus/pager-cond';
+
+const USER_SMS_CODE = BASE_URL + '/sms/send';
