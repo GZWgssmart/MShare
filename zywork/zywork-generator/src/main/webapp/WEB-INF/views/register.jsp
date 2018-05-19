@@ -60,6 +60,7 @@
                 <input id="code" name="code" class="form-control" placeholder="请输入手机验证码" required>
             </div>
             <button id="getCode" type="button" class="btn btn-primary block full-width m-b" onclick="getCodes()">获取手机验证码</button>
+            <div id="time" style="display: none;"></div>
 
             <button type="button" class="btn btn-primary block full-width m-b" onclick="reg()">注册</button>
 
@@ -86,6 +87,17 @@
             }, function(data) {
                 if(data.status === 'ok') {
                     $('#getCode').attr('style', 'display: none;');
+                    var timeDiv = $('#time');
+                    timeDiv.attr('style', 'display: block;');
+                    var count = 60 * 10;
+                    var timer = setInterval(function() {
+                        timeDiv.text(（--count） + '秒')
+                        if (count == 0) {
+                            clearInterval(timer);
+                            timeDiv.attr('style', 'display: none;');
+                            $('#getCode').attr('style', 'display: block;');
+                        }
+                    }, 1000);
                 }
                 swal('提示', data.message, 'warning');
             }, 'json');

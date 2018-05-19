@@ -37,8 +37,11 @@
 					<label>验证码</label>
 					<input type="text" class="mui-input-clear mui-input" placeholder="请输入手机验证码" v-model="regForm.verifyCode">
 				</div>
-				<div v-if="!sendCode" class="mui-input-row input-row-a">
+				<div id="getCodeDiv" class="mui-input-row input-row-a">
 					<a id="getCode" class="mui-pull-right" href="javascript:void(0);">获取手机验证码</a>
+				</div>
+				<div id="timeDiv" class="mui-input-row input-row-a" style="display: none;">
+					<a id="time" class="mui-pull-right" href="javascript:void(0);"></a>
 				</div>
 			</form>
 			<div class="mui-content-padded">
@@ -60,8 +63,7 @@
 						confirmPassword: '',
 						accomendCode: '',
 						verifyCode: ''
-					},
-					sendCode: false
+					}
 				},
 				mounted: function() {
 					mui.plusReady(function() {
@@ -134,7 +136,20 @@
 								type: 'post',
 								success: function(data) {
 									if(data.status === 'ok') {
-										pageView.sendCode = true;
+										var getCodeDiv = document.getElementById('getCodeDiv');
+										getCodeDiv.style.display = 'none';
+										var timDiv = document.getElementById('timeDiv');
+										timeDiv.style.display = 'block';
+										var time = document.getElementById('time');
+										var count = 60 * 10;
+										var timer = setInterval(function() {
+											time.innerHTML = (--count) + '秒';
+											if(count == 0) {
+												clearInterval(timer);
+												timeDiv.style.display = 'none';
+												getCodeDiv.style.display = 'block';
+											}
+										}, 1000);
 									}
 									mui.alert(data.message, '提示');
 								},

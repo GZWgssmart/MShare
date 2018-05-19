@@ -57,7 +57,7 @@ public class SmsController extends BaseController {
                 e.printStackTrace();
             }
         } else {
-            statusVO.errorStatus(500, "您已经获取了验证码，如未收到，请" + SmsConstant.VALID_TIME + "分钟后再尝试");
+            statusVO.errorStatus(500, "您已经获取过了验证码，请" + SmsConstant.VALID_TIME + "分钟后再尝试");
         }
         return statusVO;
     }
