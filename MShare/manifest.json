@@ -342,7 +342,8 @@
 				"resources": [],
 				"refer": [
 					"views/transout/transout_history.html",
-					"views/transout/transout_history_page.html"
+					"views/transout/transout_history_page.html",
+					"views/transout/total_score.html"
 				],
 				"priority": 0
 			},
@@ -436,6 +437,13 @@
 				"resources": [],
 				"refer": [
 					"views/sell/sell_confirm.html"
+				],
+				"priority": 0
+			},
+			"views/transout/total_score.html": {
+				"resources": [],
+				"refer": [
+					"views/transout/total_score_history.html"
 				],
 				"priority": 0
 			}

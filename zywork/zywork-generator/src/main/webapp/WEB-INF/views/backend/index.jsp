@@ -75,6 +75,9 @@
                             <a class="J_menuItem" href="<%=path%>/trans/page" data-index="0">转入转出</a>
                         </li>
                         <li>
+                            <a class="J_menuItem" href="<%=path%>/user-total-score/page" data-index="0">积分兑换</a>
+                        </li>
+                        <li>
                             <a class="J_menuItem" href="<%=path%>/order/page" data-index="0">买入卖出</a>
                         </li>
                     </ul>

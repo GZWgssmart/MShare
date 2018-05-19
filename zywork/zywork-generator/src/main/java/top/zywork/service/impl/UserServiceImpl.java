@@ -6,7 +6,9 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import top.zywork.common.ExceptionUtils;
 import top.zywork.dao.BasicSettingDAO;
+import top.zywork.dao.TotalScoreDAO;
 import top.zywork.dao.UserDAO;
+import top.zywork.dos.TotalScoreDO;
 import top.zywork.dos.UserDO;
 import top.zywork.dto.BasicSettingDTO;
 import top.zywork.dto.UserDTO;
@@ -34,6 +36,8 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
 
     private UserDAO userDAO;
     private RedisTemplate<String, UserTokenDTO> redisTemplate;
+
+    private TotalScoreDAO totalScoreDAO;
 
     private BasicSettingService basicSettingService;
 
@@ -108,6 +112,17 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
         userDAO.updateProps(getBeanMapper().map(dataTransferObj, UserDO.class));
     }
 
+    @Override
+    public void updateTotalScore(Object dataTransferObj) {
+        UserDO userDO = getBeanMapper().map(dataTransferObj, UserDO.class);
+        userDAO.updateTotalScore(userDO);
+        TotalScoreDO totalScoreDO = new TotalScoreDO();
+        totalScoreDO.setTotal(userDO.getTotal());
+        totalScoreDO.setScore(userDO.getScore());
+        totalScoreDO.setUserId(userDO.getId());
+        totalScoreDAO.save(totalScoreDO);
+    }
+
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
         super.setBaseDAO(userDAO);
@@ -122,6 +137,11 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
     @Autowired
     public void setBasicSettingService(BasicSettingService basicSettingService) {
         this.basicSettingService = basicSettingService;
+    }
+
+    @Autowired
+    public void setTotalScoreDAO(TotalScoreDAO totalScoreDAO) {
+        this.totalScoreDAO = totalScoreDAO;
     }
 
     @PostConstruct

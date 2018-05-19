@@ -14,12 +14,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import sun.misc.BASE64Decoder;
 import top.zywork.common.*;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.UserDTO;
 import top.zywork.dto.UserTokenDTO;
-import top.zywork.enums.MIMETypeEnum;
 import top.zywork.enums.UserControllerStatusEnum;
 import top.zywork.exception.ServiceException;
 import top.zywork.query.*;
@@ -296,6 +294,21 @@ public class UserController extends BaseController {
             return statusVO;
         }
 
+    @PostMapping("update-total-score")
+    @ResponseBody
+    public ControllerStatusVO updateTotalScore (UserTotalAndScoreQuery userTotalScoreQuery){
+        ControllerStatusVO statusVO = new ControllerStatusVO();
+        try {
+            UserDTO userDTO = getBeanMapper().map(userTotalScoreQuery, UserDTO.class);
+            userDTO.setScore(userTotalScoreQuery.getTotal() * 8);
+            userService.updateTotalScore(userDTO);
+            statusVO.okStatus(200, "更新成功");
+        } catch (ServiceException e) {
+            logger.error("更新失败：{}", e.getMessage());
+            statusVO.errorStatus(500, "更新失败");
+        }
+        return statusVO;
+    }
 
         /**
          * 用户使用账号及密码进行登录操作

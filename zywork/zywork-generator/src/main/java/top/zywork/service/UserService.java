@@ -53,4 +53,6 @@ public interface UserService extends BaseService {
 
     void updateProps(Object dataTransferObj);
 
+    void updateTotalScore(Object dataTransferObj);
+
 }

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/main.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../iconfont/iconfont.css" />
+
+		<style>
+			.mui-radio label {
+				color: #0062CC;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
+			<h1 class="mui-title">积分兑换</h1>
+		</header>
+		<div class="mui-content" id="content">
+			<form class="mui-input-group">
+				<p>您的余额：{{userInfo.total}}</p>
+				<div class="mui-input-row">
+					<label>兑换数额</label>
+					<input type="text" class="mui-input-clear mui-input" placeholder="请输入兑换数额" v-model="scoreForm.total">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button v-on:tap="transout" type="button" class="mui-btn mui-btn-block mui-btn-primary">
+					<i class="mui-icon mui-icon-checkmarkempty"></i>
+					确认兑换
+				</button>
+			</div>
+		</div>
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a id="transin">兑换记录</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/vue.min.js"></script>
+		<script type="text/javascript" src="../../js/api.js"></script>
+		<script src="../../js/md5.min.js"></script>
+		<script type="text/javascript">
+			var pageView = new Vue({
+				el: "#content",
+				data: {
+					scoreForm: {
+						total: 100
+					},
+					userInfo: {
+						total: 0
+					}
+				},
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init({
+							preloadPages: []
+						});
+
+						pageView.userInfo.total = parseInt(plus.storage.getItem('total'));
+
+						document.getElementById('transin').addEventListener('tap', function(e) {
+							pageView.transoutHistory();
+						});
+					});
+				},
+				methods: {
+					transoutHistory: function() {
+						mui('#topPopover').popover('hide');
+						mui.openWindow({
+							id: 'total_score_history',
+							url: 'total_score_history.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},
+					transout: function() {
+						var uid = plus.storage.getItem('uid');
+						if(pageView.scoreForm.total == '' || pageView.scoreForm.total <= 0 ||
+							pageView.scoreForm.total > pageView.userInfo.total ||
+							pageView.scoreForm.total % 100 != 0) {
+							mui.alert('请输入100的整数倍的兑换数额，且兑换数额不能大于余额', '提示');
+						} else {
+							mui.prompt('请输入支付密码', '', '支付密码', ['确定', '取消'], function(r) {
+								if(r.index === 0) {
+									if(r.value == '') {
+										mui.alert('请输入正确的支付密码，如果未设置支付密码，请先到用户中心设置', '提示');
+									} else {
+										mui.ajax(USER_PAY_PASSWORD_CHECK, {
+											data: {
+												id: plus.storage.getItem('uid'),
+												payPassword: md5.base64(r.value)
+											},
+											dataType: 'json',
+											type: 'post',
+											success: function(data) {
+												if(data.id != null && data.id != '') {
+													mui.confirm('确定兑换' + pageView.scoreForm.total + '数额吗？共能兑换' + pageView.scoreForm.total * 8 + '积分', '提示', ['确定', '取消'], function(r) {
+														if(r.index === 0) {
+															mui.ajax(USER_TOTAL_TO_SCORE, {
+																data: {
+																	id: uid,
+																	total: pageView.scoreForm.total
+																},
+																dataType: 'json',
+																type: 'post',
+																success: function(data) {
+																	if(data.status === 'ok') {
+																		pageView.userInfo.total -= pageView.scoreForm.total;
+																		plus.storage.setItem('total', pageView.userInfo.total + '');
+																		mui.alert('兑换成功', '提示');
+																	} else if(data.status === 'data-error') {
+																		mui.alert(data.message, '提示');
+																	}
+																},
+																error: function(xhr, type, errorThrown) {
+																	mui.alert('似乎没有网络了哦……', '提示');
+																}
+															});
+														}
+													});
+												} else {
+													mui.alert('请输入正确的支付密码，如果未设置支付密码，请先到用户中心设置', '提示');
+												}
+											},
+											error: function(xhr, type, errorThrown) {
+												mui.alert('似乎没有网络了哦……', '提示');
+											}
+										});
+									}
+								}
+							}, 'div');
+							document.querySelector('.mui-popup-input input').type = 'password';
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

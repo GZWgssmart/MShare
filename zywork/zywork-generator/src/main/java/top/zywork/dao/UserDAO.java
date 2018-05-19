@@ -49,4 +49,6 @@ public interface UserDAO extends BaseDAO {
     Object getByPhone(String phone);
 
     void updateProps(Object dataObj);
+
+    void updateTotalScore(Object dataObj);
 }

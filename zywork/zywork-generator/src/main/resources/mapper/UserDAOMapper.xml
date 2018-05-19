@@ -419,4 +419,8 @@
 		update t_user set props = props + #{props} where id = #{id}
 	</update>
 
+	<update id="updateTotalScore" parameterType="userDO">
+		update t_user set total = total - #{total}, score = score + #{score} where id = #{id}
+	</update>
+
 </mapper>

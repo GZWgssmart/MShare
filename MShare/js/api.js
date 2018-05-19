@@ -1,4 +1,4 @@
-//const BASE_URL = 'http://192.168.2.114:8080';
+// const BASE_URL = 'http://192.168.0.8:8080';
 const BASE_URL = 'http://123.1.189.98:8080/mshare';
 
 const DOMAIN_BASE_URL = 'http://www.cstpayshare.com';
@@ -68,3 +68,7 @@ const USER_SUGGEST_ADD = BASE_URL + '/suggest/save';
 const USER_BONUS_HISTORY = BASE_URL + '/user-bonus/pager-cond';
 
 const USER_SMS_CODE = BASE_URL + '/sms/send';
+
+const USER_TOTAL_TO_SCORE = BASE_URL + '/user/update-total-score';
+
+const USER_TOTAL_TO_SCORE_HISTORY = BASE_URL + '/user-total-score/pager-cond';

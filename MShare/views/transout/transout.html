@@ -41,7 +41,7 @@
 					<i class="mui-icon mui-icon-checkmarkempty"></i>
 					确认转出
 				</button>
-				<button type="button" class="mui-btn mui-btn-block mui-btn-success">
+				<button v-on:tap="showTotalScore" type="button" class="mui-btn mui-btn-block mui-btn-success">
 					<i class="mui-icon mui-icon-loop"></i>
 					兑换积分
 				</button>
@@ -153,7 +153,7 @@
 																				if(data.status === 'ok') {
 																					pageView.userInfo.total -= pageView.transForm.money;
 																					plus.storage.setItem('total', pageView.userInfo.total + '');
-																					mui.alert('转出成功');
+																					mui.alert('转出成功', '提示');
 																				} else if(data.status === 'data-error') {
 																					mui.alert(data.message, '提示');
 																				}
@@ -185,6 +185,18 @@
 								}
 							});
 						}
+					},
+					showTotalScore: function () {
+						mui.openWindow({
+							id: 'total_score',
+							url: 'total_score.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
 					}
 				}
 			});

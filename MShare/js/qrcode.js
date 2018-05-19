@@ -56,7 +56,7 @@ function onmarked(type, result) {
 			break;
 	}
 	if (result) {
-		result = result.replace(/\n/g, '');
+		result = result.replace(/\n/g, '').replace(/"/g, '');
 		mui.openWindow({
 			id: 'transout',
 			url: '../transout/transout.html',
