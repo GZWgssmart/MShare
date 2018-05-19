@@ -91,7 +91,7 @@
                     timeDiv.attr('style', 'display: block;');
                     var count = 60 * 10;
                     var timer = setInterval(function() {
-                        timeDiv.text(（--count） + '秒')
+                        timeDiv.text((--count)+ '秒');
                         if (count == 0) {
                             clearInterval(timer);
                             timeDiv.attr('style', 'display: none;');
