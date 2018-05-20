@@ -45,7 +45,9 @@ public class SmsController extends BaseController {
                         + "&content=" + content
                         + "&extno=" + SmsConstant.EXT_NO
                         + "&rt=" + SmsConstant.RESULT_TYPE;
+                logger.info("begin to send sms......");
                 String result = SendSms.sendPost(SmsConstant.HOST, params);
+                logger.info("sms send result: {}", result);
                 if (result.contains("\"status\":\"0\"") && result.contains("\"result\":0")) {
                     smsService.saveSmsCode(new SmsCodeVO(ip, phone, code));
                     statusVO.okStatus(200, "验证码发送成功，请及时查收，" + SmsConstant.VALID_TIME + "分钟内有效");
