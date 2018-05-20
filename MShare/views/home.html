@@ -222,7 +222,7 @@
 					},
 					updateTotal: function() {
 						var uid = plus.storage.getItem('uid');
-						if(uid != null && uid != '') {
+						if(uid != null && uid != 'undefined' && uid != '') {
 							mui.ajax(USER_INFO + '/' + uid, {
 								data: {},
 								dataType: 'json',
@@ -230,9 +230,11 @@
 								success: function(data) {
 									pageView.userInfo.totalMoney = data.total;
 									pageView.userInfo.totalScore = data.score;
+									pageView.userInfo.level = data.level;
 									plus.storage.setItem('total', data.total + '');
 									plus.storage.setItem('score', data.score + '');
 									plus.storage.setItem('props', data.props + '');
+									plus.storage.setItem('level', data.level);
 								},
 								error: function(xhr, type, errorThrown) {
 									// mui.alert('似乎没有网络了哦……', '提示');
