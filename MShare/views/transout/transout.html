@@ -124,7 +124,8 @@
 								dataType: 'json',
 								type: 'post',
 								success: function(data) {
-									if(data.phone != null && data.phone !== '') {
+									var phone = data.phone;
+									if(phone != null && phone !== '') {
 										mui.prompt('请输入支付密码', '', '支付密码', ['确定', '取消'], function(r) {
 											if(r.index === 0) {
 												if(r.value == '') {
@@ -132,14 +133,14 @@
 												} else {
 													mui.ajax(USER_PAY_PASSWORD_CHECK, {
 														data: {
-															id: plus.storage.getItem('uid'),
+															id: uid,
 															payPassword: md5.base64(r.value)
 														},
 														dataType: 'json',
 														type: 'post',
 														success: function(data) {
 															if(data.id != null && data.id != '') {
-																mui.confirm('确定转出' + pageView.transForm.money + '数额吗？对方手机尾号：' + data.phone.substr(7, 4), '提示', ['确定', '取消'], function(r) {
+																mui.confirm('确定转出' + pageView.transForm.money + '数额吗？对方手机尾号：' + phone.substr(7, 4), '提示', ['确定', '取消'], function(r) {
 																	if(r.index === 0) {
 																		mui.ajax(USER_TRANS_OUT, {
 																			data: {
