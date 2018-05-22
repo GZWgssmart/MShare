@@ -275,3 +275,10 @@ form textarea {
 	color: #FFF; 
 	text-align: center;
 }
+
+.no-history {
+	padding-top: 10px;
+	width: 100%;
+	text-align: center;
+	color: #C7C7CC;
+}

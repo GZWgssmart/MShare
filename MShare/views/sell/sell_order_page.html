@@ -19,7 +19,7 @@
 		</header>
 		<div id="content" class="mui-content mui-scroll-wrapper bottom-fixed-page">
 			<div class="mui-scroll">
-				<ul class="mui-table-view mui-table-view-chevron content-list">
+				<ul v-if="orders.length > 0" class="mui-table-view mui-table-view-chevron content-list">
 					<li v-for="(order, index) in orders" class="mui-table-view-cell" style="padding-right: 15px;">
 						<div class="mui-pull-left head-icon">
 							<img v-bind:src="order.buyHeadicon" class="mui-pull-left" />
@@ -62,6 +62,7 @@
 						</p>
 					</li>
 				</ul>
+				<div v-else class="no-history">暂无卖出记录</div>
 			</div>
 		</div>
 		<div class="mui-bar mui-bar-footer page-footer">

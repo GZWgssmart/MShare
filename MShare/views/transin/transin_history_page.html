@@ -19,7 +19,7 @@
 		</header>
 		<div id="content" class="mui-content mui-scroll-wrapper bottom-fixed-page">
 			<div class="mui-scroll">
-				<ul class="mui-table-view mui-table-view-chevron content-list">
+				<ul v-if="histories.length > 0" class="mui-table-view mui-table-view-chevron content-list">
 					<li v-for="history in histories" class="mui-table-view-cell" style="padding-right: 15px;">
 						<div class="mui-pull-left head-icon">
 							<img v-bind:src="history.fromHeadicon" class="mui-pull-left" />
@@ -38,6 +38,7 @@
 						</div>
 					</li>
 				</ul>
+				<div v-else class="no-history">暂无转入记录</div>
 			</div>
 		</div>
 		<div class="mui-bar mui-bar-footer page-footer">
