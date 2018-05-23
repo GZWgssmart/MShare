@@ -441,7 +441,13 @@ public class UserController extends BaseController {
         public LoginStatusVO logout (String username, String userToken){
             LoginStatusVO statusVO = new LoginStatusVO();
             if (username != null && userToken != null) {
-                UserTokenDTO userTokenDTO = userService.getUserToken(username);
+                UserTokenDTO userTokenDTO = null;
+                try {
+                    userTokenDTO = userService.getUserToken(username);
+                } catch (Exception e) {
+                    statusVO.errorStatus(UserControllerStatusEnum.USER_LOGOUT_ERROR.getCode(),
+                            UserControllerStatusEnum.USER_LOGOUT_ERROR.getMessage());
+                }
                 if (userTokenDTO != null && userToken.equals(userTokenDTO.getToken())) {
                     Subject subject = SecurityUtils.getSubject();
                     subject.logout();

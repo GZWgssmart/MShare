@@ -237,7 +237,7 @@
 									dataType: 'json',
 									type: 'post',
 									success: function(data) {
-										if(data.status === 'ok' || data.status === 'data-error') {
+										if(data.status === 'ok' || data.status === 'error') {
 											plus.storage.clear();
 											plus.navigator.removeAllCookie();
 											var loginView = plus.webview.getWebviewById('login');
