@@ -269,6 +269,44 @@ public class UserController extends BaseController {
             return statusVO;
         }
 
+    @PostMapping("update-pwd")
+    @ResponseBody
+    public ControllerStatusVO updatePwd (UserQuery userQuery, String oPwd){
+        ControllerStatusVO statusVO = new ControllerStatusVO();
+        try {
+            Object obj = userService.getByPassword(new UserPasswordQuery(userQuery.getId(), oPwd));
+            if (obj == null) {
+                statusVO.dataErrorStatus(502, "原密码错误");
+            } else {
+                userService.update(getBeanMapper().map(userQuery, UserDTO.class));
+                statusVO.okStatus(200, "更新成功");
+            }
+        } catch (ServiceException e) {
+            logger.error("更新失败：{}", e.getMessage());
+            statusVO.errorStatus(500, "更新失败");
+        }
+        return statusVO;
+    }
+
+    @PostMapping("update-paypwd")
+    @ResponseBody
+    public ControllerStatusVO updatePayPwd (UserQuery userQuery, String oPwd){
+        ControllerStatusVO statusVO = new ControllerStatusVO();
+        try {
+            Object obj = userService.getByPayPassword(new UserPayPasswordQuery(userQuery.getId(), oPwd));
+            if (obj == null) {
+                statusVO.dataErrorStatus(502, "原密码错误，如果是第一次设置支付密码，不需要填写原密码");
+            } else {
+                userService.update(getBeanMapper().map(userQuery, UserDTO.class));
+                statusVO.okStatus(200, "更新成功");
+            }
+        } catch (ServiceException e) {
+            logger.error("更新失败：{}", e.getMessage());
+            statusVO.errorStatus(500, "更新失败");
+        }
+        return statusVO;
+    }
+
         @PostMapping("update-icon")
         @ResponseBody
         public ControllerStatusVO updateUser (Long uid, HttpServletRequest request){

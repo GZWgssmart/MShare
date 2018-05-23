@@ -2659,8 +2659,8 @@ TENANT_ID_</ColNames>
     </column>
     <column id="628" parent="53" name="pay_password">
       <Position>6</Position>
-      <Comment>支付密码</Comment>
       <DataType>varchar(50)|0</DataType>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
     </column>
     <column id="629" parent="53" name="salt">
       <Position>7</Position>

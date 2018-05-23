@@ -6,6 +6,7 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/main.css" rel="stylesheet"/> 
 	</head>
 
 	<body>
@@ -16,12 +17,12 @@
 
 		<div class="mui-content" id="content">
 			<form id="pwd-form" class="mui-input-group">
-				<!--
 				<div class="mui-input-row">
 					<label>原密码</label>
 					<input type="password" class="mui-input-password" placeholder="请输入原密码" v-model="form.oPwd">
+					
 				</div>
-				-->
+				<p>如果是第一次设置支付密码，不需要输入原密码！</p>
 				<div class="mui-input-row">
 					<label>新密码</label>
 					<input type="password" class="mui-input-password" placeholder="请输入新密码" v-model="form.newPwd">
@@ -67,14 +68,16 @@
 							mui.ajax(USER_PAY_PASSWORD_UPDATE, {
 								data: {
 									id: plus.storage.getItem('uid'),
+									oPwd: pageView.form.oPwd == '' ? '' : md5.base64(pageView.form.oPwd),
 									payPassword: md5.base64(pageView.form.newPwd)
 								},
 								dataType: 'json',
 								type: 'post',
 								success: function(data) {
-									if(data.status === 'ok') {
+									if(data.code === 200) {
 										mui.alert('已修改支付密码', '提示');
-									} else if(data.status === 'data-error') {
+										mui.back();
+									} else if(data.code === 500 || data.code === 502) {
 										mui.alert(data.message, '提示');
 									}
 								},

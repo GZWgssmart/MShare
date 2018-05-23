@@ -407,6 +407,10 @@
 		update t_user set total = total - #{total} where id = (select t_order.sell_id from t_order where t_order.id = #{id})
 	</update>
 
+	<select id="getByPassword" parameterType="top.zywork.query.UserPasswordQuery" resultType="userDO">
+		select * from t_user where t_user.id = #{id} and t_user.password = #{password}
+	</select>
+
 	<select id="getByPayPassword" parameterType="top.zywork.query.UserPayPasswordQuery" resultType="userDO">
 		select * from t_user where t_user.id = #{id} and t_user.pay_password = #{payPassword}
 	</select>

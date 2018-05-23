@@ -1,4 +1,4 @@
-// const BASE_URL = 'http://192.168.0.8:8080';
+// const BASE_URL = 'http://192.168.2.116:8080';
 const BASE_URL = 'http://123.1.189.98:8080/mshare';
 
 const DOMAIN_BASE_URL = 'http://www.cstpayshare.com';
@@ -17,9 +17,9 @@ const USER_HEADICON_UPDATE = BASE_URL + '/user/update-icon';
 
 const USER_NICKNAME_UPDATE = BASE_URL + '/user/update-user';
 
-const USER_LOGIN_PASSWORD_UPDATE = BASE_URL + '/user/update-user';
+const USER_LOGIN_PASSWORD_UPDATE = BASE_URL + '/user/update-pwd';
 
-const USER_PAY_PASSWORD_UPDATE = BASE_URL + '/user/update-user';
+const USER_PAY_PASSWORD_UPDATE = BASE_URL + '/user/update-paypwd';
 
 const USER_BIND_BANK_CARD = BASE_URL + '/user-bankcard/save';
 

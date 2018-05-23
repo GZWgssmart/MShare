@@ -194,29 +194,33 @@
 					changeNickname: function() {
 						mui.prompt('请输入新昵称', pageView.userInfo.nickname, '修改昵称', ['确定', '取消'], function(r) {
 							if(r.index === 0) {
-								pageView.userInfo.nickname = r.value;
-								plus.storage.setItem('nickname', r.value);
-								mui.ajax(USER_NICKNAME_UPDATE, {
-									data: {
-										id: pageView.userInfo.uid,
-										nickname: pageView.userInfo.nickname
-									},
-									headers: {
-										'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-									},
-									dataType: 'json',
-									type: 'post',
-									success: function(data) {
-										if(data.status === 'ok') {
-											mui.alert(data.message, '提示');
-										} else if(data.status === 'data-error') {
-											mui.alert(data.message, '提示');
+								if(r.value == null || r.value == '' || r.value == pageView.userInfo.nickname) {
+									mui.alert('请输入新昵称', '提示');
+								} else {
+									pageView.userInfo.nickname = r.value;
+									plus.storage.setItem('nickname', r.value);
+									mui.ajax(USER_NICKNAME_UPDATE, {
+										data: {
+											id: pageView.userInfo.uid,
+											nickname: pageView.userInfo.nickname
+										},
+										headers: {
+											'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+										},
+										dataType: 'json',
+										type: 'post',
+										success: function(data) {
+											if(data.status === 'ok') {
+												mui.alert(data.message, '提示');
+											} else if(data.status === 'data-error') {
+												mui.alert(data.message, '提示');
+											}
+										},
+										error: function(xhr, type, errorThrown) {
+											mui.alert('似乎没有网络了哦……', '提示');
 										}
-									},
-									error: function(xhr, type, errorThrown) {
-										mui.alert('似乎没有网络了哦……', '提示');
-									}
-								});
+									});
+								}
 							}
 						});
 					},

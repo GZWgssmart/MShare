@@ -330,7 +330,7 @@ CREATE TABLE `t_user` (
   `phone` varchar(11) DEFAULT NULL COMMENT '手机号',
   `account_name` varchar(20) DEFAULT NULL COMMENT '账户名',
   `password` varchar(50) NOT NULL COMMENT '登录密码',
-  `pay_password` varchar(50) DEFAULT NULL COMMENT '支付密码',
+  `pay_password` varchar(50) DEFAULT '' COMMENT '支付密码',
   `salt` varchar(200) DEFAULT NULL COMMENT '加密盐值',
   `nickname` varchar(20) DEFAULT NULL COMMENT '昵称',
   `headicon` varchar(500) DEFAULT NULL COMMENT '头像地址',
@@ -393,3 +393,5 @@ INSERT INTO `t_user_role` VALUES (2,100000,1,'2018-05-13 11:17:35',0);
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2018-05-19 21:46:04
+
+

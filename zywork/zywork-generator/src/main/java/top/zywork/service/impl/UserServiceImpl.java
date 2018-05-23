@@ -5,7 +5,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import top.zywork.common.ExceptionUtils;
-import top.zywork.dao.BasicSettingDAO;
 import top.zywork.dao.TotalScoreDAO;
 import top.zywork.dao.UserDAO;
 import top.zywork.dos.TotalScoreDO;
@@ -14,11 +13,11 @@ import top.zywork.dto.BasicSettingDTO;
 import top.zywork.dto.UserDTO;
 import top.zywork.dto.UserTokenDTO;
 import top.zywork.query.UserAccountPasswordQuery;
+import top.zywork.query.UserPasswordQuery;
 import top.zywork.query.UserPayPasswordQuery;
 import top.zywork.service.AbstractBaseService;
 import top.zywork.service.BasicSettingService;
 import top.zywork.service.UserService;
-import top.zywork.vo.UserVO;
 
 import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
@@ -92,6 +91,15 @@ public class UserServiceImpl extends AbstractBaseService implements UserService 
     @Override
     public Object getByPayPassword(UserPayPasswordQuery userPayPasswordQuery) {
         Object obj = userDAO.getByPayPassword(userPayPasswordQuery);
+        if (obj != null) {
+            return getBeanMapper().map(obj, getDtoClass());
+        }
+        return null;
+    }
+
+    @Override
+    public Object getByPassword(UserPasswordQuery userPasswordQuery) {
+        Object obj = userDAO.getByPassword(userPasswordQuery);
         if (obj != null) {
             return getBeanMapper().map(obj, getDtoClass());
         }

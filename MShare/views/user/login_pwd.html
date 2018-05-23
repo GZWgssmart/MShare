@@ -16,12 +16,10 @@
 
 		<div class="mui-content" id="content">
 			<form id="pwd-form" class="mui-input-group">
-				<!--
 				<div class="mui-input-row">
 					<label>原密码</label>
 					<input type="password" class="mui-input-password" placeholder="请输入原密码" v-model="form.oPwd">
 				</div>
-				-->
 				<div class="mui-input-row">
 					<label>新密码</label>
 					<input type="password" class="mui-input-password" placeholder="请输入新密码" v-model="form.newPwd">
@@ -62,19 +60,22 @@
 				},
 				methods: {
 					editPwd: function() {
-						if(pageView.form.newPwd !== '' && pageView.form.newPwd.length >= 6 &&
-							pageView.form.confNewPwd === pageView.form.newPwd) {
+						if(pageView.form.oPwd !== '' && pageView.form.oPwd.length >= 6
+							&& pageView.form.newPwd !== '' && pageView.form.newPwd.length >= 6 
+							&& pageView.form.confNewPwd === pageView.form.newPwd) {
 							mui.ajax(USER_LOGIN_PASSWORD_UPDATE, {
 								data: {
 									id: plus.storage.getItem('uid'),
+									oPwd: md5.base64(pageView.form.oPwd),
 									password: md5.base64(pageView.form.newPwd)
 								},
 								dataType: 'json',
 								type: 'post',
 								success: function(data) {
-									if(data.status === 'ok') {
+									if(data.code === 200) {
 										mui.alert('已修改登录密码', '提示');
-									} else if(data.status === 'data-error') {
+										mui.back();
+									} else if(data.code === 500 || data.code === 502) {
 										mui.alert(data.message, '提示');
 									}
 								},
@@ -83,7 +84,7 @@
 								}
 							});
 						} else {
-							mui.alert('请输入正确的密码和确认密码，必须大于等于6个字符', '提示');
+							mui.alert('请输入正确的原密码，密码和确认密码，必须大于等于6个字符', '提示');
 						}
 					}
 				}
