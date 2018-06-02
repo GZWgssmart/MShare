@@ -18,20 +18,20 @@ public class SmsServiceImpl extends AbstractBaseService implements SmsService {
     private RedisTemplate<String, SmsCodeVO> redisTemplate;
 
     @Override
-    public void saveSmsCode(SmsCodeVO smsCodeVO) {
+    public void saveSmsCode(String prefix, SmsCodeVO smsCodeVO) {
         ValueOperations<String, SmsCodeVO> valueOperations = redisTemplate.opsForValue();
         // valueOperations.set("code:" + smsCodeVO.getIp(), smsCodeVO, SmsConstant.VALID_TIME, TimeUnit.MINUTES);
-        valueOperations.set("code:" + smsCodeVO.getPhone(), smsCodeVO, SmsConstant.VALID_TIME, TimeUnit.MINUTES);
+        valueOperations.set(prefix + smsCodeVO.getPhone(), smsCodeVO, SmsConstant.VALID_TIME, TimeUnit.MINUTES);
     }
 
     @Override
-    public SmsCodeVO getSmsCode(SmsCodeQuery smsCodeQuery) {
+    public SmsCodeVO getSmsCode(String prefix, SmsCodeQuery smsCodeQuery) {
         ValueOperations<String, SmsCodeVO> valueOperations = redisTemplate.opsForValue();
 //        SmsCodeVO smsCodeVO = valueOperations.get("code:" + smsCodeQuery.getIp());
 //        if (smsCodeVO == null) {
 //            smsCodeVO = valueOperations.get("code:" + smsCodeQuery.getPhone());
 //        }
-        SmsCodeVO smsCodeVO = valueOperations.get("code:" + smsCodeQuery.getPhone());
+        SmsCodeVO smsCodeVO = valueOperations.get(prefix + smsCodeQuery.getPhone());
         return smsCodeVO;
     }
 

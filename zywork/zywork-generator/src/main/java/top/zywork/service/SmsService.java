@@ -5,8 +5,8 @@ import top.zywork.vo.SmsCodeVO;
 
 public interface SmsService extends BaseService {
 
-    void saveSmsCode(SmsCodeVO smsCodeVO);
+    void saveSmsCode(String prefix, SmsCodeVO smsCodeVO);
 
-    SmsCodeVO getSmsCode(SmsCodeQuery smsCodeQuery);
+    SmsCodeVO getSmsCode(String prefix, SmsCodeQuery smsCodeQuery);
 
 }

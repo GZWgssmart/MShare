@@ -15,6 +15,14 @@ public class SmsConstant {
 
     public static final String ACTION_SEND = "send";
 
+    public static final String CODE_PREFIX = "code:";
+    public static final String PWD_PREFIX = "pwd:";
+
     public static final String SMS_CODE = "【瑞信宝】注册验证码：{code}，" + VALID_TIME + "分钟内有效";
+
+    public static final String SMS_PWD = "【瑞信宝】修改登录密码验证码：{code}，" + VALID_TIME + "分钟内有效";
+
+
+    public static final String SMS_NEW_PWD = "【瑞信宝】您已成功修改登录密码为：{code}，请使用新密码登录，注意大小写一致";
 
 }

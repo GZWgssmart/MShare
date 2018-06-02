@@ -24,6 +24,7 @@ import top.zywork.query.*;
 import top.zywork.security.shiro.CustomToken;
 import top.zywork.service.SmsService;
 import top.zywork.service.UserService;
+import top.zywork.sms.SmsConstant;
 import top.zywork.vo.*;
 
 import javax.annotation.Resource;
@@ -79,7 +80,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public ControllerStatusVO save(@Validated UserVO userVO, String code, HttpServletRequest request, BindingResult bindingResult) {
         ControllerStatusVO statusVO = new ControllerStatusVO();
-        SmsCodeVO smsCodeVO = smsService.getSmsCode(new SmsCodeQuery(IPUtils.getIP(request), userVO.getPhone()));
+        SmsCodeVO smsCodeVO = smsService.getSmsCode(SmsConstant.CODE_PREFIX, new SmsCodeQuery(IPUtils.getIP(request), userVO.getPhone()));
         if (smsCodeVO == null) {
             statusVO.errorStatus(654321, "请先获取手机验证码");
         } else {
