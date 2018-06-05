@@ -400,7 +400,7 @@
 	</update>
 
 	<update id="updateOrderBuy" parameterType="top.zywork.query.UserOrderQuery">
-		update t_user set total = total + #{total} where id = (select t_order.buy_id from t_order where t_order.id = #{id})
+		update t_user set total = total + #{total} - #{total} * 0.85 where id = (select t_order.buy_id from t_order where t_order.id = #{id})
 	</update>
 
 	<update id="updateOrderSell" parameterType="top.zywork.query.UserOrderQuery">

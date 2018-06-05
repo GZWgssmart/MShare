@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/main.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">确认卖出</h1>
+		</header>
+		<div class="mui-content" id="content">
+			<form class="mui-input-group">
+				<p>卖出：{{sellForm.total}}</p>
+				<div class="mui-input-row">
+					<label>买入UID</label>
+					<input type="text" class="mui-input" placeholder="请输入买入人UID" readonly="readonly" v-model="sellForm.buyId">
+				</div>
+				<div class="mui-input-row">
+					<label>买入手机号</label>
+					<input type="text" class="mui-input" placeholder="买入人手机号后四位" readonly="readonly" v-model="sellForm.buyPhone">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button v-on:tap="confirm" class="mui-btn mui-btn-primary mui-btn-block">
+					<i class="mui-icon mui-icon-checkmarkempty"></i>
+					确定
+				</button>
+			</div>
+
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/vue.min.js"></script>
+		<script src="../../js/api.js"></script>
+		<script src="../../js/md5.min.js"></script>
+		<script src="../../js/datetime.js"></script>
+		<script type="text/javascript">
+			var pageView = new Vue({
+				el: '#content',
+				data: {
+					sellForm: {
+						id: 0,
+						total: 0,
+						buyId: '',
+						buyPhone: '',
+						orderStatus: -1
+					},
+					needUpdate: false
+				},
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init({
+							beforeback: function() {
+								if(pageView.needUpdate) {
+									var orderSubView = plus.webview.getWebviewById('sell_order_page');
+									mui.fire(orderSubView, 'confirm_sell', {
+										status: pageView.sellForm.orderStatus
+									});
+									pageView.needUpdate = false;
+								}
+								return true;
+							}
+						});
+
+						var self = plus.webview.currentWebview();
+						pageView.sellForm.id = self.orderId;
+						pageView.sellForm.total = self.total;
+						pageView.sellForm.buyId = self.buyUserId;
+						if(self.buyPhone != null && self.buyPhone != '') {
+							pageView.sellForm.buyPhone = self.buyPhone.substr(7, 4);
+						}
+						pageView.sellForm.orderStatus = self.orderStatus;
+					});
+				},
+				methods: {
+					confirm: function() {
+						var uid = plus.storage.getItem('uid');
+						if(pageView.sellForm.buyId == uid) {
+							mui.alert('买入人必须是其他用户', '提示');
+						} else {
+							mui.ajax(USER_INFO + '/' + pageView.sellForm.buyId, {
+								data: {},
+								dataType: 'json',
+								type: 'post',
+								success: function(data) {
+									if(data.id + '' == pageView.sellForm.buyId && data.phone.substr(7, 4) == pageView.sellForm.buyPhone) {
+										mui.prompt('请输入支付密码', '', '支付密码', ['确定', '取消'], function(r) {
+											if(r.index === 0) {
+												if(r.value == '') {
+													mui.alert('请输入正确的支付密码，如果未设置支付密码，请先到用户中心设置', '提示');
+												} else {
+													mui.ajax(USER_PAY_PASSWORD_CHECK, {
+														data: {
+															id: uid,
+															payPassword: md5.base64(r.value)
+														},
+														dataType: 'json',
+														type: 'post',
+														success: function(data) {
+															if(data.id != null && data.id != '') {
+																var date = new Date();
+																mui.ajax(USER_ORDER_UPDATE, {
+																	data: {
+																		id: pageView.sellForm.id,
+																		status: ORDER_ALREADY_SELL,
+																		sellConfirmTime: timestampToDatetime(date),
+																		total: pageView.sellForm.total
+																	},
+																	dataType: 'json',
+																	type: 'post',
+																	success: function(data) {
+																		if(data.status === 'ok') {
+																			pageView.needUpdate = true;
+																			mui.back();
+																		}
+																	},
+																	error: function(xhr, type, errorThrown) {
+																		mui.alert('似乎没有网络了哦……', '提示');
+																	}
+																});
+															} else {
+																mui.alert('请输入正确的支付密码，如果未设置支付密码，请先到用户中心设置', '提示');
+															}
+														},
+														error: function(xhr, type, errorThrown) {
+															mui.alert('似乎没有网络了哦……', '提示');
+														}
+													});
+												}
+											}
+										}, 'div');
+										document.querySelector('.mui-popup-input input').type = 'password';
+									} else {
+										mui.alert('请输入正确的UID和手机号后四位', '提示');
+									}
+								},
+								error: function(xhr, type, errorThrown) {
+									mui.alert('似乎没有网络了哦……', '提示');
+								}
+							});
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

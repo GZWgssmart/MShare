@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/main.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">待卖家确认订单</h1>
+		</header>
+		<div id="content" class="mui-content mui-scroll-wrapper bottom-fixed-page">
+			<div class="mui-scroll">
+				<ul v-if="orders.length > 0" class="mui-table-view mui-table-view-chevron content-list">
+					<li v-for="(order, index) in orders" class="mui-table-view-cell" style="padding-right: 15px;">
+						<div class="mui-pull-left head-icon">
+							<img v-bind:src="order.sellHeadicon" class="mui-pull-left" />
+							<div class="mui-pull-left head-info">
+								<span v-if="order.sellNickname != null">
+									{{order.sellNickname}}
+								</span>
+								<span v-else>-</span>
+								<span v-if="order.sellUserId != null">
+									UID:{{order.sellUserId}}
+								</span>
+								<span v-else>UID:-</span>
+							</div>
+						</div>
+						<div class="mui-pull-right head-info mui-text-right">
+							<span style="color: #0062CC">卖出：{{order.orderTotal}}</span>
+							<span v-if="order.orderStatus == 3">暂未买入</span>
+							<span v-if="order.orderStatus == 2">暂未卖出</span>
+						</div>
+						<p style="clear: both;"></p>
+						<p style="margin-left: 47px; margin-top: 5px;">
+							订单编号：{{order.orderOrderNo}}
+						</p>
+						<p class="mui-pull-left" style="margin-left: 47px; margin-top: 5px;">
+							订单创建时间：{{order.orderCreateTime}}
+						</p>
+						<p v-if="order.orderStatus == 2" class="mui-pull-right" style="margin-left: 47px; margin-top: 5px; color:#2AC845;">
+							未卖出
+						</p>
+						<p v-if="order.orderStatus == 3" class="mui-pull-right" style="margin-left: 47px; margin-top: 5px; color:#DD524D;">
+							等待卖家确认
+						</p>
+						<p style="clear:both;"></p>
+						<p v-if="order.orderStatus == 2" style="margin-left: 47px; margin-top: 5px;">
+							<button v-on:tap="confirmBuy(order.orderId, order.orderTotal, index)" class="mui-btn mui-btn-primary mui-btn-outlined">我要买入</button>
+						</p>
+					</li>
+				</ul>
+				<div v-else class="no-history">暂无待卖家确认订单</div>
+			</div>
+		</div>
+		<div class="mui-bar mui-bar-footer page-footer">
+			<a id="previousPage" class="mui-pull-left">上一页</a>
+			<a id="nextPage" class="mui-pull-right">下一页</a>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/api.js"></script> 
+		<script src="../../js/datetime.js"></script> 
+		<script src="../../js/pager.js"></script> 
+		<script>
+			var orderId;
+			var currentIndex;
+			var total;
+
+			var pageView = new Vue({
+				el: '#content',
+				data: {
+					orders: [],
+					totalPage: 0,
+					currentPageNo: 1,
+					offset: 0
+				},
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init();
+						mui('.mui-scroll-wrapper').scroll();
+						pageView.loadData();
+
+						window.addEventListener('confirm_buy', function(e) {
+							window.location.reload();
+							pageView.orders[currentIndex].orderStatus = e.detail.status;
+							if (e.detail.status == ORDER_WAIT_SELL_CONFIRM) {
+								mui.alert('已买入' + total + '数额，等待卖家确认', '提示');
+							} else {
+								mui.alert('已成功买入' + total + '数额', '提示');
+							}
+						});
+						
+						document.getElementById('previousPage').addEventListener('tap', function (e) {
+							pageView.previous();
+						});
+						
+						document.getElementById('nextPage').addEventListener('tap', function (e) {
+							pageView.next();
+						});
+					});
+				},
+				methods: {
+					loadData: function() {
+						mui.ajax(USER_ORDER_BUY_LIST, {
+							data: {
+								offset: pageView.offset,
+								limit: PAGE_SIZE,
+								orderBuyId: plus.storage.getItem('uid'),
+								orderStatus: ORDER_WAIT_SELL_CONFIRM
+							},
+							dataType: 'json',
+							type: 'post',
+							success: function(data) {
+								for(var i = 0, len = data.rows.length; i < len; i++) {
+									data.rows[i].orderCreateTime = timestampToDatetime(data.rows[i].orderCreateTime);
+									if(data.rows[i].sellHeadicon != null) {
+										data.rows[i].sellHeadicon = BASE_URL + '/' + data.rows[i].sellHeadicon;
+									} else {
+										data.rows[i].sellHeadicon = '../../images/timg.jpeg';
+									}
+									if(data.rows[i].orderBuyConfirmTime != null) {
+										data.rows[i].orderBuyConfirmTime = timestampToDatetime(data.rows[i].orderBuyConfirmTime);
+									}
+								}
+								pageView.orders = data.rows;
+								pageView.totalPage = data.totalPage;
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.alert('似乎没有网络了哦……', '提示');
+							}
+						});
+					},
+					previous: function() {
+						if (pageView.currentPageNo === 1) {
+							mui.toast('已经是第一页了……');
+						} else {
+							pageView.offset -= PAGE_SIZE;
+							pageView.currentPageNo -= 1;
+							pageView.loadData();
+						}
+					},
+					next: function() {
+						if (pageView.currentPageNo === pageView.totalPage) {
+							mui.toast('已经是最后一页了……');
+						} else {
+							pageView.offset += PAGE_SIZE;
+							pageView.currentPageNo += 1;
+							pageView.loadData();
+						}
+					},
+					cancelBuy: function(orderId, index) {
+						mui.confirm('确定取消买入吗？', '提示', ['确定', '取消'], function(r) {
+							if(r.index === 0) {
+								mui.ajax(USER_ORDER_UPDATE, {
+									data: {
+										id: orderId,
+										status: ORDER_CANCEL_BUY
+									},
+									dataType: 'json',
+									type: 'post',
+									success: function(data) {
+										if(data.status === 'ok') {
+											pageView.orders[index].orderStatus = 7;
+										} else {
+											mui.alert(daat.message, '提示')
+										}
+									},
+									error: function(xhr, type, errorThrown) {
+										mui.alert('似乎没有网络了哦……', '提示');
+									}
+								});
+							}
+						})
+					},
+					confirmBuy: function(orderId, orderBuy, index) {
+						var order = pageView.orders[index];
+						total = orderBuy;
+						currentIndex = index;
+						mui.openWindow({
+							url: 'buy_confirm.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							},
+							extras: {
+								orderId: orderId,
+								orderStatus: order.orderStatus,
+								total: orderBuy,
+								sellUserId: order.orderSellId,
+								sellPhone: order.sellPhone
+							}
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

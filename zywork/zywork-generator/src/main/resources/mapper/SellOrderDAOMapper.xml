@@ -159,7 +159,7 @@
     </sql>
 
     <sql id="query_where_clause">
-        <if test="query != null and query.userId != null">
+		<if test="query != null and query.userId != null">
 			t_user.id = #{query.userId}
 		</if>
 		<if test="query != null and query.userPhone != null and query.userPhone != ''">
@@ -182,9 +182,6 @@
 		</if>
 		<if test="query != null and query.orderType != null">
 			and t_order.type = #{query.orderType}
-		</if>
-		<if test="query != null and query.orderSellId != null">
-			and t_order.sell_id = #{query.orderSellId}
 		</if>
 		<if test="query != null and query.orderBuyId != null">
 			and t_order.buy_id = #{query.orderBuyId}
@@ -286,13 +283,17 @@
         from t_user, t_order
         <where>
             <include refid="query_where_clause"/>
+
+			<if test="query != null and query.orderSellId != null">
+				and t_order.sell_id = #{query.orderSellId}
+			</if>
         </where>
         order by
         <if test="pager.sort != null and pager.sort != ''">
             ${pager.sort} ${pager.order}
         </if>
         <if test="pager.sort == null or pager.sort == ''">
-            t_order.update_time desc, t_order.create_time desc
+            t_order.status desc, t_order.sell_confirm_time desc, t_order.update_time desc, t_order.create_time desc
         </if>
         limit #{pager.beginIndex}, #{pager.pageSize}
     </select>
@@ -301,7 +302,45 @@
         select count(*) from t_user, t_order
         <where>
             <include refid="query_where_clause"/>
+
+			<if test="query != null and query.orderSellId != null">
+				and t_order.sell_id = #{query.orderSellId}
+			</if>
         </where>
     </select>
+
+	<select id="listPageByConditionNotSelf" resultType="sellOrderDO">
+		select
+		<include refid="select_columns"/>
+		from t_user, t_order
+		<where>
+			<include refid="query_where_clause"/>
+
+			<if test="query != null and query.orderSellId != null">
+				and t_order.sell_id != #{query.orderSellId}
+			</if>
+			and t_order.status != 0
+		</where>
+		order by
+		<if test="pager.sort != null and pager.sort != ''">
+			${pager.sort} ${pager.order}
+		</if>
+		<if test="pager.sort == null or pager.sort == ''">
+			t_order.status desc, t_order.sell_confirm_time desc, t_order.update_time desc, t_order.create_time desc
+		</if>
+		limit #{pager.beginIndex}, #{pager.pageSize}
+	</select>
+
+	<select id="countByConditionNotSelf" resultType="long">
+		select count(*) from t_user, t_order
+		<where>
+			<include refid="query_where_clause"/>
+
+			<if test="query != null and query.orderSellId != null">
+				and t_order.sell_id != #{query.orderSellId}
+			</if>
+			and t_order.status != 0
+		</where>
+	</select>
 
 </mapper>

@@ -291,7 +291,7 @@
             ${pager.sort} ${pager.order}
         </if>
         <if test="pager.sort == null or pager.sort == ''">
-            t_order.update_time desc, t_order.create_time desc
+            t_order.status desc, t_order.update_time desc, t_order.create_time desc
         </if>
         limit #{pager.beginIndex}, #{pager.pageSize}
     </select>

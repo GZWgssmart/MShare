@@ -83,6 +83,7 @@ public class OrderController extends BaseController {
                     orderVO.setStatus(OrderStatusConstant.ORDER_NOT_SELL);
                 }
                 orderVO.setOrderNo(System.currentTimeMillis() + RandomUtils.randomNum(100, 100000) + "");
+                orderVO.setStatus(2);
                 orderService.save(getBeanMapper().map(orderVO, OrderDTO.class));
                 statusVO.okStatus(200, "添加成功");
             } catch (ServiceException e) {

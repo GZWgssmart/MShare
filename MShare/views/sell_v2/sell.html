@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/main.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../iconfont/iconfont.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
+			<h1 class="mui-title">卖出</h1>
+		</header>
+		<div class="mui-content" id="content">
+			<form class="mui-input-group">
+				<p>您的余额：{{userInfo.total}}</p>
+				<div class="mui-input-row">
+					<label>卖出数额</label>
+					<input type="text" class="mui-input-clear mui-input" placeholder="请输入卖出数额" v-model="sellForm.total">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button v-on:tap="sell" type="button" class="mui-btn mui-btn-block mui-btn-primary">
+					<i class="mui-icon mui-icon-checkmarkempty"></i>
+					创建订单
+				</button>
+			</div>
+		</div>
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li id="transin" class="mui-table-view-cell">
+							所有订单
+						</li>
+						<li id="confirmOrder" class="mui-table-view-cell">
+							等待确认订单
+						</li>
+						<li id="sellOrder" class="mui-table-view-cell">
+							已卖出订单
+						</li>
+						<li id="cancelOrder" class="mui-table-view-cell">
+							已取消订单
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/api.js"></script> 
+		<script type="text/javascript">
+			var pageView = new Vue({
+				el: '#content',
+				data: {
+					sellForm: {
+						total: 100
+					},
+					userInfo: {
+						total: 0
+					}
+				},
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init({
+							preloadPages: []
+						});
+
+						pageView.userInfo.total = parseInt(plus.storage.getItem('total'));
+
+						document.getElementById('transin').addEventListener('tap', function(e) {
+							mui('#topPopover').popover('hide');
+							pageView.toOrderPage();
+						});
+						
+						document.getElementById('confirmOrder').addEventListener('tap', function(e) {
+							mui('#topPopover').popover('hide');
+							pageView.toConfirmOrderPage();
+						});
+						
+						document.getElementById('sellOrder').addEventListener('tap', function(e) {
+							mui('#topPopover').popover('hide');
+							pageView.toAlreadyOrderPage();
+						});
+						
+						document.getElementById('cancelOrder').addEventListener('tap', function(e) {
+							mui('#topPopover').popover('hide');
+							pageView.toCancelOrderPage();
+						});
+					});
+				},
+				methods: {
+					toOrderPage: function() {
+						mui.openWindow({
+							id: 'sell_order_page',
+							url: 'sell_order_page.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},
+					toConfirmOrderPage: function() {
+						mui.openWindow({
+							id: 'confirm_order_page',
+							url: 'confirm_order_page.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},
+					toAlreadyOrderPage: function() {
+						mui.openWindow({
+							id: 'already_order_page',
+							url: 'already_order_page.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},
+					toCancelOrderPage: function() {
+						mui.openWindow({
+							id: 'cancel_order_page',
+							url: 'cancel_order_page.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},
+					sell: function() {
+						if(pageView.sellForm.total == '' || pageView.sellForm.total <= 0 || pageView.sellForm.total > pageView.userInfo.total) {
+							mui.alert('请输入正确的卖出数额，且卖出数额不能大于余额', '提示');
+						} else {
+							mui.ajax(USER_ORDER_CREATE, {
+								data: {
+									sellId: plus.storage.getItem('uid'),
+									total: pageView.sellForm.total
+								},
+								dataType: 'json',
+								type: 'post',
+								success: function(data) {
+									if(data.status === 'ok') {
+										mui.toast('已创建订单');
+										pageView.toOrderPage();
+									} else if(data.status === 'data-error') {
+										mui.alert(data.message, '提示');
+									}
+								},
+								error: function(xhr, type, errorThrown) {
+									mui.alert('似乎没有网络了哦……', '提示');
+								}
+							});
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

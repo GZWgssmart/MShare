@@ -22,4 +22,8 @@ public interface SellOrderDAO extends BaseDAO {
 
     @Override
     Long countByCondition(@Param("query") Object queryObj);
+
+    List<Object> listPageByConditionNotSelf(@Param("pager") PageQuery pageQuery, @Param("query") Object queryObj);
+
+    Long countByConditionNotSelf(@Param("query") Object queryObj);
 }

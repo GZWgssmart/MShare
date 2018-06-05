@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/main.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
+			<h1 id="title" class="mui-title">可买入订单</h1>
+		</header>
+		<div id="content" class="mui-content mui-scroll-wrapper bottom-fixed-page">
+			<div class="mui-scroll">
+				<ul v-if="orders.length > 0" class="mui-table-view mui-table-view-chevron content-list">
+					<li v-for="(order, index) in orders" class="mui-table-view-cell" style="padding-right: 15px;">
+						<div class="mui-pull-left head-icon">
+							<img v-bind:src="order.userHeadicon" class="mui-pull-left" />
+							<div class="mui-pull-left head-info">
+								<span>
+									{{order.userNickname}}&nbsp;&nbsp;&nbsp;UID:{{order.userId}}
+								</span>
+								<span>
+									手机号后四位：{{order.userPhone}}
+								</span>
+							</div>
+						</div>
+						<div class="mui-pull-right head-info mui-text-right">
+							<span style="color: #0062CC">卖出：{{order.orderTotal * 0.85}}</span>
+							<span v-if="order.orderStatus == 3">暂未买入</span>
+							<span v-if="order.orderStatus == 2">暂未卖出</span>
+						</div>
+						<p style="clear: both;"></p>
+						<p style="margin-left: 47px; margin-top: 5px;">
+							订单编号：{{order.orderOrderNo}}
+						</p>
+						<p class="mui-pull-left" style="margin-left: 47px; margin-top: 5px;">
+							订单创建时间：{{order.orderCreateTime}}
+						</p>
+						<p v-if="order.orderStatus == 2" class="mui-pull-right" style="margin-left: 47px; margin-top: 5px; color:#2AC845;">
+							未卖出
+						</p>
+						<p v-if="order.orderStatus == 3" class="mui-pull-right" style="margin-left: 47px; margin-top: 5px; color:#DD524D;">
+							等待卖家确认
+						</p>
+						<p style="clear:both;"></p>
+						<p v-if="order.orderStatus == 2" style="margin-left: 47px; margin-top: 5px;">
+							<button v-on:tap="confirmBuy(order.orderId, order.orderTotal, index)" class="mui-btn mui-btn-primary mui-btn-outlined">我要买入</button>
+						</p>
+					</li>
+				</ul>
+				<div v-else class="no-history">暂无可买入记录</div>
+			</div>
+
+		</div>
+
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li id="confirmOrder" class="mui-table-view-cell">
+							待确认订单
+						</li>
+						<li id="buyOrder" class="mui-table-view-cell">
+							已买入订单
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="mui-bar mui-bar-footer page-footer">
+			<a id="previousPage" class="mui-pull-left">上一页</a>
+			<a id="nextPage" class="mui-pull-right">下一页</a>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/api.js"></script>
+		<script src="../../js/datetime.js"></script>
+		<script src="../../js/pager.js"></script>
+		<script src="../../js/md5.min.js"></script>
+		<script>
+			var currentIndex;
+			var total;
+
+			var pageView = new Vue({
+				el: '#content',
+				data: {
+					orders: [],
+					totalPage: 0,
+					currentPageNo: 1,
+					offset: 0
+				},
+				mounted: function() {
+					mui.plusReady(function() {
+						mui.init();
+
+						mui('.mui-scroll-wrapper').scroll();
+
+						document.getElementById('confirmOrder').addEventListener('tap', function(e) {
+							mui('#topPopover').popover('hide');
+							pageView.toConfirmOrderPage();
+						});
+
+						document.getElementById('buyOrder').addEventListener('tap', function(e) {
+							mui('#topPopover').popover('hide');
+							pageView.toBuyOrderPage();
+						});
+
+						pageView.loadData();
+
+						document.getElementById('previousPage').addEventListener('tap', function(e) {
+							pageView.previous();
+						});
+
+						document.getElementById('nextPage').addEventListener('tap', function(e) {
+							pageView.next();
+						});
+					});
+				},
+				methods: {
+					toConfirmOrderPage: function() {
+						mui.openWindow({
+							id: 'confirm_order_page',
+							url: 'confirm_order_page.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},
+					toBuyOrderPage: function() {
+						mui.openWindow({
+							id: 'already_order_page',
+							url: 'already_order_page.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					},
+					loadData: function() {
+						mui.ajax(USER_ORDER_SELL_LIST_OTHER, {
+							data: {
+								offset: pageView.offset,
+								limit: PAGE_SIZE,
+								orderSellId: plus.storage.getItem('uid'),
+								orderStatus: ORDER_NOT_SELL
+							},
+							dataType: 'json',
+							type: 'post',
+							success: function(data) {
+								for(var i = 0, len = data.rows.length; i < len; i++) {
+									data.rows[i].orderCreateTime = timestampToDatetime(data.rows[i].orderCreateTime);
+									if(data.rows[i].userHeadicon != null) {
+										data.rows[i].userHeadicon = BASE_URL + '/' + data.rows[i].userHeadicon;
+									} else {
+										data.rows[i].userHeadicon = '../../images/timg.jpeg';
+									}
+									if(data.rows[i].orderSellConfirmTime != null) {
+										data.rows[i].orderSellConfirmTime = timestampToDatetime(data.rows[i].orderSellConfirmTime);
+									}
+									data.rows[i].userPhone = data.rows[i].userPhone.substr(7, 4);
+								}
+								pageView.orders = data.rows;
+								pageView.totalPage = data.totalPage;
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.alert('似乎没有网络了哦……', '提示');
+							}
+						});
+					},
+					previous: function() {
+						if(pageView.currentPageNo === 1) {
+							mui.toast('已经是第一页了……');
+						} else {
+							pageView.offset -= PAGE_SIZE;
+							pageView.currentPageNo -= 1;
+							pageView.loadData();
+						}
+					},
+					next: function() {
+						if(pageView.currentPageNo === pageView.totalPage) {
+							mui.toast('已经是最后一页了……');
+						} else {
+							pageView.offset += PAGE_SIZE;
+							pageView.currentPageNo += 1;
+							pageView.loadData();
+						}
+					},
+					confirmBuy: function(orderId, orderSell, index) {
+						var uid = plus.storage.getItem('uid');
+						mui.prompt('请输入支付密码', '', '支付密码', ['确定', '取消'], function(r) {
+								if(r.index === 0) {
+									if(r.value == '') {
+										mui.alert('请输入正确的支付密码，如果未设置支付密码，请先到用户中心设置', '提示');
+									} else {
+										mui.ajax(USER_PAY_PASSWORD_CHECK, {
+											data: {
+												id: uid,
+												payPassword: md5.base64(r.value)
+											},
+											dataType: 'json',
+											type: 'post',
+											success: function(data) {
+												if(data.id != null && data.id != '') {
+													mui.confirm('确定买入' + orderSell * 0.85 + '数额吗？', '提示', ['确定', '取消'], function(r) {
+														if(r.index === 0) {
+															var date = new Date();
+															mui.ajax(USER_ORDER_UPDATE, {
+																data: {
+																	id: orderId,
+																	status: ORDER_WAIT_SELL_CONFIRM,
+																	buyId: uid,
+																	buyConfirmTime: timestampToDatetime(date)
+																},
+																dataType: 'json',
+																type: 'post',
+																success: function(data) {
+																	if(data.status === 'ok') {
+																		mui.alert('购买成功，等待卖家确认', '提示');
+																		window.location.reload();
+																	}
+																},
+																error: function(xhr, type, errorThrown) {
+																	mui.alert('似乎没有网络了哦……', '提示');
+																}
+															});
+														}
+													});
+												} else {
+													mui.alert('请输入正确的支付密码，如果未设置支付密码，请先到用户中心设置', '提示');
+												}
+											},
+											error: function(xhr, type, errorThrown) {
+												mui.alert('似乎没有网络了哦……', '提示');
+											}
+										});
+									}
+								}
+							},
+							'div');
+						document.querySelector('.mui-popup-input input').type = 'password';
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

@@ -178,6 +178,28 @@
 							var id = this.id;
 							if(id === 'property' || id === 'mall') {
 								mui.toast('暂未开放，敬请期待');
+							} else if (id === 'buy') {
+								mui.openWindow({
+									id: id,
+									url: 'buy_v2/sell_order_page.html',
+									show: {
+										aniShow: 'pop-in'
+									},
+									waiting: {
+										autoShow: false
+									}
+								});
+							} else if (id === 'sell') {
+								mui.openWindow({
+									id: id,
+									url: 'sell_v2/sell.html',
+									show: {
+										aniShow: 'pop-in'
+									},
+									waiting: {
+										autoShow: false
+									}
+								});
 							} else {
 								mui.openWindow({
 									id: id,

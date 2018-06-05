@@ -126,7 +126,7 @@
 					"xxhdpi": "/Users/wangzhenyu/development/git_projects/MShare/icon/v2/1080x1882s.png"
 				}
 			}
-		},"ads":{"rp":false,"splash":false,"push":false},"adid":""
+		},"ads":{"rp":false,"splash":false,"push":false}
 	},
 	"dependencies": {
 		"pages": {

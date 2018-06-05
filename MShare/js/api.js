@@ -1,4 +1,4 @@
-// const BASE_URL = 'http://192.168.43.38:8080';
+// const BASE_URL = 'http://192.168.2.115:8080';
 const BASE_URL = 'http://123.1.189.98:8080/mshare';
 
 const DOMAIN_BASE_URL = 'http://www.cstpayshare.com';
@@ -43,8 +43,10 @@ const USER_ORDER_UPDATE = BASE_URL + '/order/update'
 
 const USER_ORDER_SELL_LIST = BASE_URL + '/sell-order/pager-cond';
 
-const USER_ORDER_BUY_LIST = BASE_URL + '/buy-order/pager-cond';
+const USER_ORDER_SELL_LIST_OTHER = BASE_URL + '/sell-order/pager-cond-other';
 
+const USER_ORDER_BUY_LIST = BASE_URL + '/buy-order/pager-cond';
+/**
 const ORDER_NOT_SELL = 0;
 
 const ORDER_NOT_SELL_WAIT_BUY_CONFIRM = 1;
@@ -60,6 +62,15 @@ const ORDER_NOT_BUY_WAIT_SELL_CONFIRM = 5;
 const ORDER_ALREADY_BUY = 6;
 
 const ORDER_CANCEL_BUY = 7;
+*/
+
+const ORDER_NOT_SELL = 2;
+
+const ORDER_ALREADY_SELL = 1;
+
+const ORDER_CANCEL_SELL = 0;
+
+const ORDER_WAIT_SELL_CONFIRM = 3;
 
 const APP_DOWNLOAD_URL = DOMAIN_BASE_URL + '/download';
 

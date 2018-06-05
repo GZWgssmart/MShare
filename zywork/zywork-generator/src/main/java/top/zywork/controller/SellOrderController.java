@@ -234,6 +234,22 @@ public class SellOrderController extends BaseController {
         return pagerVO;
     }
 
+    @RequestMapping("pager-cond-other")
+    @ResponseBody
+    public PagerVO listPageByConditionNotSelf(int offset, int limit, String sort, String order, SellOrderQuery userSellOrderQuery) {
+        PagerVO pagerVO = new PagerVO();
+        PageQuery pageQuery = new PageQuery(offset / limit + 1, limit, sort, order);
+        try {
+            PagerDTO pagerDTO = userSellOrderService.listPageByConditionNotSelf(pageQuery, userSellOrderQuery);
+            Mapper mapper = getBeanMapper();
+            pagerVO = mapper.map(pagerDTO, PagerVO.class);
+            pagerVO.setRows(DozerMapperUtils.mapList(mapper, pagerDTO.getRows(), SellOrderVO.class));
+        } catch (ServiceException e) {
+            logger.error("返回指定条件的分页对象JSON数据失败：{}", e.getMessage());
+        }
+        return pagerVO;
+    }
+
     @Resource
     public void setUserSellOrderService(SellOrderService userSellOrderService) {
         this.userSellOrderService = userSellOrderService;

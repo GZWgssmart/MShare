@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.zywork.common.ExceptionUtils;
 import top.zywork.constant.OrderStatusConstant;
+import top.zywork.constant.OrderStatusConstantV1;
 import top.zywork.dao.OrderDAO;
 import top.zywork.dao.UserDAO;
 import top.zywork.dos.OrderDO;
@@ -36,7 +37,7 @@ public class OrderServiceImpl extends AbstractBaseService implements OrderServic
             OrderDO orderDO = getBeanMapper().map(dataTransferObj, OrderDO.class);
             orderDAO.update(orderDO);
             UserOrderQuery userOrderQuery = new UserOrderQuery();
-            if (orderDO.getStatus() == OrderStatusConstant.ORDER_ALREADY_SELL || orderDO.getStatus() == OrderStatusConstant.ORDER_ALREADY_BUY) {
+            if (orderDO.getStatus() == OrderStatusConstantV1.ORDER_ALREADY_SELL) {
                 userOrderQuery.setId(orderDO.getId());
                 userOrderQuery.setTotal(orderDO.getTotal());
                 userDAO.updateOrderBuy(userOrderQuery);
